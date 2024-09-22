@@ -50,10 +50,6 @@ export class FormularioComponent implements OnInit {
     console.log(this.formularioRegistro);
   }
 
-  hasErrors(controlName: string, errorType: string) {
-    return this.formularioRegistro.get(controlName)?.hasError(errorType) && this.formularioRegistro.get(controlName)?.touched
-  }
-
    // Método para regresar al menú o a la página anterior
    regresar(): void {
     // Ejemplo de redirección a una ruta específica
@@ -73,6 +69,10 @@ export class FormularioComponent implements OnInit {
 
   limpiar(): void {
     this.formularioRegistro.reset(); // Limpia el formulario
+  }
+
+  hasErrors(controlName: string, errorType: string) {
+    return this.formularioRegistro.get(controlName)?.hasError(errorType) && this.formularioRegistro.get(controlName)?.touched
   }
 
 }

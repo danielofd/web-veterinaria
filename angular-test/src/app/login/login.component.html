@@ -4,7 +4,8 @@
             <h2>Login</h2>
         </div>
 
-        <form [formGroup]="formularioLogin" (ngSubmit)="login()">
+        <!--<form [formGroup]="formularioLogin" (ngSubmit)="login('admin')">-->
+            <form [formGroup]="formularioLogin" (ngSubmit)="login()">
             <div class="mb-3">
                 <label class="form-label" for="user">Usuario</label>
                 <input [ngClass]="{'is-invalid': hasErrors('user', 'required')}" id="user" type="text" class="form-control"
