@@ -1,0 +1,7 @@
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Ocupa toda la altura de la ventana */
+    background-color: #f8f9fa; /* Color de fondo opcional */
+}

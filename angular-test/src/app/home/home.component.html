@@ -1,0 +1,34 @@
+<div class="container mt-5">
+    <div class="text-container">
+        <div class="text-overlay">Veterinaria Amigos Felices</div>
+        <div class="horizontal-line"></div>
+    </div>
+
+    <div class="container mt-5">
+        <div class="row">
+            <!-- Primera fila de botones con espacio adicional entre botones -->
+            <div class="col-md-6 mb-4">
+                <a class="btn btn-custom-blue w-50" [routerLink]="['/menu-expediente']">Expediente</a>
+            </div>
+            <div class="col-md-6 mb-4">
+                <a class="btn btn-custom-green w-50" [routerLink]="['/citas']">Citas</a>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Segunda fila de botones con espacio adicional entre botones -->
+            <div class="col-md-6 mb-4">
+                <a class="btn btn-custom-lightblue w-50" [routerLink]="['/consultas']">Consultas</a>
+            </div>
+            <div class="col-md-6 mb-4">
+                <a class="btn btn-custom-orange w-50" [routerLink]="['/vacunacion']">Vacunación</a>
+            </div>
+        </div>
+        <!-- Fila para el botón de salir ubicado debajo de Consultas y Vacunación -->
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <a class="btn btn-danger w-50" [routerLink]="['/login']">Salir</a>
+            </div>
+        </div>
+    </div>
+</div>
+
