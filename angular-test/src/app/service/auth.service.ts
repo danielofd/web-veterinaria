@@ -43,4 +43,17 @@ export class AuthService {
   canConsult(): boolean {
     return this.isAdmin() || this.isAssistant() || this.isVeterinario(); //permitidos
   }
+
+  //permisos de menu
+  // Método para obtener las opciones de menú permitidas
+  getMenuOptions(): string[] {
+    if (this.isAdmin()) {
+      return ['expediente', 'citas', 'consulta medica', 'vacunacion'];
+    } else if (this.isAssistant()) {
+      return ['expediente', 'citas'];
+    } else if (this.isVeterinario()) {
+      return ['expediente', 'consulta medica', 'vacunacion'];
+    }
+    return [];
+  }
 }

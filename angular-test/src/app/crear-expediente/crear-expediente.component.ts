@@ -121,7 +121,7 @@ export class CrearExpedienteComponent {
     this.expediente.usuCodigo = 'FD100814';
     this._service.crearNuevoExpediente(this.expediente).subscribe((res => {
       console.log(res);
-      alert(res);
+      //alert(res);
       this.procesoMsg();
       this.formularioRegistro.reset();
     }));

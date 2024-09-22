@@ -8,22 +8,22 @@
         <div class="row">
             <!-- Primera fila de botones con espacio adicional entre botones -->
             <div class="col-md-6 mb-4">
-                <a class="btn btn-custom-blue w-50" [routerLink]="['/menu-expediente']">Expediente</a>
+                <a class="btn btn-custom-blue w-50" *ngFor="let option of expedienteOption" [routerLink]="['/menu-expediente']">Expediente</a>
             </div>
             <div class="col-md-6 mb-4">
                 <!--<a class="btn btn-custom-green w-50" [routerLink]="['/citas']">Citas</a>-->
-                <a class="btn btn-custom-green w-50" (click)="openCitas()">Citas</a>
+                <a class="btn btn-custom-green w-50"  *ngFor="let option of citasOption" (click)="openCitas()">Citas</a>
             </div>
         </div>
         <div class="row">
             <!-- Segunda fila de botones con espacio adicional entre botones -->
             <div class="col-md-6 mb-4">
                 <!--<a class="btn btn-custom-lightblue w-50" [routerLink]="['/consultas']">Consultas Medicas</a>-->
-                <a class="btn btn-custom-lightblue w-50" (click)="openConsultasMedicas()">Consultas Medicas</a>
+                <a class="btn btn-custom-lightblue w-50" *ngFor="let option of consultasMedicasOption" (click)="openConsultasMedicas()">Consultas Medicas</a>
             </div>
             <div class="col-md-6 mb-4">
                 <!--<a class="btn btn-custom-orange w-50" [routerLink]="['/vacunacion']">Vacunación</a>-->
-                <a class="btn btn-custom-orange w-50" (click)="openVacunacion()">Vacunación</a>
+                <a class="btn btn-custom-orange w-50" *ngFor="let option of vacunacionOption" (click)="openVacunacion()">Vacunación</a>
             </div>
         </div>
         <!-- Fila para el botón de salir ubicado debajo de Consultas y Vacunación -->
