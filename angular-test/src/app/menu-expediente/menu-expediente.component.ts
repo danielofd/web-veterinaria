@@ -35,14 +35,14 @@ export class MenuExpedienteComponent {
       this.router.navigate(['/crear-expediente']);
     } else {
       console.log("No tienes permisos para crear expedientes.");
-      alert('No tienes permisos para crear expedientes.');
+      //alert('No tienes permisos para crear expedientes.');
     }
   }
 
   editExpediente() {
     if (this.canEdit) {
       // Lógica para editar expediente
-      alert("NO DISPONIBLE POR EL MOMENTO...");
+      //alert("NO DISPONIBLE POR EL MOMENTO...");
       this.openSnackBar('NO DISPONIBLE POR EL MOMENTO...');
 
     }
@@ -51,7 +51,7 @@ export class MenuExpedienteComponent {
   deleteExpediente() {
     if (this.canDelete) {
       // Lógica para eliminar expediente
-      alert("NO DISPONIBLE POR EL MOMENTO...");
+      //alert("NO DISPONIBLE POR EL MOMENTO...");
       this.openSnackBar('NO DISPONIBLE POR EL MOMENTO...');
     }
   }
@@ -59,7 +59,7 @@ export class MenuExpedienteComponent {
   consultExpediente() {
     if (this.canConsult) {
       // Lógica para eliminar expediente
-      alert("NO DISPONIBLE POR EL MOMENTO...");
+      //alert("NO DISPONIBLE POR EL MOMENTO...");
       this.openSnackBar('NO DISPONIBLE POR EL MOMENTO...');
     }
   }
