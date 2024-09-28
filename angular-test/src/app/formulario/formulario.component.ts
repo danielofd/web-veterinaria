@@ -69,6 +69,7 @@ export class FormularioComponent implements OnInit {
 
   limpiar(): void {
     this.formularioRegistro.reset(); // Limpia el formulario
+    this.razaAnimal=[];
   }
 
   hasErrors(controlName: string, errorType: string) {
