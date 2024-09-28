@@ -1,31 +1,75 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
+/** 
 interface User {
-  role: 'admin' | 'asistente' | 'veterinario';
+  role: 'Admin' | 'Asistente' | 'Veterinario';
+}
+*/
+export class User{
+  rolId: number;
+    rolNombre: string;
+
+    constructor(rolId: number, rolNombre: string) {
+        this.rolId = rolId;
+        this.rolNombre = rolNombre;
+    }
 }
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private currentUser: User | null = null;
 
-  constructor() {}
+  private apiUrl = 'http://localhost:8080/happyfriends/signin'; //url base del api
 
+  //private currentUser: User | null = null;
+  private currentUser: User | undefined;
+
+  constructor(private http: HttpClient) {}
+
+  //consulta credenciales en api rest
+  login(user: string, password: string): Observable<User>{
+    console.log("Usuario: "+user);
+    console.log("Contraseña: "+password);
+
+    const body = {
+      "usuEmail":user,
+      "usuPassword":password
+    }
+
+    return this.http.post<User>(this.apiUrl, body,{
+      headers: {
+        'Content-Type': 'application/json' // Asegúrate de enviar el tipo correcto
+    }
+    });
+    
+  }
+  /** 
   setCurrentUser(user: User) {
     this.currentUser = user;
   }
+    */
+  //por api
+  
+  setCurrentUser(user: User) {
+    this.currentUser = user;
+
+    //localStorage.setItem(`currentUser`,JSON.stringify(user));
+  }
+  
 
   isAdmin(): boolean {
-    return this.currentUser?.role === 'admin';
+    return this.currentUser?.rolNombre === 'Admin';
   }
 
   isAssistant(): boolean {
-    return this.currentUser?.role === 'asistente';
+    return this.currentUser?.rolNombre === 'Asistente';
   }
 
   isVeterinario(): boolean {
-    return this.currentUser?.role === 'veterinario'; // Método para verificar si es veterinario
+    return this.currentUser?.rolNombre === 'Veterinario'; // Método para verificar si es veterinario
   }
 
   canCreate(): boolean {

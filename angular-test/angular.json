@@ -70,7 +70,8 @@
               "browserTarget": "angular-test:build:development"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "development",
+          "proxyConfig": "proxy.conf.json"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",

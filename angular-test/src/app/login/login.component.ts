@@ -72,7 +72,7 @@ export class LoginComponent {
         this.formularioLogin.markAllAsTouched();
         return;
     }
-
+    /*
     // Verificar las credenciales
     if ((this.user === 'admin' && this.password === 'admin') || 
         (this.user === 'asistente' && this.password === 'asistente') || 
@@ -96,6 +96,59 @@ export class LoginComponent {
         alert('Verifique su usuario y contraseña...');
         this.router.navigate(['/login']);
     }
+        */
+      //integracion con api rest
+      this.authService.login(this.user, this.password).subscribe({
+        next: (response) => {
+          console.log(response);
+            // Asegúrate de que la respuesta contenga rolId y rolNombre
+            //if (response && response.rolId && response.rolNombre) {
+
+              if(response){
+                // Configurar el usuario actual con rolId y rolNombre
+               
+                /**
+                this.authService.setCurrentUser({
+                    //roleId: response.rolId,
+                    //roleName: response.rolNombre,
+                    
+                    role: response.rolNombre as 'Admin' | 'Asistente' | 'Veterinario'
+                });
+                */
+                const rolNombre = response.rolNombre;
+                console.log("Rol: ", rolNombre); // Verifica si rolNombre es correcto
+
+                // Evaluar el campo rolNombre
+                if (rolNombre === 'Asistente') {
+                    console.log("Usuario es asistente.");
+                    this.router.navigate(['/home']);
+                } else if (rolNombre === 'Admin') {
+                    console.log("Usuario es admin.");
+                    this.router.navigate(['/home']);
+                } else if (rolNombre === 'Veterinario') {
+                    console.log("Usuario es veterinario.");
+                    this.router.navigate(['/home']);
+                }else{
+                  alert('Error en las credenciales.');
+                this.router.navigate(['/login']);
+                }
+               
+               this.authService.setCurrentUser(response);
+                // Navegar según el rol
+                //this.router.navigate(['/home']);
+            } 
+            /**
+            else {
+                alert('Error en las credenciales.');
+                this.router.navigate(['/login']);
+            }
+            */
+        },
+        error: () => {
+            alert('Error en las credenciales.');
+            this.router.navigate(['/login']);
+        }
+    });
 }
 
 
