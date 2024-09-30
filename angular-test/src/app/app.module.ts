@@ -15,6 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { DialogErrorComponent } from './dialog-error/dialog-error.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     MenuExpedienteComponent,
     CrearExpedienteComponent,
     ModificarExpedienteComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    DialogErrorComponent
   ],
   imports: [
     BrowserModule,

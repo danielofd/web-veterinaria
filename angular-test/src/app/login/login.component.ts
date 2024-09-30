@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogErrorComponent } from '../dialog-error/dialog-error.component';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +17,7 @@ export class LoginComponent {
 
   formularioLogin: FormGroup
 
-  constructor(private form: FormBuilder, private router: Router, private authService: AuthService) {
+  constructor(private form: FormBuilder, private router: Router, private authService: AuthService, private dialog: MatDialog) {
     this.formularioLogin = this.form.group({
       user: ['', Validators.required],
       password: ['', Validators.required]
@@ -129,7 +131,8 @@ export class LoginComponent {
                     console.log("Usuario es veterinario.");
                     this.router.navigate(['/home']);
                 }else{
-                  alert('Error en las credenciales.');
+                  //alert('Error en las credenciales.');
+                this.openDialog('El usuario/contraseña no son válidos');
                 this.router.navigate(['/login']);
                 }
                
@@ -145,10 +148,17 @@ export class LoginComponent {
             */
         },
         error: () => {
-            alert('Error en las credenciales.');
+            //alert('Error en las credenciales.');
+            this.openDialog('El usuario/contraseña no son válidos');
             this.router.navigate(['/login']);
         }
     });
+}
+
+openDialog(message: string): void {
+  this.dialog.open(DialogErrorComponent, {
+    data: { message }
+  });
 }
 
 

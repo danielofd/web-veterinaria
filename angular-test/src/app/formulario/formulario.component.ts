@@ -1,23 +1,36 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router'; // Importa Router si deseas hacer navegación
+import { DatosService } from '../service/datos.service';
+import { TipoMascota } from 'src/models/tipo-mascota';
+import { Raza } from 'src/models/raza';
+import { catchError, tap } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-formulario',
   templateUrl: './formulario.component.html',
   styleUrls: ['./formulario.component.css']
 })
-export class FormularioComponent implements OnInit {
+export class FormularioComponent {
 
-  tipoAnimal: string[] = ['Felino', 'Canino'];
-  razaAnimal: string[] = [];
+  tiposMascotas: TipoMascota[] = [];
+  selectedTipoMascota: number |null=null;
 
-  razaGato: string[] = ['Gato Persa', 'Gato Siamés', 'Gato Maine Coon', 'Gato Bengalí', 'Gato Sphynx'];
-  razaPerro: string[] = ['Labrador', 'Pastor Alemán', 'Bulldog', 'Golden Retriever', 'Beagle'];
+  //razas: Raza[]=[];
+  //selectedRaza: number |null=null;
+
+  mensaje: string = '';
+
+  //tipoAnimal: string[] = ['Felino', 'Canino'];
+  //razaAnimal: string[] = [];
+
+  //razaGato: string[] = ['Gato Persa', 'Gato Siamés', 'Gato Maine Coon', 'Gato Bengalí', 'Gato Sphynx'];
+  //razaPerro: string[] = ['Labrador', 'Pastor Alemán', 'Bulldog', 'Golden Retriever', 'Beagle'];
 
   formularioRegistro: FormGroup
 
-  constructor(private form: FormBuilder, private router: Router) {
+  constructor(private form: FormBuilder, private router: Router, private datosService: DatosService) {
     this.formularioRegistro = this.form.group({
       name: ['', Validators.required],
       owner: ['', Validators.required],
@@ -34,18 +47,49 @@ export class FormularioComponent implements OnInit {
       date: ['', Validators.required]
     })
   }
-  ngOnInit(): void {
-    this.formularioRegistro.get('animal')?.valueChanges.subscribe(value => {
 
-      if (value === 'Felino') {
-        this.razaAnimal = this.razaGato;
-      } else if (value === 'Canino') {
-        this.razaAnimal = this.razaPerro;
+  
+  /**
+  cargarTipoMascotas():void{
+    this.datosService.getTipoMascotas().subscribe(
+      (response) =>{
+      
+        this.tiposMascotas = response;
+
+        const existeFelino = this.tiposMascotas.some(tipo => tipo.timGrupo === 'FELINO');
+        if (existeFelino) {
+          this.mensaje = 'La clase FELINO está disponible.';
+          console.log(existeFelino)
+        } else {
+          this.mensaje = 'La clase FELINO no está disponible.';
+        }
+        
+      },
+      (error)=>{
+        console.error('Error al cargar los tipos de mascotas', error);
       }
-
-    })
+    );
+  }
+  */
+  cargarTipoMascotas()  {
+    this.datosService.getTipoMascotas().pipe(
+      tap(response => {
+        this.tiposMascotas = response;
+        const existeFelino = this.tiposMascotas.some(tipo => tipo.timGrupo === 'FELINO');
+        this.mensaje = existeFelino 
+          ? 'La clase FELINO está disponible.' 
+          : 'La clase FELINO no está disponible.';
+        console.log(existeFelino);
+      }),
+      catchError(error => {
+        console.error('Error al cargar los tipos de mascotas', error);
+        // Puedes devolver un valor por defecto o manejar el error de otra manera
+        return of([]); // Devuelve un array vacío en caso de error
+      })
+    ).subscribe();
   }
 
+  
   enviar() {
     console.log(this.formularioRegistro);
   }
@@ -69,7 +113,7 @@ export class FormularioComponent implements OnInit {
 
   limpiar(): void {
     this.formularioRegistro.reset(); // Limpia el formulario
-    this.razaAnimal=[];
+    //this.razaAnimal=[];
   }
 
   hasErrors(controlName: string, errorType: string) {

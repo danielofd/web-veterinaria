@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Registro } from 'src/models/registro';
@@ -8,13 +8,21 @@ import { asyncColorValidator, asyncNombreMascotaValidator, asyncTemperatureValid
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component'
+import { DatosService } from '../service/datos.service';
+import { TipoMascota } from 'src/models/tipo-mascota';
 
 @Component({
   selector: 'app-crear-expediente',
   templateUrl: './crear-expediente.component.html',
   styleUrls: ['./crear-expediente.component.css']
 })
-export class CrearExpedienteComponent {
+export class CrearExpedienteComponent implements OnInit{
+
+  tiposMascotas: TipoMascota[] = [];
+  selectedTipoMascota: number |null=null;
+
+  razas: Raza[]=[];
+  selectedRaza: number |null=null;
 
   expediente: Registro = new Registro();
   raza: Raza = new Raza();
@@ -26,9 +34,12 @@ export class CrearExpedienteComponent {
   razaPerro: string[] = ['Labrador', 'Pastor Alemán', 'Bulldog', 'Golden Retriever', 'Beagle'];
 
   formularioRegistro: FormGroup;
+  mensaje: string = "";
+ 
+  
 
   constructor(private form: FormBuilder, private router: Router, private _service: NuevoExpedienteServiceService, 
-    private snackBar: MatSnackBar, private dialog: MatDialog) {
+    private snackBar: MatSnackBar, private dialog: MatDialog,private datosService: DatosService) {
     this.formularioRegistro = this.form.group({
       name: ['', Validators.required, [asyncNombreMascotaValidator()]], //tamaño 50
       owner: ['', Validators.required, [asyncNombreMascotaValidator()]], //tamaño 50
@@ -47,16 +58,65 @@ export class CrearExpedienteComponent {
   }
 
   ngOnInit(): void {
+    this.cargarTipoMascotas();
+    //this.cargarRazas();
     this.formularioRegistro.get('animal')?.valueChanges.subscribe(value => {
 
+      console.log(value);
+      /*
       if (value === 'Felino') {
         this.razaAnimal = this.razaGato;
       } else if (value === 'Canino') {
         this.razaAnimal = this.razaPerro;
       }
+      */
+     if(value){
+      this.razas=[];
+      this.cargarRazas(value);
+     }
+      
 
     });
+    
   }
+
+  cargarTipoMascotas():void{
+    this.datosService.getTipoMascotas().subscribe(
+      (response) =>{
+      
+        this.tiposMascotas = response;
+
+        const existeFelino = this.tiposMascotas.some(tipo => tipo.timGrupo === 'FELINO');
+        if (existeFelino) {
+          this.mensaje = 'La clase FELINO está disponible.';
+          console.log(existeFelino)
+        } else {
+          this.mensaje = 'La clase FELINO no está disponible.';
+        }
+        
+      },
+      (error)=>{
+        console.error('Error al cargar los tipos de mascotas', error);
+      }
+    );
+  }
+
+  cargarRazas(value: string):void{
+    this.datosService.getRazas(value).subscribe(
+      (response)=>{
+        console.log(response)
+        this.razas = response;
+        
+      },
+      (error)=>{
+        console.error('Error al cargar la razas', error);
+        
+      }
+    )
+    
+  }
+
+
 
   // Método para regresar al menú o a la página anterior
   regresar(): void {
@@ -129,6 +189,8 @@ export class CrearExpedienteComponent {
 
   limpiar(): void {
     this.formularioRegistro.reset(); // Limpia el formulario
+    this.razas=[];
+    this.tipoAnimal=[];
   }
 
   hasErrors(controlName: string, errorType: string) {

@@ -9,8 +9,8 @@
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label class="form-label" for="name">Nombre de la Mascota</label>
-                <input [ngClass]="{'is-invalid': hasErrors('name', 'required')}" type="text" class="form-control" id="name"
-                    formControlName="name">
+                <input [ngClass]="{'is-invalid': hasErrors('name', 'required')}" type="text" class="form-control"
+                    id="name" formControlName="name">
                 <div class="text-danger" *ngIf="hasErrors('name', 'required')"> Campo obligatorio </div>
             </div>
 
@@ -26,27 +26,43 @@
             <div class="col-md-6 mb-3">
                 <label class="form-label" for="tipoMascota">Tipo de Mascota</label>
                 <div>
-                    <select id="tipoMascota" formControlName="animal" class="form-select">
-                        <option *ngFor="let especie of tipoAnimal" [value]="especie"> {{especie}} </option>
+                    <!--<select id="tipoMascota" formControlName="animal" class="form-select">-->
+                    <select id="tipoMascota" [(ngModel)]="selectedTipoMascota" class="form-select">
+                        <!--- <option *ngFor="let especie of tipoAnimal" [value]="especie"> {{especie}} </option> -->
+                        <option *ngFor="let tipo of tiposMascotas" [value]="tipo.timId"> {{ tipo.timGrupo }} </option>
                     </select>
+
+
+
+
+                    <div>
+
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="form-label" for="gender">Género</label>
+                    <input [ngClass]="{'is-invalid': hasErrors('gender', 'required')}" type="text" class="form-control"
+                        id="gender" formControlName="gender">
+                    <div class="text-danger" *ngIf="hasErrors('gender', 'required')"> Campo obligatorio </div>
                 </div>
             </div>
 
-            <div class="col-md-6 mb-3">
-                <label class="form-label" for="gender">Género</label>
-                <input [ngClass]="{'is-invalid': hasErrors('gender', 'required')}" type="text" class="form-control"
-                    id="gender" formControlName="gender">
-                <div class="text-danger" *ngIf="hasErrors('gender', 'required')"> Campo obligatorio </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6 mb-3">
-                <label class="form-label" for="razaMascota">Raza</label>
-                <div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label" for="razaMascota">Raza</label>
+                    <div>
+                        <!--
                     <select id="razaMascota" formControlName="raza" class="form-select">
                         <option *ngFor="let razas of razaAnimal" [value]="razas"> {{razas}} </option>
                     </select>
+                    -->
+                        <!--
+                        <select id="razaMascota" [(ngModel)]="selectedRaza" class="form-select">
+                            <option *ngFor="let raza of razas" [value]="raza.razId"> {{raza.razNombre}} </option>
+                        </select>
+                    -->
+                    </div>
                 </div>
             </div>
 
@@ -68,8 +84,8 @@
 
             <div class="col-md-6 mb-3">
                 <label class="form-label" for="temp">Temperatura</label>
-                <input [ngClass]="{'is-invalid': hasErrors('temp', 'required')}" type="text" class="form-control" id="temp"
-                    formControlName="temp">
+                <input [ngClass]="{'is-invalid': hasErrors('temp', 'required')}" type="text" class="form-control"
+                    id="temp" formControlName="temp">
                 <div class="text-danger" *ngIf="hasErrors('temp', 'required')"> Campo obligatorio </div>
             </div>
         </div>
@@ -77,8 +93,8 @@
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label class="form-label" for="frec">Frecuencia Cardiaca</label>
-                <input [ngClass]="{'is-invalid': hasErrors('frec', 'required')}" type="text" class="form-control" id="frec"
-                    formControlName="frec">
+                <input [ngClass]="{'is-invalid': hasErrors('frec', 'required')}" type="text" class="form-control"
+                    id="frec" formControlName="frec">
                 <div class="text-danger" *ngIf="hasErrors('frec', 'required')"> Campo obligatorio </div>
             </div>
 

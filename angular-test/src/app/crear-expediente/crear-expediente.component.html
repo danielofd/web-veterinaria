@@ -28,9 +28,16 @@
             <div class="col-md-6 mb-3">
                 <label class="form-label" for="tipoMascota">Tipo de Mascota</label>
                 <div>
+                    <!--
                     <select id="tipoMascota" formControlName="animal" class="form-select">
                         <option *ngFor="let especie of tipoAnimal" [value]="especie"> {{especie}} </option>
                     </select>
+                    -->
+                    <select id="tipoMascota" [(ngModel)]="selectedTipoMascota" formControlName="animal" class="form-select">
+                        <option *ngFor="let tipo of tiposMascotas" [value]="tipo.timId"> {{ tipo.timGrupo }} </option>
+                    </select>
+
+
                 </div>
             </div>
 
@@ -49,8 +56,13 @@
             <div class="col-md-6 mb-3">
                 <label class="form-label" for="razaMascota">Raza</label>
                 <div>
+                    <!--
                     <select id="razaMascota" formControlName="raza" class="form-select">
                         <option *ngFor="let razas of razaAnimal" [value]="razas"> {{razas}} </option>
+                    </select>
+                    -->
+                    <select id="razaMascota" [(ngModel)]="selectedRaza" class="form-select" >
+                        <option *ngFor="let raza of razas" [value]="raza.razId"> {{raza.razNombre}} </option>
                     </select>
                 </div>
             </div>

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../env/env';
 
 /** 
 interface User {
@@ -22,7 +23,9 @@ export class User{
 })
 export class AuthService {
 
-  private apiUrl = 'http://localhost:8080/happyfriends/signin'; //url base del api
+  //private apiUrl = 'http://localhost:8080/happyfriends/signin'; //url base del api
+
+  private apiUrl = environment.apiUrl
 
   //private currentUser: User | null = null;
   private currentUser: User | undefined;
@@ -39,7 +42,7 @@ export class AuthService {
       "usuPassword":password
     }
 
-    return this.http.post<User>(this.apiUrl, body,{
+    return this.http.post<User>(this.apiUrl+'/signin', body,{
       headers: {
         'Content-Type': 'application/json' // Asegúrate de enviar el tipo correcto
     }
