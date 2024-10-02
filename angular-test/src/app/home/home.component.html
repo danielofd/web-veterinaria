@@ -12,7 +12,8 @@
             </div>
             <div class="col-md-6 mb-4">
                 <!--<a class="btn btn-custom-green w-50" [routerLink]="['/citas']">Citas</a>-->
-                <a class="btn btn-custom-green w-50"  *ngFor="let option of citasOption" (click)="openCitas()">Citas</a>
+                <!--<a class="btn btn-custom-green w-50"  *ngFor="let option of citasOption" (click)="openCitas()">Citas</a>-->
+                <a class="btn btn-custom-green w-50"  *ngFor="let option of citasOption" [routerLink]="['/menu-citas']">Citas</a>
             </div>
         </div>
         <div class="row">

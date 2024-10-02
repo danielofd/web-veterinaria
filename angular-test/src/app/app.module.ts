@@ -16,6 +16,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { DialogErrorComponent } from './dialog-error/dialog-error.component';
+import { CitasComponent } from './citas/citas.component';
+import { MenuCitasComponent } from './menu-citas/menu-citas.component';
+import { CrearCitaComponent } from './crear-cita/crear-cita.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,10 @@ import { DialogErrorComponent } from './dialog-error/dialog-error.component';
     CrearExpedienteComponent,
     ModificarExpedienteComponent,
     ConfirmDialogComponent,
-    DialogErrorComponent
+    DialogErrorComponent,
+    CitasComponent,
+    MenuCitasComponent,
+    CrearCitaComponent
   ],
   imports: [
     BrowserModule,

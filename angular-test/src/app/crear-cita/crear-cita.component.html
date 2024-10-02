@@ -1,0 +1,52 @@
+<div class="container-fluid m-4">
+
+    <div class="row justify-content-center align-items-center">
+        <div class="col-4">
+            <h4 class="text-center mb-4">Seleccione fecha y veterinario</h4>
+            <form>
+                <div class="mb-3">
+                    <label class="form-label" for="date">Fechas</label>
+                    <div>
+                        <input type="date" class="form-control" id="date">
+                    </div>
+                    <div class="text-danger"> Campo obligatorio </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="vet">Veterinarios</label>
+                    <div>
+                        <select class="form-select" id="vet">
+                            <option value="">Seleccione un veterinario</option>
+                            <option value="veterinario1">Veterinario 1</option>
+                            <option value="veterinario2">Veterinario 2</option>
+                            <option value="veterinario3">Veterinario 3</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-6">
+            <h4 class="text-center">Seleccione horario</h4>
+            <form>
+                <div class="mb-3">
+                    <label class="form-label" for="horas">Horarios disponibles</label>
+                    <div>
+                        <select class="form-select" id="horas">
+                            <option value="10:00">10:00</option>
+                            <option value="11:00">11:00</option>
+                            <option value="12:00">12:00</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <div class="d-grid gap-2">
+                        <button id="test" type="submit" class="btn btn-primary mt-3">Reservar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
