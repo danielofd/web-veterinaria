@@ -1,27 +1,24 @@
-<div class="container mt-5 mb-5"></div>
-
+<div class="container mt-5 mb-5">
     <div class="mb-3 mt-3 text-center">
         <h2>INGRESO DE EXPEDIENTE DE MASCOTAS</h2>
     </div>
 
     <form [formGroup]="formularioRegistro" (ngSubmit)="guardarExpediente()">
-
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label class="form-label" for="name">Nombre de la Mascota</label>
                 <input [ngClass]="{'is-invalid': hasErrors('name', 'required') || hasErrors('name', 'maxlength') || hasErrors('name', 'soloLetras')}" 
                        type="text" class="form-control" id="name" formControlName="name">
-                <div class="text-danger" *ngIf="hasErrors('name', 'required')"> Campo obligatorio </div>
+                <div class="text-danger" *ngIf="hasErrors('name', 'required')">Campo obligatorio</div>
                 <div class="text-danger" *ngIf="hasErrors('name', 'maxlength')">Máximo 50 caracteres</div>
                 <div class="text-danger" *ngIf="hasErrors('name', 'soloLetras')">Solo se permiten letras y espacios</div>
-              </div>
+            </div>
 
             <div class="col-md-6 mb-3">
                 <label class="form-label" for="owner">Nombre del Propietario</label>
-                <input [ngClass]="{'is-invalid': hasErrors('owner', 'required') || hasErrors('owner', 'maxlength')|| hasErrors('owner', 'soloLetras')}" 
-                type="text" class="form-control"
-                    id="owner" formControlName="owner">
-                <div class="text-danger" *ngIf="hasErrors('owner', 'required')"> Campo obligatorio </div>
+                <input [ngClass]="{'is-invalid': hasErrors('owner', 'required') || hasErrors('owner', 'maxlength') || hasErrors('owner', 'soloLetras')}" 
+                       type="text" class="form-control" id="owner" formControlName="owner">
+                <div class="text-danger" *ngIf="hasErrors('owner', 'required')">Campo obligatorio</div>
                 <div class="text-danger" *ngIf="hasErrors('owner', 'maxlength')">Máximo 50 caracteres</div>
                 <div class="text-danger" *ngIf="hasErrors('owner', 'soloLetras')">Solo se permiten letras y espacios</div>
             </div>
@@ -30,44 +27,38 @@
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label class="form-label" for="tipoMascota">Tipo de Mascota</label>
-                <div>
-                  <select [ngClass]="{'is-invalid': hasErrors('animal', 'required')}" id="tipoMascota" formControlName="animal" class="form-select">
-                    <option value="">Seleccione un tipo</option> <!-- Opción por defecto vacía -->
-                    <option *ngFor="let tipo of tiposMascotas" [value]="tipo.timId"> {{ tipo.timGrupo }} </option>
-                  </select>
-                  <div class="text-danger" *ngIf="hasErrors('animal', 'required')">Campo obligatorio</div>
-                </div>
-              </div>
+                <select [ngClass]="{'is-invalid': hasErrors('animal', 'required')}" id="tipoMascota" formControlName="animal" class="form-select">
+                    <option value="">Seleccione un tipo</option>
+                    <option *ngFor="let tipo of tiposMascotas" [value]="tipo.timId">{{ tipo.timGrupo }}</option>
+                </select>
+                <div class="text-danger" *ngIf="hasErrors('animal', 'required')">Campo obligatorio</div>
+            </div>
 
             <div class="col-md-6 mb-3">
                 <label class="form-label" for="gender">Género</label>
-                <select [ngClass]="{'is-invalid': hasErrors('gender', 'required')}" class="form-select" id="gender"
-                    formControlName="gender">
+                <select [ngClass]="{'is-invalid': hasErrors('gender', 'required')}" class="form-select" id="gender" formControlName="gender">
                     <option value="1">Macho</option>
                     <option value="2">Hembra</option>
                 </select>
-                <div class="text-danger" *ngIf="hasErrors('gender', 'required')"> Campo obligatorio </div>
+                <div class="text-danger" *ngIf="hasErrors('gender', 'required')">Campo obligatorio</div>
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label class="form-label" for="razaMascota">Raza</label>
-                <div>
-                  <select [ngClass]="{'is-invalid': hasErrors('raza', 'required')}" id="razaMascota" formControlName="raza" class="form-select">
-                    <option value="">Seleccione una raza</option> <!-- Opción por defecto vacía -->
-                    <option *ngFor="let raza of razas" [value]="raza.razId"> {{raza.razNombre}} </option>
-                  </select>
-                  <div class="text-danger" *ngIf="hasErrors('raza', 'required')">Campo obligatorio</div>
-                </div>
-              </div>
+                <select [ngClass]="{'is-invalid': hasErrors('raza', 'required')}" id="razaMascota" formControlName="raza" class="form-select">
+                    <option value="">Seleccione una raza</option>
+                    <option *ngFor="let raza of razas" [value]="raza.razId">{{raza.razNombre}}</option>
+                </select>
+                <div class="text-danger" *ngIf="hasErrors('raza', 'required')">Campo obligatorio</div>
+            </div>
 
             <div class="col-md-6 mb-3">
                 <label class="form-label" for="color">Color</label>
-                <input [ngClass]="{'is-invalid': hasErrors('color', 'required') || hasErrors('color', 'maxlength')|| hasErrors('color', 'soloLetras')}" 
-                type="text" class="form-control"
-                    id="color" formControlName="color">
-                <div class="text-danger" *ngIf="hasErrors('color', 'required')"> Campo obligatorio </div>
+                <input [ngClass]="{'is-invalid': hasErrors('color', 'required') || hasErrors('color', 'maxlength') || hasErrors('color', 'soloLetras')}" 
+                       type="text" class="form-control" id="color" formControlName="color">
+                <div class="text-danger" *ngIf="hasErrors('color', 'required')">Campo obligatorio</div>
                 <div class="text-danger" *ngIf="hasErrors('color', 'maxlength')">Máximo 25 caracteres</div>
                 <div class="text-danger" *ngIf="hasErrors('color', 'soloLetras')">Solo se permiten letras y espacios</div>
             </div>
@@ -76,75 +67,56 @@
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label class="form-label" for="weight">Peso (lb)</label>
-                <input [ngClass]="{'is-invalid': hasErrors('weight', 'required') || hasErrors('weight', 'maxlength')|| hasErrors('weight', 'soloNumeros')}"
-                 type="text" class="form-control"
-                    id="weight" formControlName="weight" (blur)="formatWeight($event)" (focus)="selectAll($event)"  placeholder="0.00" >
-                <div class="text-danger" *ngIf="hasErrors('weight', 'required')"> Campo obligatorio </div>
+                <input [ngClass]="{'is-invalid': hasErrors('weight', 'required') || hasErrors('weight', 'maxlength') || hasErrors('weight', 'soloNumeros')}"
+                       type="text" class="form-control" id="weight" formControlName="weight" (blur)="formatWeight($event)" (focus)="selectAll($event)" placeholder="0.00">
+                <div class="text-danger" *ngIf="hasErrors('weight', 'required')">Campo obligatorio</div>
                 <div class="text-danger" *ngIf="hasErrors('weight', 'maxlength')">Máximo 20 caracteres</div>
-                <div class="text-danger" *ngIf="hasErrors('weight', 'soloNumeros')">Solo se permite numero</div>
+                <div class="text-danger" *ngIf="hasErrors('weight', 'soloNumeros')">Solo se permite número</div>
             </div>
 
             <div class="col-md-6 mb-3">
                 <label class="form-label" for="temp">Temperatura (°C)</label>
-                <!--<input [ngClass]="{'is-invalid': hasErrors('temp', 'required')}" type="text" class="form-control" id="temp"
-                    formControlName="temp">
-                <div class="text-danger" *ngIf="hasErrors('temp', 'required')"> Campo obligatorio </div>-->
-                <input [ngClass]="{'is-invalid': hasErrors('temp', 'required') || hasErrors('temp', 'maxlength')|| hasErrors('temp', 'soloNumeros')}"
-                    type="text" class="form-control" id="temp" formControlName="temp" (blur)="formatWeight($event)" (focus)="selectAll($event)"  placeholder="0.00">
-
+                <input [ngClass]="{'is-invalid': hasErrors('temp', 'required') || hasErrors('temp', 'maxlength') || hasErrors('temp', 'soloNumeros')}"
+                       type="text" class="form-control" id="temp" formControlName="temp" (blur)="formatWeight($event)" (focus)="selectAll($event)" placeholder="0.00">
                 <div class="text-danger" *ngIf="hasErrors('temp', 'required')">Campo obligatorio</div>
                 <div class="text-danger" *ngIf="hasErrors('temp', 'maxlength')">Máximo 3 caracteres</div>
-                <div class="text-danger" *ngIf="hasErrors('temp', 'soloNumeros')">Solo se permite numero</div>
+                <div class="text-danger" *ngIf="hasErrors('temp', 'soloNumeros')">Solo se permite número</div>
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label class="form-label" for="frec">Frecuencia Cardiaca</label>
-                <input [ngClass]="{'is-invalid': hasErrors('frec', 'required') || hasErrors('frec', 'maxlength')}" type="text" class="form-control"
-                    id="frec" formControlName="frec" (focus)="selectAll($event)" placeholder="Ejemplo: 75">
-                <div class="text-danger" *ngIf="hasErrors('frec', 'required')"> Campo obligatorio </div>
+                <input [ngClass]="{'is-invalid': hasErrors('frec', 'required') || hasErrors('frec', 'maxlength')}" 
+                       type="text" class="form-control" id="frec" formControlName="frec" (focus)="selectAll($event)" placeholder="Ejemplo: 75">
+                <div class="text-danger" *ngIf="hasErrors('frec', 'required')">Campo obligatorio</div>
                 <div class="text-danger" *ngIf="hasErrors('frec', 'maxlength')">Máximo 3 caracteres</div>
                 <div class="text-danger" *ngIf="hasErrors('frec', 'soloNumeros')">Solo se permiten números enteros</div>
             </div>
 
             <div class="col-md-6 mb-3">
                 <label class="form-label" for="address">Dirección</label>
-                <input [ngClass]="{'is-invalid': hasErrors('address', 'required') || hasErrors('temp', 'maxlength')}" type="text" class="form-control"
-                    id="address" formControlName="address">
-                <div class="text-danger" *ngIf="hasErrors('address', 'required')"> Campo obligatorio </div>
-                <div class="text-danger" *ngIf="hasErrors('address', 'maxlength')">Máximo 50 caracteres</div>
+                <input [ngClass]="{'is-invalid': hasErrors('address', 'required') || hasErrors('address', 'maxlength')}" 
+                       type="text" class="form-control" id="address" formControlName="address">
+                <div class="text-danger" *ngIf="hasErrors('address', 'required')">Campo obligatorio</div>
+                <div class="text-danger" *ngIf="hasErrors('address', 'maxlength')">Máximo 150 caracteres</div>
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-6 mb-3">
-                <label class="form-label" for="phone">Teléfono</label>
-                <input [ngClass]="{'is-invalid': hasErrors('phone', 'required') || hasErrors('temp', 'maxlength') || hasErrors('phone', 'formatoInvalido')}" 
-                type="text" class="form-control"
-                    id="phone" formControlName="phone"
-                    placeholder="Ejemplo: 1234-5678"  (blur)="onBlurPhone()">
-                <div class="text-danger" *ngIf="hasErrors('phone', 'required')"> Campo obligatorio </div>
-                <div class="text-danger" *ngIf="hasErrors('phone', 'maxlength')">Máximo 10 caracteres</div>
-                <div class="text-danger" *ngIf="hasErrors('phone', 'formatoInvalido')">Formato inválido. Ejemplo: 1234-5678</div>
+                <label class="form-label" for="history">Historia Clínica</label>
+                <textarea [ngClass]="{'is-invalid': hasErrors('history', 'maxlength')}" 
+                          class="form-control" id="history" formControlName="history" rows="3" maxlength="300"></textarea>
+                <div class="text-danger" *ngIf="hasErrors('history', 'maxlength')">Máximo 300 caracteres</div>
             </div>
 
             <div class="col-md-6 mb-3">
-    <label class="form-label" for="med">Médico Referido (no obligatorio)</label>
-    <input 
-        [ngClass]="{'is-invalid': hasErrors('med', 'maxlength') || hasErrors('med', 'soloLetras')}" 
-        type="text" 
-        class="form-control" 
-        id="med" 
-        formControlName="med"
-    >
-    <div class="text-danger" *ngIf="hasErrors('med', 'maxlength')">
-        Máximo de 50 caracteres
-    </div>
-    <div class="text-danger" *ngIf="hasErrors('med', 'soloLetras')">
-        Solo se permiten letras y espacios
-    </div>
-</div>
+                <label class="form-label" for="observations">Observaciones</label>
+                <textarea [ngClass]="{'is-invalid': hasErrors('observations', 'maxlength')}" 
+                          class="form-control" id="observations" formControlName="observations" rows="3" maxlength="300"></textarea>
+                <div class="text-danger" *ngIf="hasErrors('observations', 'maxlength')">Máximo 300 caracteres</div>
+            </div>
         </div>
 
         <div class="d-grid gap-2 d-md-flex justify-content-md-between">
