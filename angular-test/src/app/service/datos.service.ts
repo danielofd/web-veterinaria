@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Raza } from 'src/models/raza';
 import { TipoMascota } from 'src/models/tipo-mascota';
 import { environment } from '../env/env';
@@ -39,6 +39,14 @@ export class DatosService {
     return this.http.post<Horario[]>(this.apiUrl+'/horarios', requestBody);
   }
 
-  
+  //para almacenar el codigo del usuario
+  private dataSource = new BehaviorSubject<any>(null);
+
+  currentData = this.dataSource.asObservable();
+
+  //metodo para update value
+  changeData(data: any){
+    this.dataSource.next(data);
+  }
 
 }
