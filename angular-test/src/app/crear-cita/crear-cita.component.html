@@ -1,51 +1,56 @@
-<form [formGroup]="formularioRegistro"  >
-<div class="container-fluid m-4">
+<form [formGroup]="formularioRegistro">
+    <div class="container-fluid m-4">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <h4 class="text-center mb-4">CREACION DE CITAS</h4>
+            </div>
 
-    <div class="row justify-content-center">
-        <div class="col-12">
-            <h4 class="text-center mb-4">CREACION DE CITAS</h4>
-        </div>
-       
-        <div class="col-12 col-md-2 mb-3"> <!-- Ancho reducido -->
-            <label for="date">Fecha</label>
-            <input type="date" id="date" class="form-control form-control-sm" formControlName="fecha" (change)="onFechaChange($event)">
+            <div class="col-12 col-md-2 mb-3"> <!-- Ancho reducido -->
+                <label for="date">Fecha</label>
+                <input type="date" id="date" class="form-control form-control-sm" formControlName="fecha" (change)="onFechaChange($event)">
+            </div>
+
+            <div class="col-12 col-md-2 mb-3"> <!-- Campo de texto para Nombre del propietario -->
+                <label for="propietario">Nombre del propietario</label>
+                <!-- <input type="text" id="propietario" class="form-control form-control-sm" formControlName="nombrePropietario"> -->
+                <input type="text" id="propietario" class="form-control form-control-sm" formControlName="nombrePropietario">
+                <div *ngIf="formularioRegistro.get('nombrePropietario')?.invalid && (formularioRegistro.get('nombrePropietario')?.touched || formularioRegistro.get('nombrePropietario')?.dirty)" class="text-danger">
+                    <div *ngIf="formularioRegistro.get('nombrePropietario')?.errors?.['required']">El nombre es requerido.</div>
+                    <div *ngIf="formularioRegistro.get('nombrePropietario')?.errors?.['invalidText']">Solo se permiten letras y espacios.</div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-2 mb-3"> <!-- Ancho reducido -->
+                <label for="vet">Veterinarios</label>
+                <select id="vet" class="form-select form-select-sm" formControlName="veter" (change)="onVeterinarioChange($event)">
+                    <option value="">Seleccione un veterinario</option>
+                    <option *ngFor="let vet of veterinarios" [value]="vet.empId">
+                        {{ vet.empNombre }} {{ vet.empApellido }}
+                    </option>
+                </select>
+            </div>
+
+            <div class="col-12 col-md-2 mb-3"> <!-- Ancho reducido -->
+                <label for="horas">Horarios disponibles</label>
+                <select id="horas" class="form-select form-select-sm" formControlName="hora" (change)="onHorarioChange($event)">
+                    <option value="">Seleccione una hora</option>
+                    <option *ngFor="let horario of horarios" [value]="horario.hocHorario">
+                        {{ horario.hocHorario }}
+                    </option>
+                </select>
+            </div>
         </div>
 
-        <div class="col-12 col-md-2 mb-3"> <!-- Ancho reducido -->
-            <label for="vet">Veterinarios</label>
-            <select id="vet" class="form-select form-select-sm" formControlName="veter" (change)="onVeterinarioChange($event)">
-                <option value="">Seleccione un veterinario</option>
-                <option *ngFor="let vet of veterinarios" [value]="vet.empId">
-                    {{ vet.empNombre }} {{ vet.empApellido }}
-                </option>
-            </select>
-        </div>
+        <!-- Espacio adicional entre los campos y los botones -->
+        <div class="mb-5"></div>
 
-        <div class="col-12 col-md-2 mb-3"> <!-- Ancho reducido -->
-            <label for="horas">Horarios disponibles</label>
-            <select id="horas" class="form-select form-select-sm" formControlName="hora" (change)="onHorarioChange($event)">
-                <option value="">Seleccione una hora</option>
-                <option *ngFor="let horario of horarios" [value]="horario.hocHorario">
-                    {{ horario.hocHorario }}
-                </option>
-            </select>
+        <div class="row justify-content-center">
+            <div class="col-auto">
+                <button id="regresar" type="button" class="btn btn-secondary" (click)="regresar()">Regresar</button>
+            </div>
+            <div class="col-auto">
+                <button id="reservar" type="submit" class="btn btn-primary" (click)="guardarCita()">Generar cita</button>
+            </div>
         </div>
     </div>
-
-    <!-- Espacio adicional entre los campos y los botones -->
-    <div class="mb-5"></div>
-
-    <div class="row justify-content-center">
-        <div class="col-auto">
-            <button id="regresar" type="button" class="btn btn-secondary" (click)="regresar()">Regresar</button>
-        </div>
-        <!-- <div class="col-auto">
-            <button id="limpiar" type="button" class="btn btn-danger" (click)="limpiar()">Limpiar</button>
-        </div> -->
-        <div class="col-auto">
-            <button id="reservar" type="submit" class="btn btn-primary" (click)="guardarCita()">Generar cita</button>
-        </div>
-    </div>
-
-</div>
 </form>

@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { DatosService } from '../service/datos.service';
 import { HttpClient } from '@angular/common/http';
-import { Cita } from 'src/models/Cita';
+
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Cita } from 'src/models/cita';
 
 @Component({
   selector: 'app-crear-cita',
@@ -27,11 +28,15 @@ export class CrearCitaComponent implements OnInit {
 
  formularioRegistro: FormGroup;
 
+ selectedVeterinario: string = '';
+  codigoUsu: string = '';
+
   constructor(private form: FormBuilder, private router: Router,private datosService: DatosService, private http: HttpClient, private snackBar: MatSnackBar, private dialog: MatDialog){
     this.formularioRegistro = this.form.group({
       fecha: [''], //tamaño 50
       veter: [''], //tamaño 50
       hora: [''],
+      nombrePropietario: ['',[Validators.required, this.textOnlyValidator]]
     })
   }
 
@@ -40,6 +45,11 @@ export class CrearCitaComponent implements OnInit {
   }
 
   
+  textOnlyValidator(control: any) {
+    const regex = /^[a-zA-Z\s]*$/; // Solo letras y espacios
+    return regex.test(control.value) ? null : { invalidText: true };
+  }
+
 
 
   cargarVeterinarios(): void {
@@ -67,15 +77,47 @@ export class CrearCitaComponent implements OnInit {
   // }
 
   onVeterinarioChange(event: Event): void {
+   
+    // const selectElement = event.target as HTMLSelectElement; // Casting a HTMLSelectElement
+    // const empId = selectElement.value;
+
+    // if (empId) {
+    //     this.selectedVeterinarioId = +empId; // Convertir a número
+    //     this.cargarHorarios();
+    // } else {
+    //     this.selectedVeterinarioId = null;
+       
+    // }
+
+    // const selectedValue = selectElement.value; 
+    // const selectedVet = this.veterinarios.find(vet => vet.empId.toString() === selectedValue);
+    
+    // if (selectedVet) {
+    //   this.selectedVeterinario = `${selectedVet.empNombre} ${selectedVet.empApellido}`;
+    //   // Ahora puedes usar selectedVeterinario para tu servicio POST
+    //   console.log(this.selectedVeterinario);
+    // }
+
     const selectElement = event.target as HTMLSelectElement; // Casting a HTMLSelectElement
     const empId = selectElement.value;
 
     if (empId) {
         this.selectedVeterinarioId = +empId; // Convertir a número
-        this.cargarHorarios();
+        this.cargarHorarios(); // Cargar horarios para el veterinario seleccionado
     } else {
         this.selectedVeterinarioId = null;
-        this.horarios = []; // Limpia los horarios si no hay veterinario seleccionado
+
+        // Limpiar horarios y el campo de hora si no hay veterinario seleccionado
+        this.horarios = [];
+        this.formularioRegistro.get('hora')?.reset(); // Limpiar el campo de hora
+    }
+
+    // Si deseas guardar el nombre del veterinario seleccionado
+    const selectedVet = this.veterinarios.find(vet => vet.empId.toString() === empId);
+    if (selectedVet) {
+        this.selectedVeterinario = `${selectedVet.empNombre} ${selectedVet.empApellido}`;
+        // Aquí puedes usar selectedVeterinario para tu servicio POST
+        console.log(this.selectedVeterinario);
     }
 }
 
@@ -98,11 +140,14 @@ export class CrearCitaComponent implements OnInit {
   //   this.cargarHorarios();
   // }
   onFechaChange(event: Event): void {
+    //limpia horarios 
+    
     const inputElement = event.target as HTMLInputElement; // Casting a HTMLInputElement
     const fecha = inputElement.value;
 
     if (fecha) {
         this.selectedFecha = fecha;  // Actualiza la fecha seleccionada
+        
         if (this.selectedVeterinarioId) {
             this.cargarHorarios(); // Carga horarios si ya hay un veterinario seleccionado
         }
@@ -116,6 +161,8 @@ onHorarioChange(event: Event): void {
 
 generarCita(): void {
 
+  const formValue = this.formularioRegistro.value;
+
   console.log(this.selectedVeterinarioId);
   console.log(this.selectedFecha);
   console.log(this.selectedHorario);
@@ -126,12 +173,21 @@ generarCita(): void {
 
     console.log(this.fechaHoraFormat);
 
+    this.datosService.currentData.subscribe(data =>{
+      console.log("usu correlativo: "+data);
+      this.codigoUsu = data
+    });
+
   
 
     const citaData = {
       empId: this.selectedVeterinarioId,
       ctaEstado:  1,
-      ctaFecHora: this.fechaHoraFormat
+      ctaFecHora: this.fechaHoraFormat,
+      //ctaPropietario: this.selectedVeterinario,
+
+      ctaPropietario:formValue.nombrePropietario,
+      usuCodigo: this.codigoUsu,
       //horario: this.selectedHorario
     };
 
@@ -147,6 +203,16 @@ generarCita(): void {
         (response) => {
           console.log('Respuesta del servidor:', response); 
           // Aquí puedes agregar más lógica, como mostrar un mensaje de éxito
+          this.formularioRegistro.reset();
+          // Limpia el formulario y restablece los horarios
+      
+      //this.veterinarios= [];
+ 
+      //this.selectedVeterinarioId = 0;
+      //this.selectedFecha = ''; // Fecha seleccionada
+      //this.selectedHorario = '';
+      //this.horarios=[];
+         
           this.procesoMsg();
         },
         (error) => {
