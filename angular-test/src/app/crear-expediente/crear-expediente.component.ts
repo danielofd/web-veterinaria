@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl  } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Registro } from 'src/models/registro';
 import { NuevoExpedienteServiceService } from '../service/nuevo-expediente-service.service';
@@ -10,6 +10,35 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component'
 import { DatosService } from '../service/datos.service';
 import { TipoMascota } from 'src/models/tipo-mascota';
+
+function soloLetras(control: AbstractControl): { [key: string]: boolean } | null {
+  const regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/; // Permite letras y espacios
+  if (!control.value || regex.test(control.value)) {
+    return null; // Si es válido, no devuelve ningún error
+  }
+  return { soloLetras: true }; // Devuelve el error 'soloLetras'
+}
+function soloNumeros(control: AbstractControl): { [key: string]: boolean } | null {
+  const regex = /^\d+(\.\d{1,2})?$/; // Permite números enteros y decimales con hasta 2 lugares después del punto
+  if (!control.value || regex.test(control.value)) {
+    return null; // Si es válido, no devuelve ningún error
+  }
+  return { soloNumeros: true }; // Devuelve el error 'soloNumeros'
+}
+function soloNumerosEnteros(control: AbstractControl): { [key: string]: boolean } | null {
+  const regex = /^\d+$/; // Expresión regular para números enteros
+  if (!control.value || regex.test(control.value)) {
+    return null; // Si es válido, no devuelve ningún error
+  }
+  return { soloNumeros: true }; // Devuelve el error 'soloNumeros'
+}
+function formatoTelefono(control: AbstractControl): { [key: string]: boolean } | null {
+  const regex = /^\d{4}-\d{4}$/; // Expresión regular para el formato 9999-9999
+  if (!control.value || regex.test(control.value)) {
+    return null; // Si es válido, no devuelve ningún error
+  }
+  return { formatoInvalido: true }; // Devuelve el error 'formatoInvalido'
+}
 
 @Component({
   selector: 'app-crear-expediente',
@@ -41,18 +70,19 @@ export class CrearExpedienteComponent implements OnInit{
   constructor(private form: FormBuilder, private router: Router, private _service: NuevoExpedienteServiceService, 
     private snackBar: MatSnackBar, private dialog: MatDialog,private datosService: DatosService) {
     this.formularioRegistro = this.form.group({
-      name: ['', Validators.required, [asyncNombreMascotaValidator()]], //tamaño 50
-      owner: ['', Validators.required, [asyncNombreMascotaValidator()]], //tamaño 50
-      animal: [''],
+      name: ['', 
+        [Validators.required, Validators.maxLength(50), soloLetras],[asyncNombreMascotaValidator()]],
+      owner: ['', [Validators.required, Validators.maxLength(50),soloLetras],[asyncNombreMascotaValidator()]], //tamaño 50
+      animal: ['',Validators.required],
       gender: ['', Validators.required],
-      raza: [''],
-      color: ['', Validators.required, [asyncColorValidator()]],
-      weight: ['', Validators.required, [asynPesoValidator()]],
-      temp: ['', Validators.required, [asyncTemperatureValidator()]],
-      frec: ['', Validators.required, [asyncTemperatureValidator()]],
+      raza: ['',Validators.required],
+      color: ['', [Validators.required,soloLetras], [asyncColorValidator()]],
+      weight: ['0.00', [Validators.required, soloNumeros], [asynPesoValidator()]],
+      temp: ['0.00', [Validators.required,soloNumeros], [asyncTemperatureValidator()]],
+      frec: ['', [Validators.required, , soloNumerosEnteros], [asyncTemperatureValidator()]],
       address: ['', Validators.required, [asyncNombreMascotaValidator()]], // tamaño 50
-      phone: ['', Validators.required, [asynTelefonoValidator()]], //tamaño 10
-      med: ['',[Validators.maxLength(50)]], //tamaño 50
+      phone: ['', [Validators.required, , formatoTelefono], [asynTelefonoValidator()]], //tamaño 10
+      med: ['',[Validators.maxLength(50), soloLetras]], //tamaño 50
       date: ['', Validators.required]
     });
   }
@@ -174,7 +204,7 @@ export class CrearExpedienteComponent implements OnInit{
     this.expediente.masDireccion = this.formularioRegistro.get('address')?.value;
     this.expediente.masTelefono = this.formularioRegistro.get('phone')?.value;
     this.expediente.masMedReferido = this.formularioRegistro.get('med')?.value;
-
+    console.log(this.formularioRegistro.valid); 
     this.raza.razId = 1;
     this.expediente.raza = this.raza;
     //Este es el campo usu_codigo (pendiente)
@@ -211,8 +241,42 @@ export class CrearExpedienteComponent implements OnInit{
     
   }
   
-
+  procesoMsgError() {
+    const snackBarRef = this.snackBar.open('Datos incompletos, por favor revise el formulario.', 'Cerrar', {
+      duration: 5000,
+      panelClass: ['snackbar-error'], // Puedes definir un estilo diferente para los mensajes de error
+    });
+  }
+  formatWeight(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const value = parseFloat(input.value);
+    
+    if (!isNaN(value)) {
+      // Formatear el valor con dos decimales
+      input.value = value.toFixed(2);
+    } else {
+      // Si no es un número, puedes limpiar el campo o establecer un valor predeterminado
+      input.value = '0.00';
+    }
+  } 
+  selectAll(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    input.select(); // Selecciona todo el texto del campo
+  }
+  formatPhone(value: string): string {
+    // Eliminar caracteres no numéricos
+    const cleaned = value.replace(/\D/g, '');
+    // Aplicar formato 9999-9999
+    if (cleaned.length >= 8) {
+      return `${cleaned.slice(0, 4)}-${cleaned.slice(4, 8)}`;
+    }
+    return value; // Devuelve el valor original si no tiene suficientes dígitos
+  }
+  onBlurPhone(): void {
+    const phoneControl = this.formularioRegistro.get('phone');
+    if (phoneControl && phoneControl.value) {
+      phoneControl.setValue(this.formatPhone(phoneControl.value));
+    }
+  }
 
 }
-
-
