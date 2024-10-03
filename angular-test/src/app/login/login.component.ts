@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogErrorComponent } from '../dialog-error/dialog-error.component';
+import { DatosService } from '../service/datos.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,7 @@ export class LoginComponent {
 
   formularioLogin: FormGroup
 
-  constructor(private form: FormBuilder, private router: Router, private authService: AuthService, private dialog: MatDialog) {
+  constructor(private datosService: DatosService,private form: FormBuilder, private router: Router, private authService: AuthService, private dialog: MatDialog) {
     this.formularioLogin = this.form.group({
       user: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
@@ -109,7 +110,9 @@ export class LoginComponent {
 
               if(response){
                 // Configurar el usuario actual con rolId y rolNombre
-               
+               //almacena el codigo del empleado
+               const usuCorrelativo = response.usuCorreltivo;
+               this.datosService.changeData(usuCorrelativo);
                 /**
                 this.authService.setCurrentUser({
                     //roleId: response.rolId,

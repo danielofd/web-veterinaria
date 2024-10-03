@@ -11,10 +11,12 @@ interface User {
 export class User{
   rolId: number;
     rolNombre: string;
+    usuCorreltivo: string;
 
-    constructor(rolId: number, rolNombre: string) {
+    constructor(rolId: number, rolNombre: string, usuCorreltivo: string) {
         this.rolId = rolId;
         this.rolNombre = rolNombre;
+        this.usuCorreltivo = usuCorreltivo;
     }
 }
 
