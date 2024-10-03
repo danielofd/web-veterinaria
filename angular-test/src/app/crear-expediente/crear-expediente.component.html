@@ -120,7 +120,8 @@
             <div class="col-md-6 mb-3">
                 <label class="form-label" for="phone">Teléfono</label>
                 <input [ngClass]="{'is-invalid': hasErrors('phone', 'required') || hasErrors('temp', 'maxlength')}" type="text" class="form-control"
-                    id="phone" formControlName="phone">
+                    id="phone" formControlName="phone"
+                    mask="0000-0000">
                 <div class="text-danger" *ngIf="hasErrors('phone', 'required')"> Campo obligatorio </div>
                 <div class="text-danger" *ngIf="hasErrors('phone', 'maxlength')">Máximo 10 caracteres</div>
             </div>
