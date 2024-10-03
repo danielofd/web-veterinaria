@@ -19,7 +19,7 @@ export class LoginComponent {
 
   constructor(private form: FormBuilder, private router: Router, private authService: AuthService, private dialog: MatDialog) {
     this.formularioLogin = this.form.group({
-      user: ['', Validators.required],
+      user: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     })
   }
@@ -72,6 +72,7 @@ export class LoginComponent {
 
     if (this.formularioLogin.invalid) {
         this.formularioLogin.markAllAsTouched();
+        this.openDialog('Por favor, ingrese los datos válidos para continuar.');
         return;
     }
     /*
