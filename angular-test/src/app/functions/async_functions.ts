@@ -13,7 +13,7 @@ export function asyncTemperatureValidator(): AsyncValidatorFn {
       // Simular una llamada asíncrona, por ejemplo, para verificar el valor
       map(value => {
         // Aquí puedes poner tu lógica para validar
-        if (value.length > 3) {
+        if (value.length > 4) {
           return { maxlength: true };
         }
         return null; // Sin errores

@@ -105,19 +105,33 @@
 
         <div class="row">
             <div class="col-md-6 mb-3">
-                <label class="form-label" for="history">Historia Clínica</label>
-                <textarea [ngClass]="{'is-invalid': hasErrors('history', 'maxlength')}" 
-                          class="form-control" id="history" formControlName="history" rows="3" maxlength="300"></textarea>
-                <div class="text-danger" *ngIf="hasErrors('history', 'maxlength')">Máximo 300 caracteres</div>
+                <label class="form-label" for="phone">Teléfono</label>
+                <input [ngClass]="{'is-invalid': hasErrors('phone', 'required') || hasErrors('temp', 'maxlength') || hasErrors('phone', 'formatoInvalido')}" 
+                type="text" class="form-control"
+                    id="phone" formControlName="phone"
+                    placeholder="Ejemplo: 1234-5678"  (blur)="onBlurPhone()">
+                <div class="text-danger" *ngIf="hasErrors('phone', 'required')"> Campo obligatorio </div>
+                <div class="text-danger" *ngIf="hasErrors('phone', 'maxlength')">Máximo 10 caracteres</div>
+                <div class="text-danger" *ngIf="hasErrors('phone', 'formatoInvalido')">Formato inválido. Ejemplo: 1234-5678</div>
             </div>
 
             <div class="col-md-6 mb-3">
-                <label class="form-label" for="observations">Observaciones</label>
-                <textarea [ngClass]="{'is-invalid': hasErrors('observations', 'maxlength')}" 
-                          class="form-control" id="observations" formControlName="observations" rows="3" maxlength="300"></textarea>
-                <div class="text-danger" *ngIf="hasErrors('observations', 'maxlength')">Máximo 300 caracteres</div>
+                <label class="form-label" for="med">Médico Referido (no obligatorio)</label>
+                <input 
+                    [ngClass]="{'is-invalid': hasErrors('med', 'maxlength') || hasErrors('med', 'soloLetras')}" 
+                    type="text" 
+                    class="form-control" 
+                    id="med" 
+                    formControlName="med"
+                >
+                <div class="text-danger" *ngIf="hasErrors('med', 'maxlength')">
+                    Máximo de 50 caracteres
+                </div>
+                <div class="text-danger" *ngIf="hasErrors('med', 'soloLetras')">
+                    Solo se permiten letras y espacios
+                </div>
             </div>
-        </div>
+                    </div>            
 
         <div class="d-grid gap-2 d-md-flex justify-content-md-between">
             <button type="button" class="btn btn-secondary" (click)="regresar()">Regresar</button>
