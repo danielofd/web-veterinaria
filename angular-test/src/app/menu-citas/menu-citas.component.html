@@ -3,30 +3,29 @@
         <h2>MENU CITAS</h2>
     </div>
     <div class="row">
-        <!-- Opción para crear expediente -->
+        <!-- Opción para crear cita -->
         <div class="col-md-12 mb-3">
-            <!--<button *ngIf="canCreate" (click)="createExpediente()" class="btn btn-primary w-50 text-start" [routerLink]="['/crear-expediente']">CREAR EXPEDIENTE</button>-->
-            <!--<button *ngIf="canCreate" (click)="createExpediente()" class="btn btn-primary w-50 text-start">CREAR EXPEDIENTE</button>-->
-            <button *ngIf="canCreate" (click)="createCita()" class="btn btn-primary w-50 text-start">CREAR CITA</button>
+            <button *ngIf="canCreate" (click)="createCita()" class="btn btn-primary btn-lg w-50 text-start">
+                <span class="material-symbols-outlined" style="vertical-align: middle;">edit_square</span> <!-- Icono para crear cita -->
+                CREAR CITA
+            </button>
         </div>
 
-        <!-- Opción para consultar expediente -->
+        <!-- Opción para consultar cita -->
         <div class="col-md-12 mb-3">
-            <!--<button class="btn btn-info w-50 text-start" [routerLink]="['/consulta-expediente']">CONSULTAR EXPEDIENTE</button>-->
-            <!--<button *ngIf="canConsult" class="btn btn-info w-50 text-start" (click)="consultExpediente()">CONSULTAR EXPEDIENTE</button>-->
-            <button  class="btn btn-info w-50 text-start">CONSULTAR CITA</button>
+            <button class="btn btn-primary btn-lg w-50 text-start">
+                <span class="material-symbols-outlined" style="vertical-align: middle;">search</span> <!-- Icono para consultar cita -->
+                CONSULTAR CITA
+            </button>
         </div>
         
-        <!-- Opción para modificar expediente -->
-         <!--
-        <div class="col-md-12 mb-3">
-            <button class="btn btn-secondary w-50 text-start" [routerLink]="['/modificar-expediente']">MODIFICAR EXPEDIENTE</button>
-            <button *ngIf="canEdit" class="btn btn-secondary w-50 text-start" (click)="editExpediente()">MODIFICAR EXPEDIENTE</button>
-        </div>
-        -->
         <!-- Opción para regresar al menú home -->
         <div class="col-md-12 mb-3">
-            <button class="btn btn-light w-50 text-start" [routerLink]="['/home']">REGRESAR AL MENÚ PRINCIPAL</button>
+            <button class="btn btn-danger btn-lg w-50 text-start" [routerLink]="['/home']">
+                <span class="material-symbols-outlined" style="vertical-align: middle;">keyboard_return</span> <!-- Icono para regresar -->
+                REGRESAR AL MENÚ PRINCIPAL
+            </button>
         </div>
     </div>
 </div>
+
