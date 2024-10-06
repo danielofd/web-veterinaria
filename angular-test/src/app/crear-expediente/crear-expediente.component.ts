@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component'
 import { DatosService } from '../service/datos.service';
 import { TipoMascota } from 'src/models/tipo-mascota';
+import { HttpResponse } from '@angular/common/http';
 
 function soloLetras(control: AbstractControl): { [key: string]: boolean } | null {
   const regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/; // Permite letras y espacios
@@ -83,7 +84,8 @@ export class CrearExpedienteComponent implements OnInit{
       address: ['', Validators.required, [asyncNombreMascotaValidator()]], // tamaño 50
       phone: ['', [Validators.required, , formatoTelefono], [asynTelefonoValidator()]], //tamaño 10
       med: ['',[Validators.maxLength(50), soloLetras]], //tamaño 50
-      date: ['', Validators.required]
+      date: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email, Validators.maxLength(40)]]
     });
   }
 
@@ -181,6 +183,24 @@ export class CrearExpedienteComponent implements OnInit{
   }
   */
   guardarExpediente() {
+
+    if (this.formularioRegistro.get('name')?.invalid ||
+    this.formularioRegistro.get('owner')?.invalid ||
+    this.formularioRegistro.get('animal')?.invalid ||
+    this.formularioRegistro.get('gender')?.invalid ||
+    this.formularioRegistro.get('raza')?.invalid ||
+    this.formularioRegistro.get('color')?.invalid ||
+    this.formularioRegistro.get('weight')?.invalid ||
+    this.formularioRegistro.get('temp')?.invalid ||
+    this.formularioRegistro.get('frec')?.invalid ||
+    this.formularioRegistro.get('address')?.invalid ||
+    this.formularioRegistro.get('phone')?.invalid ||
+    this.formularioRegistro.get('email')?.invalid) {
+      // Aquí puedes mostrar un mensaje o hacer algo en caso de que el formulario sea inválido
+      this.procesoMsg('POR FAVOR COMPLETAR TODOS LOS CAMPOS OBLIGATORIOS.');
+      return; // Evita continuar si el formulario no es válido
+  }
+
     const dialogRef = this.dialog.open(ConfirmDialogComponent);
 
     dialogRef.afterClosed().subscribe(result => {
@@ -204,6 +224,7 @@ export class CrearExpedienteComponent implements OnInit{
     this.expediente.masDireccion = this.formularioRegistro.get('address')?.value;
     this.expediente.masTelefono = this.formularioRegistro.get('phone')?.value;
     this.expediente.masMedReferido = this.formularioRegistro.get('med')?.value;
+    this.expediente.masCorreo = this.formularioRegistro.get('email')?.value;
     console.log(this.formularioRegistro.valid); 
     this.raza.razId = 1;
     this.expediente.raza = this.raza;
@@ -214,10 +235,20 @@ export class CrearExpedienteComponent implements OnInit{
       this.expediente.usuCodigo = data
     });
     
-    this._service.crearNuevoExpediente(this.expediente).subscribe((res => {
+    this._service.crearNuevoExpediente(this.expediente).subscribe(((res: HttpResponse<any>) => {
       console.log(res);
       //alert(res);
-      this.procesoMsg();
+      const statusCode = res.status;
+      const codExpedienteGen = res.body.idRecord;
+      console.log(statusCode);
+      console.log(codExpedienteGen);
+      if(statusCode===200){
+        this.procesoMsg("REGISTRO CREADO CON EXITO.\n No DE EXPEDIENTE GENERADO: "+codExpedienteGen);
+      }else{
+        this.procesoMsg("NO SE PUDO GUARDAR EL REGISTRO.");
+      }
+
+     
       this.formularioRegistro.reset();
     }));
   }
@@ -232,9 +263,9 @@ export class CrearExpedienteComponent implements OnInit{
     return this.formularioRegistro.get(controlName)?.hasError(errorType) && this.formularioRegistro.get(controlName)?.touched
   }
 
-  procesoMsg() {
-    const snackBarRef = this.snackBar.open('Registro guardado con exito', 'Cerrar', {
-      duration: 5000,
+  procesoMsg(msj: string) {
+    const snackBarRef = this.snackBar.open(msj, 'Cerrar', {
+      duration: 20000,
       panelClass: ['snackbar-confirm'],
     });
   
@@ -278,5 +309,17 @@ export class CrearExpedienteComponent implements OnInit{
       phoneControl.setValue(this.formatPhone(phoneControl.value));
     }
   }
+
+  onBlurEmail() {
+    const emailControl = this.formularioRegistro.get('email');
+
+    // Marca el control como tocado para mostrar los errores
+    if (emailControl) {
+        emailControl.markAsTouched();
+    }
+
+    // Aquí puedes agregar lógica adicional si necesitas realizar acciones específicas
+    // Por ejemplo, podrías verificar el valor o hacer alguna llamada a un servicio
+}
 
 }
