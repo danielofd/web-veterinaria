@@ -23,7 +23,7 @@
             <div class="col-12 col-md-2 mb-3"> <!-- Ancho reducido -->
                 <label for="vet">Veterinarios</label>
                 <select id="vet" class="form-select form-select-sm" formControlName="veter" (change)="onVeterinarioChange($event)">
-                    <option value="">Seleccione un veterinario</option>
+                    <!-- <option value="">Seleccione un veterinario</option> -->
                     <option *ngFor="let vet of veterinarios" [value]="vet.empId">
                         {{ vet.empNombre }} {{ vet.empApellido }}
                     </option>
@@ -33,7 +33,7 @@
             <div class="col-12 col-md-2 mb-3"> <!-- Ancho reducido -->
                 <label for="horas">Horarios disponibles</label>
                 <select id="horas" class="form-select form-select-sm" formControlName="hora" (change)="onHorarioChange($event)">
-                    <option value="">Seleccione una hora</option>
+                    <!-- <option value="">Seleccione una hora</option> -->
                     <option *ngFor="let horario of horarios" [value]="horario.hocHorario">
                         {{ horario.hocHorario }}
                     </option>

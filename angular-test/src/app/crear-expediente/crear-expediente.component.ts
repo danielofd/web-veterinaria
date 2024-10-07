@@ -214,16 +214,16 @@ export class CrearExpedienteComponent implements OnInit{
   }
 
   realizarGuardado() {
-    this.expediente.masNombre = this.formularioRegistro.get('name')?.value;
-    this.expediente.masPropietario = this.formularioRegistro.get('owner')?.value;
-    this.expediente.masGenero = this.formularioRegistro.get('gender')?.value;
-    this.expediente.masColor = this.formularioRegistro.get('color')?.value;
+    this.expediente.masNombre = this.formularioRegistro.get('name')?.value.toUpperCase();
+    this.expediente.masPropietario = this.formularioRegistro.get('owner')?.value.toUpperCase();
+    this.expediente.masGenero = this.formularioRegistro.get('gender')?.value.toUpperCase();
+    this.expediente.masColor = this.formularioRegistro.get('color')?.value.toUpperCase();
     this.expediente.masPeso = this.formularioRegistro.get('weight')?.value;
     this.expediente.masTemperatura = this.formularioRegistro.get('temp')?.value;
     this.expediente.masFrecardiaca = this.formularioRegistro.get('frec')?.value;
-    this.expediente.masDireccion = this.formularioRegistro.get('address')?.value;
+    this.expediente.masDireccion = this.formularioRegistro.get('address')?.value.toUpperCase();
     this.expediente.masTelefono = this.formularioRegistro.get('phone')?.value;
-    this.expediente.masMedReferido = this.formularioRegistro.get('med')?.value;
+    this.expediente.masMedReferido = this.formularioRegistro.get('med')?.value.toUpperCase();
     this.expediente.masCorreo = this.formularioRegistro.get('email')?.value;
     console.log(this.formularioRegistro.valid); 
     this.raza.razId = 1;
@@ -234,7 +234,7 @@ export class CrearExpedienteComponent implements OnInit{
       console.log("usu correlativo: "+data);
       this.expediente.usuCodigo = data
     });
-    
+    console.log(this.expediente)
     this._service.crearNuevoExpediente(this.expediente).subscribe(((res: HttpResponse<any>) => {
       console.log(res);
       //alert(res);
