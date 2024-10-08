@@ -13,7 +13,7 @@
             <div class="col-12 col-md-2 mb-3"> <!-- Campo de texto para Nombre del propietario -->
                 <label for="propietario">Nombre del propietario</label>
                 <!-- <input type="text" id="propietario" class="form-control form-control-sm" formControlName="nombrePropietario"> -->
-                <input type="text" id="propietario" class="form-control form-control-sm" formControlName="nombrePropietario">
+                <input type="text" id="propietario" style="text-transform:uppercase" class="form-control form-control-sm" formControlName="nombrePropietario">
                 <div *ngIf="formularioRegistro.get('nombrePropietario')?.invalid && (formularioRegistro.get('nombrePropietario')?.touched || formularioRegistro.get('nombrePropietario')?.dirty)" class="text-danger">
                     <div *ngIf="formularioRegistro.get('nombrePropietario')?.errors?.['required']">El nombre es requerido.</div>
                     <div *ngIf="formularioRegistro.get('nombrePropietario')?.errors?.['invalidText']">Solo se permiten letras y espacios.</div>

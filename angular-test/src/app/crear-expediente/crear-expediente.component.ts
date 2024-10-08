@@ -19,20 +19,6 @@ function soloLetras(control: AbstractControl): { [key: string]: boolean } | null
   }
   return { soloLetras: true }; // Devuelve el error 'soloLetras'
 }
-function soloNumeros(control: AbstractControl): { [key: string]: boolean } | null {
-  const regex = /^\d+(\.\d{1,2})?$/; // Permite números enteros y decimales con hasta 2 lugares después del punto
-  if (!control.value || regex.test(control.value)) {
-    return null; // Si es válido, no devuelve ningún error
-  }
-  return { soloNumeros: true }; // Devuelve el error 'soloNumeros'
-}
-function soloNumerosEnteros(control: AbstractControl): { [key: string]: boolean } | null {
-  const regex = /^\d+$/; // Expresión regular para números enteros
-  if (!control.value || regex.test(control.value)) {
-    return null; // Si es válido, no devuelve ningún error
-  }
-  return { soloNumeros: true }; // Devuelve el error 'soloNumeros'
-}
 function formatoTelefono(control: AbstractControl): { [key: string]: boolean } | null {
   const regex = /^\d{4}-\d{4}$/; // Expresión regular para el formato 9999-9999
   if (!control.value || regex.test(control.value)) {
@@ -40,7 +26,6 @@ function formatoTelefono(control: AbstractControl): { [key: string]: boolean } |
   }
   return { formatoInvalido: true }; // Devuelve el error 'formatoInvalido'
 }
-
 @Component({
   selector: 'app-crear-expediente',
   templateUrl: './crear-expediente.component.html',
@@ -78,11 +63,11 @@ export class CrearExpedienteComponent implements OnInit{
       gender: ['', Validators.required],
       raza: ['',Validators.required],
       color: ['', [Validators.required,soloLetras], [asyncColorValidator()]],
-      weight: ['0.00', [Validators.required, soloNumeros], [asynPesoValidator()]],
-      temp: ['0.00', [Validators.required,soloNumeros], [asyncTemperatureValidator()]],
-      frec: ['', [Validators.required, , soloNumerosEnteros], [asyncTemperatureValidator()]],
+      weight: ['0.00', [Validators.required], [asynPesoValidator()]],
+      temp: ['0.00', [Validators.required], [asyncTemperatureValidator()]],
+      frec: ['', [Validators.required], [asyncTemperatureValidator()]],
       address: ['', Validators.required, [asyncNombreMascotaValidator()]], // tamaño 50
-      phone: ['', [Validators.required, , formatoTelefono], [asynTelefonoValidator()]], //tamaño 10
+      phone: ['', [Validators.required, Validators.maxLength(9), formatoTelefono], [asynTelefonoValidator()]], //tamaño 10
       med: ['',[Validators.maxLength(50), soloLetras]], //tamaño 50
       date: ['', Validators.required],
       email: ['', [Validators.required, Validators.email, Validators.maxLength(40)]]
@@ -320,6 +305,30 @@ export class CrearExpedienteComponent implements OnInit{
 
     // Aquí puedes agregar lógica adicional si necesitas realizar acciones específicas
     // Por ejemplo, podrías verificar el valor o hacer alguna llamada a un servicio
+}
+validateFormat(event: KeyboardEvent | ClipboardEvent) {
+  let key: string;
+
+  // Verifica si el evento es un pegado
+  if (event instanceof ClipboardEvent) {
+    key = event.clipboardData?.getData('text/plain') || '';
+  } else {
+    const keyCode = (event as KeyboardEvent).key;
+    key = keyCode;
+  }
+
+  const regex = /^[0-9]*$/; // Solo permite números enteros
+
+  // Verifica si la tecla es un número o una tecla de control (retroceso, suprimir, flechas, etc.)
+  if (!regex.test(key) && !this.isControlKey(event)) {
+    event.preventDefault();
+  }
+}
+
+isControlKey(event: KeyboardEvent | ClipboardEvent): boolean {
+  // Verifica si la tecla presionada es una tecla de control común (retroceso, suprimir, flechas, etc.)
+  const controlKeys = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'];
+  return controlKeys.includes((event as KeyboardEvent).key);
 }
 
 }
