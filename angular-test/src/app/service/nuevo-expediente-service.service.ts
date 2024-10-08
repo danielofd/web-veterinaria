@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Registro } from 'src/models/registro';
 import { environment } from '../env/env';
@@ -16,6 +16,6 @@ export class NuevoExpedienteServiceService {
   crearNuevoExpediente(expediente: Registro) {
     console.log(expediente);
     //return this.http.post<Registro>("http://localhost:8080/happyfriends/nuevoExpediente", expediente,{ responseType: 'text' });
-      return this.http.post<Registro>(this.apiUrl+"/nuevoExpediente", expediente,{ responseType: 'text'  as 'json'});
+      return this.http.post<HttpResponse<any>>(this.apiUrl+"/nuevoExpediente", expediente,{ observe: 'response' });
   }
 }

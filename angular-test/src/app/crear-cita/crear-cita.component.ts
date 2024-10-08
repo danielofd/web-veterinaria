@@ -33,11 +33,22 @@ export class CrearCitaComponent implements OnInit {
 
   constructor(private form: FormBuilder, private router: Router,private datosService: DatosService, private http: HttpClient, private snackBar: MatSnackBar, private dialog: MatDialog){
     this.formularioRegistro = this.form.group({
+      /*
       fecha: [''], //tamaño 50
       veter: [''], //tamaño 50
       hora: [''],
       nombrePropietario: ['',[Validators.required, this.textOnlyValidator]]
+      */
+      fecha: [null, Validators.required],
+      nombrePropietario: ['', [Validators.required, this.textValidator]],
+      veter: [null, Validators.required],
+      hora: [null, Validators.required],
     })
+  }
+
+  textValidator(control: any) {
+    const regex = /^[A-Za-z\s]+$/; // Solo letras y espacios
+    return regex.test(control.value) ? null : { invalidText: true };
   }
 
   ngOnInit(): void {
@@ -53,6 +64,7 @@ export class CrearCitaComponent implements OnInit {
 
 
   cargarVeterinarios(): void {
+    
     this.datosService.obtenerVeterinarios().subscribe(
       (data) => {
         console.log(data);
@@ -62,41 +74,13 @@ export class CrearCitaComponent implements OnInit {
         console.error('Error al cargar veterinarios', error);
       }
     );
+    
+   
   }
-
-  // onVeterinarioChange(empId: number): void {
-  //   this.selectedVeterinarioId = empId;
-  //   this.cargarHorarios();
-  // //   if (empId) {
-  // //     this.selectedVeterinarioId = +empId; // Convertir a número
-  // //     this.cargarHorarios();
-  // // } else {
-  // //     this.selectedVeterinarioId = null; // Maneja el caso en que no se selecciona un veterinario
-  // //     this.horarios = []; // Limpia los horarios si no hay veterinario seleccionado
-  // // }
-  // }
+ 
 
   onVeterinarioChange(event: Event): void {
    
-    // const selectElement = event.target as HTMLSelectElement; // Casting a HTMLSelectElement
-    // const empId = selectElement.value;
-
-    // if (empId) {
-    //     this.selectedVeterinarioId = +empId; // Convertir a número
-    //     this.cargarHorarios();
-    // } else {
-    //     this.selectedVeterinarioId = null;
-       
-    // }
-
-    // const selectedValue = selectElement.value; 
-    // const selectedVet = this.veterinarios.find(vet => vet.empId.toString() === selectedValue);
-    
-    // if (selectedVet) {
-    //   this.selectedVeterinario = `${selectedVet.empNombre} ${selectedVet.empApellido}`;
-    //   // Ahora puedes usar selectedVeterinario para tu servicio POST
-    //   console.log(this.selectedVeterinario);
-    // }
 
     const selectElement = event.target as HTMLSelectElement; // Casting a HTMLSelectElement
     const empId = selectElement.value;
@@ -120,6 +104,10 @@ export class CrearCitaComponent implements OnInit {
         console.log(this.selectedVeterinario);
     }
 }
+
+
+
+
 
   cargarHorarios(): void {
     if (this.selectedVeterinarioId && this.selectedFecha) {
@@ -161,6 +149,8 @@ onHorarioChange(event: Event): void {
 
 generarCita(): void {
 
+  
+
   const formValue = this.formularioRegistro.value;
 
   console.log(this.selectedVeterinarioId);
@@ -186,7 +176,7 @@ generarCita(): void {
       ctaFecHora: this.fechaHoraFormat,
       //ctaPropietario: this.selectedVeterinario,
 
-      ctaPropietario:formValue.nombrePropietario,
+      ctaPropietario:formValue.nombrePropietario.toUpperCase(),
       usuCodigo: this.codigoUsu,
       //horario: this.selectedHorario
     };
@@ -205,6 +195,15 @@ generarCita(): void {
           // Aquí puedes agregar más lógica, como mostrar un mensaje de éxito
           this.formularioRegistro.reset();
           // Limpia el formulario y restablece los horarios
+
+          //select horarios disponibles se limpia
+          this.formularioRegistro.get('hora')?.setValue('');
+
+          this.formularioRegistro.get('hora')?.setValue(null);
+          this.horarios=[];
+      
+          this.selectedVeterinarioId=null;
+          this.selectedFecha='';
       
       //this.veterinarios= [];
  
@@ -213,7 +212,7 @@ generarCita(): void {
       //this.selectedHorario = '';
       //this.horarios=[];
          
-          this.procesoMsg();
+          this.procesoMsg('REGISTRO GUARDADO CON EXITO.');
         },
         (error) => {
           console.error('Error al generar la cita', error);
@@ -223,6 +222,7 @@ generarCita(): void {
   } else {
     console.error('Por favor, complete todos los campos antes de generar la cita.');
   }
+  //this.formularioRegistro.reset();
 }
 
 formatFechaHora(fecha: string, horario: string): string {
@@ -252,6 +252,17 @@ limpiar(): void {
 
 guardarCita(){
 
+  //valida campos obligatorios antes de guardar
+  if (this.formularioRegistro.get('fecha')?.invalid ||
+  this.formularioRegistro.get('nombrePropietario')?.invalid ||
+  this.formularioRegistro.get('veter')?.invalid ||
+  this.formularioRegistro.get('hora')?.invalid) {
+    // Aquí puedes mostrar un mensaje o hacer algo en caso de que el formulario sea inválido
+    this.procesoMsg('POR FAVOR COMPLETAR TODOS LOS CAMPOS OBLIGATORIOS.');
+    return; // Evita continuar si el formulario no es válido
+}
+
+
   const dialogRef = this.dialog.open(ConfirmDialogComponent);
 
     dialogRef.afterClosed().subscribe(result => {
@@ -265,9 +276,9 @@ guardarCita(){
 
 }
 
-procesoMsg() {
-  const snackBarRef = this.snackBar.open('Registro guardado con exito', 'Cerrar', {
-    duration: 5000,
+procesoMsg(msj: string) {
+  const snackBarRef = this.snackBar.open(msj, 'Cerrar', {
+    duration: 20000,
     panelClass: ['snackbar-confirm'],
   });
 

@@ -3,6 +3,7 @@ import { Raza } from "./raza";
 export class Registro {
     masNombre?: string;
     masPropietario?: string;
+    masCorreo?: string;
     masGenero?:BigInteger;
     masColor?: string;
     masPeso?:string;
