@@ -58,10 +58,20 @@ export class MenuCitasComponent {
   }
 
   consultCita() {
+    /*
     if (this.canConsult) {
       // Lógica para eliminar expediente
       //alert("NO DISPONIBLE POR EL MOMENTO...");
       this.openSnackBar('NO DISPONIBLE POR EL MOMENTO...');
+    }
+      */
+    
+    if (this.canConsult) {
+      // Redirigir al formulario de creación de expediente
+      this.router.navigate(['/consultar-cita']);
+    } else {
+      console.log("No tienes permisos para consultar expedientes.");
+      //alert('No tienes permisos para crear expedientes.');
     }
   }
 

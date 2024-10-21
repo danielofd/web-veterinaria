@@ -1,0 +1,70 @@
+<div class="container mt-5">
+    <h2 class="text-center">MODIFICACION DE CITA</h2>
+    <br>
+    <form [formGroup]="formulario">
+
+        <!-- campo oculto para mantener id -->
+        <input type="hidden" formControlName="id">
+
+        <div class="form-group row">
+            <label for="fecha" class="col-sm-2 col-form-label">Fecha</label>
+            <div class="col-sm-10">
+                <input type="date" id="date" class="form-control" formControlName="fecha"  (change)="onFechaChange($event)" >
+            </div>
+        </div>
+
+        <br>
+        <div class="form-group row">
+            <label for="propietario"  class="col-sm-2 col-form-label">Propietario</label>
+            <div class="col-sm-10">
+                <input type="text" id="propietario"  class="form-control" formControlName="propietario" >
+            </div>
+        </div>
+
+        <br>
+        <div class="form-group row">
+            <label for="veterinario" class="col-sm-2 col-form-label">Veterinario</label>
+            <div class="col-sm-10">
+                <select id="vet" class="form-select form-select-sm" formControlName="veterinario"  (change)="onVeterinarioChange($event)"  >
+                    <option *ngFor="let vet of veterinarios" [value]="vet.empId">
+                        {{ vet.empNombre }} {{ vet.empApellido }}
+                    </option>
+                </select>
+            </div>
+        </div>
+
+
+        <br>
+        <div class="form-group row">
+            <label for="hora" class="col-sm-2 col-form-label">Hora</label>
+            <div class="col-sm-10">
+                <!-- <select class="form-control" formControlName="hora" required>
+                    <option value="08:00">8:00 AM</option>
+                    <option value="09:00">9:00 AM</option>
+                    <option value="10:00">10:00 AM</option>
+                    <option value="11:00">11:00 AM</option>
+                    <option value="13:00">1:00 PM</option>
+                    <option value="14:00">2:00 PM</option>
+                    <option value="15:00">3:00 PM</option>
+                    <option value="16:00">4:00 PM</option>
+                </select> -->
+
+                <select id="horas" class="form-select form-select-sm" formControlName="hora"  (change)="onHorarioChange($event)">
+                    <!-- <option value="">Seleccione una hora</option> -->
+                    <option *ngFor="let horario of horarios" [value]="horario.hocHorario">
+                        {{ horario.hocHorario }}
+                    </option>
+                </select>
+            </div>
+        </div>
+        
+       
+        <br>
+        <div class="form-group row">
+            <div class="col-sm-10 offset-sm-2">
+                <button type="submit" class="btn btn-primary me-3"  (click)="modificarCita()" >Guardar</button>
+                <button type="button" class="btn btn-light" (click)="regresar()">Regresar</button>
+            </div>
+        </div>
+    </form>
+</div>

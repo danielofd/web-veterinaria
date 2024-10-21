@@ -13,7 +13,7 @@
 
         <!-- Opción para consultar cita -->
         <div class="col-md-12 mb-3">
-            <button class="btn btn-primary btn-lg w-50 text-start">
+            <button *ngIf="canConsult" (click)="consultCita()" class="btn btn-primary btn-lg w-50 text-start">
                 <span class="material-symbols-outlined" style="vertical-align: middle;">search</span> <!-- Icono para consultar cita -->
                 CONSULTAR CITA
             </button>

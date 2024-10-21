@@ -49,4 +49,31 @@ export class DatosService {
     this.dataSource.next(data);
   }
 
+
+  //obtener citas guardadas
+  buscarCita(fecha: string, hora :string|null, prop:string|null): Observable<any[]> {
+
+    // Validar hora: si está vacía, establecerla en null
+  if (hora === "") {
+    hora = null;
+  }
+
+    // Validar hora: si está vacía, establecerla en null
+    if (prop === "") {
+      prop = null;
+    }
+  
+
+
+    const body = {
+      fecha: fecha,
+      hora: hora,
+      propietario: prop
+    };
+
+    console.log(body);
+
+    return this.http.post<any[]>(this.apiUrl+'/buscarCita', body);
+  }
+
 }

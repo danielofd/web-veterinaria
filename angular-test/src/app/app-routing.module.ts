@@ -10,6 +10,8 @@ import { ModificarExpedienteComponent } from './modificar-expediente/modificar-e
 import { CitasComponent } from './citas/citas.component';
 import { MenuCitasComponent } from './menu-citas/menu-citas.component';
 import { CrearCitaComponent } from './crear-cita/crear-cita.component';
+import { ConsultarCitaComponent } from './consultar-cita/consultar-cita.component';
+import { ModificarCitaComponent } from './modificar-cita/modificar-cita.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -22,6 +24,8 @@ const routes: Routes = [
   { path: 'citas', component: CitasComponent }, 
   {path: 'menu-citas', component: MenuCitasComponent}, //ruta para el componente menu citas
   {path: 'crear-cita', component: CrearCitaComponent}, //ruta para el componente crear citas
+  {path: 'consultar-cita', component: ConsultarCitaComponent}, //ruta para el componente consultar citas
+  {path: 'modificar-cita', component: ModificarCitaComponent}, //ruta para el componente crear citas
   {path: '**', redirectTo: '/login', pathMatch: 'full'}
 ];
 

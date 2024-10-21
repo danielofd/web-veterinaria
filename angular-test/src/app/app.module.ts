@@ -19,6 +19,9 @@ import { DialogErrorComponent } from './dialog-error/dialog-error.component';
 import { CitasComponent } from './citas/citas.component';
 import { MenuCitasComponent } from './menu-citas/menu-citas.component';
 import { CrearCitaComponent } from './crear-cita/crear-cita.component';
+import { ConsultarCitaComponent } from './consultar-cita/consultar-cita.component';
+import { MatTableModule } from '@angular/material/table';
+import { ModificarCitaComponent } from './modificar-cita/modificar-cita.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,9 @@ import { CrearCitaComponent } from './crear-cita/crear-cita.component';
     DialogErrorComponent,
     CitasComponent,
     MenuCitasComponent,
-    CrearCitaComponent
+    CrearCitaComponent,
+    ConsultarCitaComponent,
+    ModificarCitaComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +49,8 @@ import { CrearCitaComponent } from './crear-cita/crear-cita.component';
     HttpClientModule,
     BrowserAnimationsModule,
     MatSnackBarModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTableModule // Agregar MatTableModule aquí
   ],
   providers: [],
   bootstrap: [AppComponent]
