@@ -62,8 +62,15 @@
         <br>
         <div class="form-group row">
             <div class="col-sm-10 offset-sm-2">
-                <button type="submit" class="btn btn-primary me-3"  (click)="modificarCita()" >Guardar</button>
-                <button type="button" class="btn btn-light" (click)="regresar()">Regresar</button>
+                <button type="submit" class="btn btn-primary me-3"  (click)="modificarCita()" >
+                    <span class="material-symbols-outlined" style="vertical-align: middle;">
+                        save
+                        </span>
+                    Guardar</button>
+                <button type="button" class="btn btn-light" (click)="regresar()">
+                    <span class="material-symbols-outlined" style="vertical-align: middle;">keyboard_return</span>
+                    Regresar
+                </button>
             </div>
         </div>
     </form>

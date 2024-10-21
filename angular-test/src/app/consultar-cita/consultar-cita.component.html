@@ -24,7 +24,11 @@
                 <input type="text" formControlName="nombrePropietario" class="form-control" required>
             </div>
             <div class="col-auto">
-                <button type="button" class="btn btn-primary" (click)="consultarCita()">Consultar</button>
+                
+                <button type="button" class="btn btn-primary" (click)="consultarCita()">
+                    <span class="material-symbols-outlined" style="vertical-align: middle;">search</span> <!-- Icono para consultar cita -->
+                    Consultar
+                </button>
             </div>
         </div>
     </form>
@@ -38,7 +42,7 @@
                     <th>Hora</th>
                     <th>Propietario</th>
                     <th>Veterinario</th>
-                    <th style="width: 150px;">Acciones</th> <!-- Ancho reducido para Acciones -->
+                    <th style="width: 260px;">Acciones</th> <!-- Ancho reducido para Acciones -->
                 </tr>
             </thead>
             <tbody>
@@ -49,8 +53,18 @@
                     <td>{{ registro.propietario }}</td>
                     <td>{{ registro.veterinario }}</td>
                     <td style="width: 200px;"> <!-- Ancho reducido para Acciones -->
-                        <button class="btn btn-warning btn-sm me-2" (click)="editarRegistro(i)">Modificar</button>
-                        <button class="btn btn-danger btn-sm" (click)="eliminarRegistro(i)">Eliminar</button>
+                        <button class="btn btn-warning btn-sm me-2" (click)="editarRegistro(i)">
+                            <span class="material-symbols-outlined" style="vertical-align: middle;" >
+                                edit_document
+                                </span>
+                            Modificar
+                        </button>
+                        <button class="btn btn-danger btn-sm" (click)="eliminarRegistro(i)">
+                            <span class="material-symbols-outlined" style="vertical-align: middle;">
+                                delete
+                                </span>
+                            Eliminar
+                        </button>
                     </td>
                 </tr>
             </tbody>
@@ -60,10 +74,19 @@
     <!-- Botones en la parte inferior -->
     <div class="row justify-content-center mt-4">
         <div class="col-auto">
-            <button type="button" class="btn btn-secondary" (click)="regresar()"  >Regresar</button>
+            
+            <button type="button" class="btn btn-secondary" (click)="regresar()"  >
+                <span class="material-symbols-outlined" style="vertical-align: middle;">keyboard_return</span>
+                Regresar
+            </button>
         </div>
         <div class="col-auto">
-            <button type="button" class="btn btn-light">Limpiar</button>
+            <button type="button" class="btn btn-light">
+                <span class="material-symbols-outlined" style="vertical-align: middle;">
+                    mop
+                    </span>
+                Limpiar
+            </button>
         </div>
     </div>
 </div>
