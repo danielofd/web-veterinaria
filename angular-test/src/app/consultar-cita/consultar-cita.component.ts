@@ -30,7 +30,7 @@ export class ConsultarCitaComponent {
     //valida campos obligatorios antes de guardar
   if (this.formulario.get('fecha')?.invalid) {
     // Aquí puedes mostrar un mensaje o hacer algo en caso de que el formulario sea inválido
-    this.procesoMsg('POR FAVOR COMPLETAR TODOS LOS CAMPOS OBLIGATORIOS.');
+    this.procesoMsg('POR FAVOR COMPLETAR TODOS LOS CAMPOS OBLIGATORIOS(*).');
     return; // Evita continuar si el formulario no es válido
 }
 

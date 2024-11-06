@@ -2,11 +2,11 @@
     <form [formGroup]="formulario">
         <div class="row justify-content-center mb-3 align-items-end">
             <div class="col-auto">
-                <label for="fecha">Fecha:</label>
+                <label for="fecha">FECHA(*):</label>
                 <input type="date" formControlName="fecha" class="form-control" required>
             </div>
             <div class="col-auto">
-                <label for="hora">Hora:</label>
+                <label for="hora">HORA:</label>
                 <select formControlName="hora" class="form-control" required>
                     <option value="08:00:00">8:00 AM</option>
                     <option value="09:00:00">9:00 AM</option>
@@ -19,14 +19,14 @@
                 </select>
             </div>
             <div class="col-auto">
-                <label for="nombrePropietario">Nombre del Propietario:</label>
+                <label for="nombrePropietario">NOMBRE DEL PROPIETARIO:</label>
                 <input type="text" formControlName="nombrePropietario" class="form-control" required>
             </div>
             <div class="col-auto">
                 
                 <button type="button" class="btn btn-primary" (click)="consultarCita()">
                     <span class="material-symbols-outlined" style="vertical-align: middle;">search</span> <!-- Icono para consultar cita -->
-                    Consultar
+                    CONSULTAR
                 </button>
             </div>
         </div>
@@ -56,13 +56,13 @@
                             <span class="material-symbols-outlined" style="vertical-align: middle;" >
                                 edit_document
                                 </span>
-                            Modificar
+                            MODIFICAR
                         </button>
                         <button class="btn btn-danger btn-sm" (click)="eliminarRegistro(i)">
                             <span class="material-symbols-outlined" style="vertical-align: middle;">
                                 delete
                                 </span>
-                            Eliminar
+                            ELIMINAR
                         </button>
                     </td>
                 </tr>
@@ -76,7 +76,7 @@
             
             <button type="button" class="btn btn-secondary" (click)="regresar()"  >
                 <span class="material-symbols-outlined" style="vertical-align: middle;">keyboard_return</span>
-                Regresar
+                REGRESAR
             </button>
         </div>
         <div class="col-auto">
@@ -84,7 +84,7 @@
                 <span class="material-symbols-outlined" style="vertical-align: middle;">
                     mop
                     </span>
-                Limpiar
+                LIMPIAR
             </button>
         </div>
     </div>

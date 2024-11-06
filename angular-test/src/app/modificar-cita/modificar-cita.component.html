@@ -7,7 +7,7 @@
         <input type="hidden" formControlName="id">
 
         <div class="form-group row">
-            <label for="fecha" class="col-sm-2 col-form-label">Fecha</label>
+            <label for="fecha" class="col-sm-2 col-form-label">FECHA(*):</label>
             <div class="col-sm-10">
                 <input type="date" id="date" class="form-control" formControlName="fecha"  (change)="onFechaChange($event)" >
             </div>
@@ -15,7 +15,7 @@
 
         <br>
         <div class="form-group row">
-            <label for="propietario"  class="col-sm-2 col-form-label">Propietario</label>
+            <label for="propietario"  class="col-sm-2 col-form-label">PROPIETARIO(*):</label>
             <div class="col-sm-10">
                 <input type="text" id="propietario"  class="form-control" formControlName="propietario" >
             </div>
@@ -23,7 +23,7 @@
 
         <br>
         <div class="form-group row">
-            <label for="veterinario" class="col-sm-2 col-form-label">Veterinario</label>
+            <label for="veterinario" class="col-sm-2 col-form-label">VETERINARIO(*):</label>
             <div class="col-sm-10">
                 <select id="vet" class="form-select form-select-sm" formControlName="veterinario"  (change)="onVeterinarioChange($event)"  >
                     <option *ngFor="let vet of veterinarios" [value]="vet.empId">
@@ -36,7 +36,7 @@
 
         <br>
         <div class="form-group row">
-            <label for="hora" class="col-sm-2 col-form-label">Hora</label>
+            <label for="hora" class="col-sm-2 col-form-label">HORA(*):</label>
             <div class="col-sm-10">
                 <!-- <select class="form-control" formControlName="hora" required>
                     <option value="08:00">8:00 AM</option>
@@ -66,10 +66,10 @@
                     <span class="material-symbols-outlined" style="vertical-align: middle;">
                         save
                         </span>
-                    Guardar</button>
+                    GUARDAR</button>
                 <button type="button" class="btn btn-light" (click)="regresar()">
                     <span class="material-symbols-outlined" style="vertical-align: middle;">keyboard_return</span>
-                    Regresar
+                    REGRESAR
                 </button>
             </div>
         </div>

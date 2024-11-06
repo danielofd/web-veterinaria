@@ -6,7 +6,7 @@
     <form [formGroup]="formularioRegistro" (ngSubmit)="guardarExpediente()">
         <div class="row">
             <div class="col-md-6 mb-3">
-                <label class="form-label" for="name">Nombre de la Mascota</label>
+                <label class="form-label" for="name">NOMBRE DE LA MASCOTA(*)</label>
                 <input
                     [ngClass]="{'is-invalid': hasErrors('name', 'required') || hasErrors('name', 'maxlength') || hasErrors('name', 'soloLetras')}"
                     type="text" class="form-control" id="name" style="text-transform:uppercase" formControlName="name">
@@ -17,7 +17,7 @@
             </div>
 
             <div class="col-md-6 mb-3">
-                <label class="form-label" for="owner">Nombre del Propietario</label>
+                <label class="form-label" for="owner">NOMBRE DEL PROPIETARIO(*)</label>
                 <input
                     [ngClass]="{'is-invalid': hasErrors('owner', 'required') || hasErrors('owner', 'maxlength') || hasErrors('owner', 'soloLetras')}"
                     type="text" class="form-control" id="owner" style="text-transform:uppercase" formControlName="owner">
@@ -30,7 +30,7 @@
 
         <div class="row">
             <div class="col-md-6 mb-3">
-                <label class="form-label" for="tipoMascota">Tipo de Mascota</label>
+                <label class="form-label" for="tipoMascota">TIPO DE MASCOTA(*)</label>
                 <select [ngClass]="{'is-invalid': hasErrors('animal', 'required')}" id="tipoMascota"
                     formControlName="animal" class="form-select">
                     <option value="">Seleccione un tipo</option>
@@ -40,7 +40,7 @@
             </div>
 
             <div class="col-md-6 mb-3">
-                <label class="form-label" for="gender">Género</label>
+                <label class="form-label" for="gender">GENERO(*)</label>
                 <select [ngClass]="{'is-invalid': hasErrors('gender', 'required')}" class="form-select" id="gender"
                     formControlName="gender">
                     <option value="1">Macho</option>
@@ -52,7 +52,7 @@
 
         <div class="row">
             <div class="col-md-6 mb-3">
-                <label class="form-label" for="razaMascota">Raza</label>
+                <label class="form-label" for="razaMascota">RAZA(*)</label>
                 <select [ngClass]="{'is-invalid': hasErrors('raza', 'required')}" id="razaMascota"
                     formControlName="raza" class="form-select">
                     <option value="">Seleccione una raza</option>
@@ -62,7 +62,7 @@
             </div>
 
             <div class="col-md-6 mb-3">
-                <label class="form-label" for="color">Color</label>
+                <label class="form-label" for="color">COLOR(*)</label>
                 <input
                     [ngClass]="{'is-invalid': hasErrors('color', 'required') || hasErrors('color', 'maxlength') || hasErrors('color', 'soloLetras')}"
                     type="text" class="form-control" id="color" style="text-transform:uppercase" formControlName="color">
@@ -75,7 +75,7 @@
 
         <div class="row">
             <div class="col-md-6 mb-3">
-                <label class="form-label" for="weight">Peso (lb)</label>
+                <label class="form-label" for="weight">PESO(*) (lb)</label>
                 <input
                     [ngClass]="{'is-invalid': hasErrors('weight', 'required') || hasErrors('weight', 'maxlength')}"
                     type="text" class="form-control" id="weight" formControlName="weight" (blur)="formatWeight($event)"
@@ -88,7 +88,7 @@
             </div>
 
             <div class="col-md-6 mb-3">
-                <label class="form-label" for="temp">Temperatura (°C)</label>
+                <label class="form-label" for="temp">TEMPERATURA(*) (°C)</label>
                 <input
                     [ngClass]="{'is-invalid': hasErrors('temp', 'required') || hasErrors('temp', 'maxlength')}"
                     type="text" class="form-control" id="temp" formControlName="temp" (blur)="formatWeight($event)"
@@ -102,7 +102,7 @@
 
         <div class="row">
             <div class="col-md-6 mb-3">
-                <label class="form-label" for="frec">Frecuencia Cardiaca</label>
+                <label class="form-label" for="frec">FRECUENCIA CARDIACA(*)</label>
                 <input [ngClass]="{'is-invalid': hasErrors('frec', 'required') || hasErrors('frec', 'maxlength')}"
                     type="text" class="form-control" id="frec" formControlName="frec" (focus)="selectAll($event)"
                     (keydown)="validateFormat($event)" 
@@ -115,7 +115,7 @@
             </div>
 
             <div class="col-md-6 mb-3">
-                <label class="form-label" for="address">Dirección</label>
+                <label class="form-label" for="address">DIRECCION (*)</label>
                 <input [ngClass]="{'is-invalid': hasErrors('address', 'required') || hasErrors('address', 'maxlength')}"
                     type="text" class="form-control" style="text-transform:uppercase" id="address" formControlName="address">
                 <div class="text-danger" *ngIf="hasErrors('address', 'required')">Campo obligatorio</div>
@@ -125,7 +125,7 @@
 
         <div class="row">
             <div class="col-md-6 mb-3">
-                <label class="form-label" for="phone">Teléfono</label>
+                <label class="form-label" for="phone">TELEFONO(*)</label>
                 <input
                     [ngClass]="{'is-invalid': hasErrors('phone', 'required') || hasErrors('temp', 'maxlength') || hasErrors('phone', 'formatoInvalido')}"
                     type="text" class="form-control" id="phone" formControlName="phone" maxlength="9" 
@@ -140,7 +140,7 @@
             </div>
 
             <div class="col-md-6 mb-3">
-                <label class="form-label" for="med">Médico Referido (no obligatorio)</label>
+                <label class="form-label" for="med">MEDICO REFERIDO (no obligatorio)</label>
                 <input [ngClass]="{'is-invalid': hasErrors('med', 'maxlength') || hasErrors('med', 'soloLetras')}"
                     type="text" class="form-control" style="text-transform:uppercase" id="med" formControlName="med">
                 <div class="text-danger" *ngIf="hasErrors('med', 'maxlength')">
@@ -162,7 +162,7 @@
             </div> -->
 
             <div class="col-md-6 mb-3">
-                <label class="form-label" for="email">Correo Electrónico</label>
+                <label class="form-label" for="email">CORREO ELECTRONICO(*)</label>
                 <input
                     [ngClass]="{'is-invalid': hasErrors('email', 'required') || hasErrors('email', 'email') || hasErrors('email', 'maxlength')}"
                     type="email" class="form-control" id="email" formControlName="email" placeholder="Ejemplo: usuario@gmail.com"
@@ -181,20 +181,20 @@
         <div class="d-grid gap-2 d-md-flex justify-content-md-between">
             <button type="button" class="btn btn-secondary" (click)="regresar()">
                 <span class="material-symbols-outlined" style="vertical-align: middle;">keyboard_return</span>
-                Regresar
+                REGRESAR
             </button>
             <div>
                 <button type="button" class="btn btn-danger me-2" (click)="limpiar()">
                     <span class="material-symbols-outlined" style="vertical-align: middle;" >
                         cleaning_bucket
                         </span>
-                    Limpiar
+                    LIMPIAR
                 </button>
                 <button type="submit" class="btn btn-success">
                     <span class="material-symbols-outlined" style="vertical-align: middle;" >
                         save
                         </span>
-                    Guardar Expediente
+                    GUARDAR EXPEDIENTE
                 </button>
             </div>
         </div>

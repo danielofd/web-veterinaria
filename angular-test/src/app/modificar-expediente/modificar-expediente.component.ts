@@ -60,6 +60,10 @@ export class ModificarExpedienteComponent implements OnInit {
   }
 
 
+  regresar(): void {
+    // Ejemplo de redirección a una ruta específica
+    this.router.navigate(['/menu-expediente']); // Cambia '/menu' a la ruta que necesites
+  }
 
   
 

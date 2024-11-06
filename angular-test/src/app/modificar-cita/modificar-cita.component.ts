@@ -47,6 +47,10 @@ export class ModificarCitaComponent implements OnInit {
 
   /**carga los datos de la fila seleccionada del listado de citas */
   ngOnInit(): void {
+
+
+    let veterinarioNombre : string='';
+
     // Obtener los datos pasados a través de la ruta
     this.route.params.subscribe(params => {
       const data = params['data'];
@@ -59,31 +63,56 @@ export class ModificarCitaComponent implements OnInit {
 
         console.log("registro seleccionado: " +data);
         const registro = JSON.parse(data); // Parsear el JSON para obtener el objeto
+
+        veterinarioNombre = registro.veterinario;
+
+        console.log("vet selected: "+veterinarioNombre)
        /*
         registro.fecha='';
         registro.veterinario='';
         registro.hora='';
         */
-        console.log(registro);
+        //console.log(registro);
 
         this.formulario.patchValue(registro); // Rellenar el formulario con los datos
 
         //this.fillForm(); // Llenar el formulario con los datos
+
+
       }
     });
 
 
     /**cargar lista de veterinarios */
-    this.cargarVeterinarios();
+    this.cargarVeterinarios(veterinarioNombre);
+
   }
 
 
-  cargarVeterinarios(): void {
+  cargarVeterinarios(nombreVet:string): void {
     
     this.datosService.obtenerVeterinarios().subscribe(
       (data) => {
-        console.log(data);
+        //console.log(data);
         this.veterinarios = data;
+
+        console.log(this.veterinarios);
+
+        /*
+        const veterinarioEncontrado = this.veterinarios.find(vet => `${vet.empNombre} ${vet.empApellido}` === nombreVet);
+
+        if (veterinarioEncontrado) {
+          // Reordenar el array para poner al veterinario encontrado en la primera posición
+          const veterinariosReordenados = [veterinarioEncontrado, ...this.veterinarios.filter(vet => vet !== veterinarioEncontrado)];
+    
+          // Actualizamos la lista de veterinarios
+          this.veterinarios = veterinariosReordenados;
+    
+          // Establecer el valor del veterinario en el formulario (por defecto)
+          this.formulario.get('veterinario')?.setValue(veterinarioEncontrado.empId);
+        }
+        */
+
       },
       (error) => {
         console.error('Error al cargar veterinarios', error);
@@ -160,6 +189,7 @@ console.log("-----------------")
 
     console.log(fecha);
 
+
     if (fecha) {
         this.selectedFecha = fecha;  // Actualiza la fecha seleccionada
         
@@ -170,6 +200,13 @@ console.log("-----------------")
 }
 
   cargarHorarios(): void {
+
+    //probando si recupera id de veterinario por defecto
+    const veterinarioSeleccionada = this.formulario.get('veterinario')?.value; 
+
+    console.log("veterinario selected => "+veterinarioSeleccionada);
+
+
     if (this.selectedVeterinarioId && this.selectedFecha) {
       this.datosService.obtenerHorarios(this.selectedFecha, this.selectedVeterinarioId).subscribe(
         (data) => {
@@ -192,6 +229,12 @@ onHorarioChange(event: Event): void {
 
 onVeterinarioChange(event: Event): void {
    
+  const fechaSeleccionada = this.formulario.get('fecha')?.value; 
+
+  console.log("fecha actual => "+fechaSeleccionada);
+
+  //setea valor por defecto del campo fecha
+  this.selectedFecha = fechaSeleccionada;
 
   const selectElement = event.target as HTMLSelectElement; // Casting a HTMLSelectElement
   const empId = selectElement.value;
@@ -265,6 +308,8 @@ onVeterinarioChange(event: Event): void {
       //ctaHora: formValue.hora,
       ctaPropietario:formValue.propietario.toUpperCase(),
       //horario: this.selectedHorario
+      //idEmp
+      empId: this.formulario.get('veterinario')?.value
     };
 
     console.log(JSON.stringify(citaData));
@@ -278,6 +323,7 @@ onVeterinarioChange(event: Event): void {
       .subscribe(
         (response) => {
           console.log('Respuesta del servidor:', response); 
+          /*
           // Aquí puedes agregar más lógica, como mostrar un mensaje de éxito
           this.formulario.reset();
           // Limpia el formulario y restablece los horarios
@@ -290,24 +336,60 @@ onVeterinarioChange(event: Event): void {
       
           this.selectedVeterinarioId=null;
           this.selectedFecha='';
-      
+            */
       //this.veterinarios= [];
  
       //this.selectedVeterinarioId = 0;
       //this.selectedFecha = ''; // Fecha seleccionada
       //this.selectedHorario = '';
       //this.horarios=[];
-         
+
+          // Verifica el contenido de la respuesta
+        if (response === "Horario ocupado, intente con otro horario") {
+          // Si el mensaje de respuesta es "Horario ocupado"
+          this.procesoMsg('HORARIO OCUPADO, INTENTE CON OTRO HORARIO');
+          console.log("Horario ocupado");
+        } else {
+
+          // Aquí puedes agregar más lógica, como mostrar un mensaje de éxito
+          this.formulario.reset();
+          // Limpia el formulario y restablece los horarios
+
+          //select horarios disponibles se limpia
+          this.formulario.get('hora')?.setValue('');
+
+          this.formulario.get('hora')?.setValue(null);
+          this.horarios=[];
+      
+          this.selectedVeterinarioId=null;
+          this.selectedFecha='';
+
+
+          // Si la respuesta no es "Horario ocupado", asumimos que el registro fue modificado con éxito
+          console.log("Registro modificado con éxito");
           this.procesoMsg('REGISTRO GUARDADO CON EXITO.');
+          // Redirigir al formulario de creación de expediente
+         this.router.navigate(['/consultar-cita']);
+        }
+
+         
+          
         },
         (error) => {
           console.error('Error al generar la cita', error);
           // Maneja el error aquí
           this.procesoMsg('ERROR AL GUARDAR EL REGISTRO.');
+          // Redirigir al formulario de creación de expediente
+         this.router.navigate(['/consultar-cita']);
         }
-      );
+     
+      )
+         
   } else {
     console.error('Por favor, complete todos los campos antes de generar la cita.');
+
+    this.procesoMsg('POR FAVOR COMPLETE TODOS LOS CAMPOS OBLIGATORIOS (*).');
+
   }
   //this.formularioRegistro.reset();
 
