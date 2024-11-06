@@ -22,6 +22,7 @@ import { CrearCitaComponent } from './crear-cita/crear-cita.component';
 import { ConsultarCitaComponent } from './consultar-cita/consultar-cita.component';
 import { MatTableModule } from '@angular/material/table';
 import { ModificarCitaComponent } from './modificar-cita/modificar-cita.component';
+import { ConsultarExpedienteComponent } from './consultar-expediente/consultar-expediente.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { ModificarCitaComponent } from './modificar-cita/modificar-cita.componen
     MenuCitasComponent,
     CrearCitaComponent,
     ConsultarCitaComponent,
-    ModificarCitaComponent
+    ModificarCitaComponent,
+    ConsultarExpedienteComponent
   ],
   imports: [
     BrowserModule,

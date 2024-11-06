@@ -59,11 +59,11 @@ export class ModificarCitaComponent implements OnInit {
 
         console.log("registro seleccionado: " +data);
         const registro = JSON.parse(data); // Parsear el JSON para obtener el objeto
-       
+       /*
         registro.fecha='';
         registro.veterinario='';
         registro.hora='';
-
+        */
         console.log(registro);
 
         this.formulario.patchValue(registro); // Rellenar el formulario con los datos
@@ -169,19 +169,19 @@ console.log("-----------------")
     }
 }
 
-cargarHorarios(): void {
-  if (this.selectedVeterinarioId && this.selectedFecha) {
-    this.datosService.obtenerHorarios(this.selectedFecha, this.selectedVeterinarioId).subscribe(
-      (data) => {
-        console.log(data);
-        this.horarios = data;
-      },
-      (error) => {
-        console.error('Error al cargar horarios', error);
-      }
-    );
+  cargarHorarios(): void {
+    if (this.selectedVeterinarioId && this.selectedFecha) {
+      this.datosService.obtenerHorarios(this.selectedFecha, this.selectedVeterinarioId).subscribe(
+        (data) => {
+          console.log(data);
+          this.horarios = data;
+        },
+        (error) => {
+          console.error('Error al cargar horarios', error);
+        }
+      );
+    }
   }
-}
 
 onHorarioChange(event: Event): void {
   const selectElement = event.target as HTMLSelectElement; // Casting a HTMLSelectElement

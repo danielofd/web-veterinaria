@@ -1,0 +1,230 @@
+<div class="container mt-5 mb-5">
+    <div class="mb-3 mt-3 text-center">
+      <h2>INGRESO DE EXPEDIENTE DE MASCOTAS</h2>
+    </div>
+  
+    <form [formGroup]="formulario">
+      <div class="row">
+        <!-- Campo Código de Expediente (solo lectura) -->
+        <div class="col-md-6 mb-3">
+          <label class="form-label" for="masId">Código de Expediente</label>
+          <input
+            type="text"
+            class="form-control"
+            id="masId"
+            formControlName="masId"
+            placeholder="Código de expediente"
+            style="text-transform:uppercase"
+            readonly
+          >
+        </div>
+  
+        <!-- Campo Nombre de la Mascota -->
+        <div class="col-md-6 mb-3">
+          <label class="form-label" for="name">Nombre de la Mascota</label>
+          <input
+            type="text"
+            class="form-control"
+            id="masNombre"
+            formControlName="masNombre"
+            style="text-transform:uppercase"
+            placeholder="Nombre de la Mascota"
+          >
+        </div>
+      </div>
+  
+      <div class="row">
+        <!-- Campo Nombre del Propietario -->
+        <div class="col-md-6 mb-3">
+          <label class="form-label" for="owner">Nombre del Propietario</label>
+          <input
+            type="text"
+            class="form-control"
+            id="masPropietario"
+            formControlName="masPropietario"
+            style="text-transform:uppercase"
+            placeholder="Nombre del Propietario"
+          >
+        </div>
+  
+        <!-- Campo Tipo de Mascota -->
+        <div class="col-md-6 mb-3">
+          <label class="form-label" for="tipoMascota">Tipo de Mascota</label>
+          <select
+            id="tipoMascota"
+            class="form-select"
+            formControlName="tipoMascota"
+          >
+            <option value="">Seleccione un tipo</option>
+            <option value="1">Perro</option>
+            <option value="2">Gato</option>
+            <option value="3">Otro</option>
+          </select>
+        </div>
+      </div>
+  
+      <div class="row">
+        <!-- Campo Género -->
+        <div class="col-md-6 mb-3">
+          <label class="form-label" for="gender">Género</label>
+          <select
+            class="form-select"
+            id="gender"
+            formControlName="gender"
+          >
+            <option value="1">Macho</option>
+            <option value="2">Hembra</option>
+          </select>
+        </div>
+  
+        <!-- Campo Raza -->
+        <div class="col-md-6 mb-3">
+          <label class="form-label" for="razaMascota">Raza</label>
+          <select
+            id="razaMascota"
+            class="form-select"
+            formControlName="razaMascota"
+          >
+            <option value="">Seleccione una raza</option>
+            <option value="1">Labrador</option>
+            <option value="2">Bulldog</option>
+            <option value="3">Chihuahua</option>
+          </select>
+        </div>
+      </div>
+  
+      <div class="row">
+        <!-- Campo Color -->
+        <div class="col-md-6 mb-3">
+          <label class="form-label" for="color">Color</label>
+          <input
+            type="text"
+            class="form-control"
+            id="color"
+            formControlName="color"
+            style="text-transform:uppercase"
+            placeholder="Color de la mascota"
+          >
+        </div>
+  
+        <!-- Campo Peso -->
+        <div class="col-md-6 mb-3">
+          <label class="form-label" for="weight">Peso (lb)</label>
+          <input
+            type="text"
+            class="form-control"
+            id="weight"
+            formControlName="weight"
+            placeholder="0.00"
+            onfocus="this.select();"
+          >
+        </div>
+      </div>
+  
+      <div class="row">
+        <!-- Campo Temperatura -->
+        <div class="col-md-6 mb-3">
+          <label class="form-label" for="temp">Temperatura (°C)</label>
+          <input
+            type="text"
+            class="form-control"
+            id="temp"
+            formControlName="temp"
+            placeholder="0.00"
+            onfocus="this.select();"
+          >
+        </div>
+  
+        <!-- Campo Frecuencia Cardiaca -->
+        <div class="col-md-6 mb-3">
+          <label class="form-label" for="frec">Frecuencia Cardiaca</label>
+          <input
+            type="text"
+            class="form-control"
+            id="frec"
+            formControlName="frec"
+            maxlength="3"
+            placeholder="Ejemplo: 75"
+            onfocus="this.select();"
+          >
+        </div>
+      </div>
+  
+      <div class="row">
+        <!-- Campo Dirección -->
+        <div class="col-md-6 mb-3">
+          <label class="form-label" for="address">Dirección</label>
+          <input
+            type="text"
+            class="form-control"
+            style="text-transform:uppercase"
+            id="address"
+            formControlName="address"
+            placeholder="Dirección del propietario"
+          >
+        </div>
+  
+        <!-- Campo Teléfono -->
+        <div class="col-md-6 mb-3">
+          <label class="form-label" for="phone">Teléfono</label>
+          <input
+            type="text"
+            class="form-control"
+            id="phone"
+            formControlName="phone"
+            maxlength="9"
+            placeholder="Ejemplo: 1234-5678"
+          >
+        </div>
+      </div>
+  
+      <div class="row">
+        <!-- Campo Médico Referido -->
+        <div class="col-md-6 mb-3">
+          <label class="form-label" for="med">Médico Referido (no obligatorio)</label>
+          <input
+            type="text"
+            class="form-control"
+            style="text-transform:uppercase"
+            id="med"
+            formControlName="med"
+            placeholder="Nombre del médico"
+          >
+        </div>
+  
+        <!-- Campo Correo Electrónico -->
+        <div class="col-md-6 mb-3">
+          <label class="form-label" for="email">Correo Electrónico</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            formControlName="email"
+            placeholder="Ejemplo: usuario@gmail.com"
+          >
+        </div>
+      </div>
+  
+      <div class="d-grid gap-2 d-md-flex justify-content-md-between">
+        <button type="button" class="btn btn-secondary">
+          <span class="material-symbols-outlined" style="vertical-align: middle;">keyboard_return</span>
+          Regresar
+        </button>
+        <div>
+          <button type="button" class="btn btn-danger me-2">
+            <span class="material-symbols-outlined" style="vertical-align: middle;">
+              cleaning_bucket
+            </span>
+            Limpiar
+          </button>
+          <button type="submit" class="btn btn-success">
+            <span class="material-symbols-outlined" style="vertical-align: middle;">
+              save
+            </span>
+            Guardar Expediente
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+  

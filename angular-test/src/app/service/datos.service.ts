@@ -76,4 +76,35 @@ export class DatosService {
     return this.http.post<any[]>(this.apiUrl+'/buscarCita', body);
   }
 
+  //buscar expediente
+  buscarExpediente(cod: string, mascota :string, prop:string): Observable<any[]> {
+
+    /*
+    // Validar hora: si está vacía, establecerla en null
+  if (hora === "") {
+    hora = null;
+  }
+
+    // Validar hora: si está vacía, establecerla en null
+    if (prop === "") {
+      prop = null;
+    }
+  */
+    // Validar que los parámetros no sean null y asignar una cadena vacía en caso de serlo
+  const codigo = cod ?? ''; // Si `cod` es null o undefined, se asigna ''
+  const nombreMascota = mascota ?? ''; // Si `mascota` es null o undefined, se asigna ''
+  const nombrePropietario = prop ?? ''; // Si `prop` es null o undefined, se asigna ''
+
+
+    const body = {
+      masId: codigo,
+      masNombre: nombreMascota,
+      masPropietario: nombrePropietario
+    };
+
+    console.log(body);
+
+    return this.http.post<any[]>(this.apiUrl+'/buscarExpediente', body);
+  }
+
 }

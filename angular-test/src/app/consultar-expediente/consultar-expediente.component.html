@@ -2,21 +2,12 @@
     <form [formGroup]="formulario">
         <div class="row justify-content-center mb-3 align-items-end">
             <div class="col-auto">
-                <label for="fecha">Fecha:</label>
-                <input type="date" formControlName="fecha" class="form-control" required>
+                <label for="codigoExpediente">Código de Expediente:</label>
+                <input type="text" formControlName="codigoExpediente" class="form-control" required>
             </div>
             <div class="col-auto">
-                <label for="hora">Hora:</label>
-                <select formControlName="hora" class="form-control" required>
-                    <option value="08:00:00">8:00 AM</option>
-                    <option value="09:00:00">9:00 AM</option>
-                    <option value="10:00:00">10:00 AM</option>
-                    <option value="11:00:00">11:00 AM</option>
-                    <option value="01:00:00">1:00 PM</option>
-                    <option value="02:00:00">2:00 PM</option>
-                    <option value="03:00:00">3:00 PM</option>
-                    <option value="04:00:00">4:00 PM</option>
-                </select>
+                <label for="nombreMascota">Nombre de Mascota:</label>
+                <input type="text" formControlName="nombreMascota" class="form-control" required>
             </div>
             <div class="col-auto">
                 <label for="nombrePropietario">Nombre del Propietario:</label>
@@ -24,7 +15,7 @@
             </div>
             <div class="col-auto">
                 
-                <button type="button" class="btn btn-primary" (click)="consultarCita()">
+                <button type="button" class="btn btn-primary" (click)="consultarExpediente()" >
                     <span class="material-symbols-outlined" style="vertical-align: middle;">search</span> <!-- Icono para consultar cita -->
                     Consultar
                 </button>
@@ -37,31 +28,35 @@
             <thead>
                 <tr>
                     <th class="d-none">Id</th> <!-- Usar d-none para ocultar la columna -->
-                    <th>Fecha</th>
-                    <th>Hora</th>
-                    <th>Propietario</th>
-                    <th>Veterinario</th>
+                    <th>Código de Expediente</th>
+                    <th>Nombre de Mascota</th>
+                    <th>Especie</th>
+                    <th>Raza</th>
+                    <th>Color</th>
+                    <th>Nombre Propietario</th>
                     <th style="width: 260px;">Acciones</th> <!-- Ancho reducido para Acciones -->
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let registro of registros; let i = index">
                     <td class="d-none">{{registro.id}}</td> <!-- Usar d-none aquí también -->
-                    <td>{{ registro.fecha }}</td>
-                    <td>{{ registro.hora }}</td>
-                    <td>{{ registro.propietario }}</td>
-                    <td>{{ registro.veterinario }}</td>
+                    <td>{{ registro.masId }}</td>
+                    <td>{{ registro.masNombre }}</td>
+                    <td>{{ registro.timGrupo }}</td>
+                    <td>{{ registro.razNombre }}</td>
+                    <td>{{ registro.masColor }}</td>
+                    <td>{{ registro.masPropietario }}</td>
                     <td style="width: 200px;"> <!-- Ancho reducido para Acciones -->
-                        <button class="btn btn-warning btn-sm me-2" (click)="editarRegistro(i)">
-                            <span class="material-symbols-outlined" style="vertical-align: middle;" >
+                        <button class="btn btn-warning btn-sm me-2" (click)="editarRegistro(i)" >
+                            <span class="material-symbols-outlined" style="vertical-align: middle;">
                                 edit_document
-                                </span>
+                            </span>
                             Modificar
                         </button>
-                        <button class="btn btn-danger btn-sm" (click)="eliminarRegistro(i)">
+                        <button class="btn btn-danger btn-sm">
                             <span class="material-symbols-outlined" style="vertical-align: middle;">
                                 delete
-                                </span>
+                            </span>
                             Eliminar
                         </button>
                     </td>
@@ -74,7 +69,7 @@
     <div class="row justify-content-center mt-4">
         <div class="col-auto">
             
-            <button type="button" class="btn btn-secondary" (click)="regresar()"  >
+            <button type="button" class="btn btn-secondary" (click)="regresar()" >
                 <span class="material-symbols-outlined" style="vertical-align: middle;">keyboard_return</span>
                 Regresar
             </button>
@@ -83,9 +78,10 @@
             <button type="button" class="btn btn-light">
                 <span class="material-symbols-outlined" style="vertical-align: middle;">
                     mop
-                    </span>
+                </span>
                 Limpiar
             </button>
         </div>
     </div>
 </div>
+

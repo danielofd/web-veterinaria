@@ -60,7 +60,8 @@ export class MenuExpedienteComponent {
     if (this.canConsult) {
       // Lógica para eliminar expediente
       //alert("NO DISPONIBLE POR EL MOMENTO...");
-      this.openSnackBar('NO DISPONIBLE POR EL MOMENTO...');
+      //this.openSnackBar('NO DISPONIBLE POR EL MOMENTO...');
+      this.router.navigate(['/consultar-expediente']);
     }
   }
 
