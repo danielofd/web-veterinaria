@@ -76,6 +76,31 @@ export class DatosService {
     return this.http.post<any[]>(this.apiUrl+'/buscarCita', body);
   }
 
+  //servicio rest de eliminacion de cita
+  eliminarCita(idCita:string, codUsu:string): Observable<any[]>{
+
+
+    let numCita:number= parseInt(idCita, 10);;
+
+    //crea request
+    const body={
+
+      ctaCodigo: numCita,
+      usuCodigo: codUsu
+
+    }
+    console.log("[REQUEST A ENVIAR AL SERVICIO REST]");
+    console.log(body);
+
+    return this.http.post<any[]>(this.apiUrl+'/cancelarCita', JSON.stringify(body),{
+
+      headers: { 'Content-Type': 'application/json' },
+      responseType: 'text' as 'json'
+
+    });
+  }
+
+
   //buscar expediente
   buscarExpediente(cod: string, mascota :string, prop:string): Observable<any[]> {
 

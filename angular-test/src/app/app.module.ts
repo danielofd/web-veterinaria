@@ -23,6 +23,7 @@ import { ConsultarCitaComponent } from './consultar-cita/consultar-cita.componen
 import { MatTableModule } from '@angular/material/table';
 import { ModificarCitaComponent } from './modificar-cita/modificar-cita.component';
 import { ConsultarExpedienteComponent } from './consultar-expediente/consultar-expediente.component';
+import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { ConsultarExpedienteComponent } from './consultar-expediente/consultar-e
     CrearCitaComponent,
     ConsultarCitaComponent,
     ModificarCitaComponent,
-    ConsultarExpedienteComponent
+    ConsultarExpedienteComponent,
+    DeleteDialogComponent
   ],
   imports: [
     BrowserModule,
