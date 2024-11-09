@@ -36,7 +36,7 @@
       <div class="row">
         <!-- Campo Nombre del Propietario -->
         <div class="col-md-6 mb-3">
-          <label class="form-label" for="owner">Nombre del Propietario</label>
+          <label class="form-label" for="masPropietario">Nombre del Propietario</label>
           <input
             type="text"
             class="form-control"
@@ -49,16 +49,14 @@
   
         <!-- Campo Tipo de Mascota -->
         <div class="col-md-6 mb-3">
-          <label class="form-label" for="tipoMascota">Tipo de Mascota</label>
+          <label class="form-label" for="timGrupo">Tipo de Mascota</label>
           <select
-            id="tipoMascota"
+            id="timGrupo"
             class="form-select"
-            formControlName="tipoMascota"
+            formControlName="timGrupo"
           >
-            <option value="">Seleccione un tipo</option>
-            <option value="1">Perro</option>
-            <option value="2">Gato</option>
-            <option value="3">Otro</option>
+          <option value="">Seleccione un tipo</option>
+          <option *ngFor="let tipo of tiposMascotas" [value]="tipo.timId">{{ tipo.timGrupo }}</option>
           </select>
         </div>
       </div>
@@ -66,11 +64,11 @@
       <div class="row">
         <!-- Campo Género -->
         <div class="col-md-6 mb-3">
-          <label class="form-label" for="gender">Género</label>
+          <label class="form-label" for="masGenero">Género</label>
           <select
             class="form-select"
-            id="gender"
-            formControlName="gender"
+            id="masGenero"
+            formControlName="masGenero"
           >
             <option value="1">Macho</option>
             <option value="2">Hembra</option>
@@ -78,43 +76,60 @@
         </div>
   
         <!-- Campo Raza -->
+         <!--
         <div class="col-md-6 mb-3">
-          <label class="form-label" for="razaMascota">Raza</label>
+          <label class="form-label" for="razNombre">Raza</label>
           <select
-            id="razaMascota"
+            id="razNombre"
             class="form-select"
-            formControlName="razaMascota"
+            formControlName="razNombre"
           >
-            <option value="">Seleccione una raza</option>
-            <option value="1">Labrador</option>
-            <option value="2">Bulldog</option>
-            <option value="3">Chihuahua</option>
+          <option value="">Seleccione una raza</option>
+          <option *ngFor="let raza of razas" [value]="raza.razId">{{raza.razNombre}}</option>
           </select>
         </div>
+        -->
+            <!-- Campo Raza -->
+          <div class="col-md-6 mb-3">
+            <label class="form-label" for="razNombre">Raza</label>
+
+            <select id="razNombre" class="form-select" formControlName="razNombre" >
+              <!-- Si estamos cargando, mostrar un option con texto "Cargando..." -->
+              <option *ngIf="isLoading" value="" disabled>Cargando...</option>
+          
+              <!-- Si ya tenemos los datos, mostrar las razas -->
+              <option *ngFor="let raza of razas" [value]="raza.razId">
+                {{ raza.razNombre }}
+              </option>
+            </select>
+             
+            
+          </div>
+
       </div>
   
       <div class="row">
         <!-- Campo Color -->
         <div class="col-md-6 mb-3">
-          <label class="form-label" for="color">Color</label>
+          <label class="form-label" for="masColor">Color</label>
           <input
             type="text"
             class="form-control"
-            id="color"
-            formControlName="color"
+            id="masColor"
+            formControlName="masColor"
             style="text-transform:uppercase"
-            placeholder="Color de la mascota"
+            placeholder="Nombre de la Mascota"
           >
         </div>
   
         <!-- Campo Peso -->
         <div class="col-md-6 mb-3">
-          <label class="form-label" for="weight">Peso (lb)</label>
+          <label class="form-label" for="masPeso">Peso (lb)</label>
           <input
             type="text"
             class="form-control"
-            id="weight"
-            formControlName="weight"
+            id="masPeso"
+            formControlName="masPeso"
             placeholder="0.00"
             onfocus="this.select();"
           >
@@ -124,12 +139,12 @@
       <div class="row">
         <!-- Campo Temperatura -->
         <div class="col-md-6 mb-3">
-          <label class="form-label" for="temp">Temperatura (°C)</label>
+          <label class="form-label" for="masTemperatura">Temperatura (°C)</label>
           <input
             type="text"
             class="form-control"
-            id="temp"
-            formControlName="temp"
+            id="masTemperatura"
+            formControlName="masTemperatura"
             placeholder="0.00"
             onfocus="this.select();"
           >
@@ -137,12 +152,12 @@
   
         <!-- Campo Frecuencia Cardiaca -->
         <div class="col-md-6 mb-3">
-          <label class="form-label" for="frec">Frecuencia Cardiaca</label>
+          <label class="form-label" for="masFrecardiaca">Frecuencia Cardiaca</label>
           <input
             type="text"
             class="form-control"
-            id="frec"
-            formControlName="frec"
+            id="masFrecardiaca"
+            formControlName="masFrecardiaca"
             maxlength="3"
             placeholder="Ejemplo: 75"
             onfocus="this.select();"
@@ -153,25 +168,25 @@
       <div class="row">
         <!-- Campo Dirección -->
         <div class="col-md-6 mb-3">
-          <label class="form-label" for="address">Dirección</label>
+          <label class="form-label" for="masDireccion">Dirección</label>
           <input
             type="text"
             class="form-control"
             style="text-transform:uppercase"
-            id="address"
-            formControlName="address"
+            id="masDireccion"
+            formControlName="masDireccion"
             placeholder="Dirección del propietario"
           >
         </div>
   
         <!-- Campo Teléfono -->
         <div class="col-md-6 mb-3">
-          <label class="form-label" for="phone">Teléfono</label>
+          <label class="form-label" for="masTelefono">Teléfono</label>
           <input
             type="text"
             class="form-control"
-            id="phone"
-            formControlName="phone"
+            id="masTelefono"
+            formControlName="masTelefono"
             maxlength="9"
             placeholder="Ejemplo: 1234-5678"
           >
@@ -181,25 +196,25 @@
       <div class="row">
         <!-- Campo Médico Referido -->
         <div class="col-md-6 mb-3">
-          <label class="form-label" for="med">Médico Referido (no obligatorio)</label>
+          <label class="form-label" for="masMedReferido">Médico Referido (no obligatorio)</label>
           <input
             type="text"
             class="form-control"
             style="text-transform:uppercase"
-            id="med"
-            formControlName="med"
+            id="masMedReferido"
+            formControlName="masMedReferido"
             placeholder="Nombre del médico"
           >
         </div>
   
         <!-- Campo Correo Electrónico -->
         <div class="col-md-6 mb-3">
-          <label class="form-label" for="email">Correo Electrónico</label>
+          <label class="form-label" for="masCorreo">Correo Electrónico</label>
           <input
             type="email"
             class="form-control"
-            id="email"
-            formControlName="email"
+            id="masCorreo"
+            formControlName="masCorreo"
             placeholder="Ejemplo: usuario@gmail.com"
           >
         </div>
