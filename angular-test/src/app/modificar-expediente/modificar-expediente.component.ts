@@ -7,6 +7,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DatosService } from '../service/datos.service';
 import { TipoMascota } from 'src/models/tipo-mascota';
 import { Raza } from 'src/models/raza';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-modificar-expediente',
@@ -99,7 +101,7 @@ export class ModificarExpedienteComponent implements OnInit {
 
   regresar(): void {
     // Ejemplo de redirección a una ruta específica
-    this.router.navigate(['/menu-expediente']); // Cambia '/menu' a la ruta que necesites
+    this.router.navigate(['/consultar-expediente']); // Cambia '/menu' a la ruta que necesites
   }
 
   //carga select de tipo mascota
@@ -173,6 +175,145 @@ export class ModificarExpedienteComponent implements OnInit {
     );
   }
 
+  //modificar expediente inicio  
+  modificarExpediente() {
+
+    if (this.formulario.get('masId')?.invalid ||
+    this.formulario.get('masNombre')?.invalid ||
+    this.formulario.get('masPropietario')?.invalid 
+   
+    ||
+    this.formulario.get('masCorreo')?.invalid 
+     
+    ||
+    this.formulario.get('masGenero')?.invalid 
+   
+    ||
+    this.formulario.get('masColor')?.invalid 
+    ||
+    this.formulario.get('masPeso')?.invalid 
+    ||
+    this.formulario.get('masTemperatura')?.invalid 
+   
+    ||
+    this.formulario.get('masFrecardiaca')?.invalid 
+    ||
+    this.formulario.get('masDireccion')?.invalid 
+    ||
+    this.formulario.get('masTelefono')?.invalid 
+     
+    ||
+    this.formulario.get('razNombre')?.invalid
+   
+    ) {
+      // Aquí puedes mostrar un mensaje o hacer algo en caso de que el formulario sea inválido
+      this.procesoMsg('POR FAVOR COMPLETAR TODOS LOS CAMPOS OBLIGATORIOS(*).');
+      return; // Evita continuar si el formulario no es válido
+  }
+
+  console.log("campos correctos");
   
+    const dialogRef = this.dialog.open(ConfirmDialogComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log('guardando...');
+        // Lógica para guardar el expediente
+        this.realizarGuardado();
+      } else {
+        console.log('Guardado cancelado');
+      }
+    });
+    
+  }
+
+  //ejecuta modificacion
+  realizarGuardado() {
+    
+   let usuCod:String| undefined;;
+
+   //Este es el campo usu_codigo (pendiente)
+    //this.expediente.usuCodigo = 'FD100814';
+    this.datosService.currentData.subscribe(data =>{
+      console.log("usu correlativo: "+data);
+      usuCod = data
+    });
+
+    // Creamos un objeto constante para agrupar los valores
+const expediente = {
+  masId: this.formulario.get('masId')?.value.toUpperCase(),
+  masNombre: this.formulario.get('masNombre')?.value.toUpperCase(),
+  masPropietario: this.formulario.get('masPropietario')?.value.toUpperCase(),
+  masGenero: this.formulario.get('masGenero')?.value.toUpperCase(),
+  masColor: this.formulario.get('masColor')?.value.toUpperCase(),
+  masPeso: this.formulario.get('masPeso')?.value,
+  masTemperatura: this.formulario.get('masTemperatura')?.value,
+  masFrecardiaca: this.formulario.get('masFrecardiaca')?.value,
+  masDireccion: this.formulario.get('masDireccion')?.value.toUpperCase(),
+  masTelefono: this.formulario.get('masTelefono')?.value,
+  masMedReferido: this.formulario.get('masMedReferido')?.value.toUpperCase(),
+  masCorreo: this.formulario.get('masCorreo')?.value,
+  //raza: this.formulario.get('razNombre')?.value,  // Raza ya definida
+  raza: {
+    razId: parseInt(this.formulario.get('razNombre')?.value, 10)
+  },
+  usuCodigo: usuCod
+};
+
+    
+    console.log(expediente)
+
+
+    this.datosService.modificarExpediente(expediente).subscribe(
+      (data) => {
+        //const postResponseMessage = data.body?.postResponse;
+        console.log("Respuesta del servidor:", data.postResponse);
+    
+        if (data.postResponse === "Expediente actualizado exitosamente") {
+          this.procesoMsg("EXPEDIENTE ACTUALIZADO CON EXITO");
+          this.router.navigate(['/consultar-expediente']);
+        } else {
+          this.procesoMsg("NO SE PUDO MODIFICAR EL REGISTRO.");
+        }
+      },
+      (error) => {
+        console.error("Error en la solicitud:", error);
+        this.procesoMsg("Hubo un problema al modificar el expediente.");
+      }
+    );
+    
+
+    
+    /*
+    this._service.crearNuevoExpediente(this.expediente).subscribe(((res: HttpResponse<any>) => {
+      console.log(res);
+      //alert(res);
+      const statusCode = res.status;
+      const codExpedienteGen = res.body.idRecord;
+      console.log(statusCode);
+      console.log(codExpedienteGen);
+      if(statusCode===200){
+        this.procesoMsg("REGISTRO CREADO CON EXITO.\n No DE EXPEDIENTE GENERADO: "+codExpedienteGen);
+      }else{
+        this.procesoMsg("NO SE PUDO GUARDAR EL REGISTRO.");
+      }
+
+     
+      this.formularioRegistro.reset();
+    }));
+    */
+
+
+  }
+  
+
+  procesoMsg(msj: string) {
+    const snackBarRef = this.snackBar.open(msj, 'Cerrar', {
+      duration: 20000,
+      panelClass: ['snackbar-confirm'],
+    });
+  
+    
+  }
 
 }

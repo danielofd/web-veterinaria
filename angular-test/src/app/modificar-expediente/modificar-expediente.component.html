@@ -3,7 +3,7 @@
       <h2>MODIFICACION DE EXPEDIENTE DE MASCOTAS</h2>
     </div>
   
-    <form [formGroup]="formulario">
+    <form [formGroup]="formulario" (ngSubmit)="modificarExpediente()" >
       <div class="row">
         <!-- Campo Código de Expediente (solo lectura) -->
         <div class="col-md-6 mb-3">
@@ -70,8 +70,8 @@
             id="masGenero"
             formControlName="masGenero"
           >
-            <option value="1">Macho</option>
-            <option value="2">Hembra</option>
+              <option value="1">Macho</option>
+              <option value="2">Hembra</option>
           </select>
         </div>
   

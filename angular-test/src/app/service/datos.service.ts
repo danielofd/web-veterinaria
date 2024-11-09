@@ -132,4 +132,11 @@ export class DatosService {
     return this.http.post<any[]>(this.apiUrl+'/buscarExpediente', body);
   }
 
+  //modificar expediente
+
+  // Método POST que recibe los datos del expediente
+  modificarExpediente(expediente: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl+'/actualizarExpediente', expediente);
+  }
+
 }
