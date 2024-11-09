@@ -15,7 +15,7 @@
             </div>
             <div class="col-auto">
                 
-                <button type="button" class="btn btn-primary" (click)="consultarExpediente()" >
+                <button type="button" class="btn btn-primary" (click)="consultarExpedienteHistorial()" >
                     <span class="material-symbols-outlined" style="vertical-align: middle;">search</span> <!-- Icono para consultar cita -->
                     Consultar
                 </button>
@@ -46,9 +46,9 @@
                     <td>{{ registro.razNombre }}</td>
                     <td>{{ registro.masColor }}</td>
                     <td>{{ registro.masPropietario }}</td>
-                    <td style="width: 200px;">
+                    <td style="width: 400px;"> <!-- Ancho reducido para Acciones -->
 
-                        <button class="btn btn-warning btn-sm me-2" (click)="editarRegistro(i)" >
+                        <!-- <button class="btn btn-warning btn-sm me-2" (click)="editarRegistro(i)" >
                             <span class="material-symbols-outlined" style="vertical-align: middle;">
                                 edit_document
                             </span>
@@ -59,9 +59,21 @@
                                 delete
                             </span>
                             Eliminar
+                        </button> -->
+
+                        <button class="btn btn-success btn-sm me-2" (click)="verHistorialMedico(i)">
+                            <span class="material-symbols-outlined" style="vertical-align: middle;">
+                                history
+                            </span>
+                            Ver historial médico
+                        </button>
+                        <button class="btn btn-success btn-sm" (click)="agregarConsulta(i)">
+                            <span class="material-symbols-outlined" style="vertical-align: middle;">
+                                add_circle
+                            </span>
+                            Agregar consulta
                         </button>
 
-                        
                     </td>
                 </tr>
             </tbody>

@@ -26,7 +26,7 @@
                 </a>
             </div>
             <div class="col-md-3">
-                <a class="btn btn-custom-blue w-100" *ngFor="let option of consultasMedicasOption" (click)="openConsultasMedicas()">
+                <a class="btn btn-custom-blue w-100" *ngFor="let option of consultasMedicasOption"  [routerLink]="['/menu-consulta-medica']"  >
                     <span class="material-symbols-outlined" style="vertical-align: middle;">medical_services</span> <!-- Icono opcional para consultas -->
                     Consultas Médicas
                 </a>

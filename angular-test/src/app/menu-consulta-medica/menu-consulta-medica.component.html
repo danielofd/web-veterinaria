@@ -1,0 +1,31 @@
+<div class="container mt-5">
+    <div class="text-left mb-4">
+        <h2>MENU CONSULTA MEDICA</h2>
+    </div>
+    <div class="row">
+        <!-- Opción para crear cita -->
+        
+        <!-- <div class="col-md-12 mb-3">
+            <button *ngIf="canCreate" (click)="createCita()" class="btn btn-primary btn-lg w-50 text-start">
+                <span class="material-symbols-outlined" style="vertical-align: middle;">edit_square</span>
+                CREAR CITA
+            </button>
+        </div> -->
+       
+        <!-- Opción para consultar cita -->
+        <div class="col-md-12 mb-3">
+            <button *ngIf="canConsult" (click)="consultConsultaMedica()" class="btn btn-primary btn-lg w-50 text-start">
+                <span class="material-symbols-outlined" style="vertical-align: middle;">search</span> <!-- Icono para consultar cita -->
+                CONSULTAR EXPEDIENTE
+            </button>
+        </div>
+        
+        <!-- Opción para regresar al menú home -->
+        <div class="col-md-12 mb-3">
+            <button class="btn btn-danger btn-lg w-50 text-start" [routerLink]="['/home']">
+                <span class="material-symbols-outlined" style="vertical-align: middle;">keyboard_return</span> <!-- Icono para regresar -->
+                REGRESAR AL MENÚ PRINCIPAL
+            </button>
+        </div>
+    </div>
+</div>

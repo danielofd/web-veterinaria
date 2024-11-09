@@ -24,6 +24,8 @@ import { MatTableModule } from '@angular/material/table';
 import { ModificarCitaComponent } from './modificar-cita/modificar-cita.component';
 import { ConsultarExpedienteComponent } from './consultar-expediente/consultar-expediente.component';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
+import { MenuConsultaMedicaComponent } from './menu-consulta-medica/menu-consulta-medica.component';
+import { ConsultarHistorialMedicoComponent } from './consultar-historial-medico/consultar-historial-medico.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,9 @@ import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
     ConsultarCitaComponent,
     ModificarCitaComponent,
     ConsultarExpedienteComponent,
-    DeleteDialogComponent
+    DeleteDialogComponent,
+    MenuConsultaMedicaComponent,
+    ConsultarHistorialMedicoComponent
   ],
   imports: [
     BrowserModule,

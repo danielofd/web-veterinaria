@@ -13,6 +13,8 @@ import { CrearCitaComponent } from './crear-cita/crear-cita.component';
 import { ConsultarCitaComponent } from './consultar-cita/consultar-cita.component';
 import { ModificarCitaComponent } from './modificar-cita/modificar-cita.component';
 import { ConsultarExpedienteComponent } from './consultar-expediente/consultar-expediente.component';
+import { MenuConsultaMedicaComponent } from './menu-consulta-medica/menu-consulta-medica.component';
+import { ConsultarHistorialMedicoComponent } from './consultar-historial-medico/consultar-historial-medico.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -28,6 +30,8 @@ const routes: Routes = [
   {path: 'crear-cita', component: CrearCitaComponent}, //ruta para el componente crear citas
   {path: 'consultar-cita', component: ConsultarCitaComponent}, //ruta para el componente consultar citas
   {path: 'modificar-cita', component: ModificarCitaComponent}, //ruta para el componente crear citas
+  {path: 'menu-consulta-medica', component: MenuConsultaMedicaComponent}, //ruta para el componente crear citas
+  {path: 'consultar-historial-medico', component: ConsultarHistorialMedicoComponent}, //ruta para el componente crear citas
   {path: '**', redirectTo: '/login', pathMatch: 'full'}
 ];
 
