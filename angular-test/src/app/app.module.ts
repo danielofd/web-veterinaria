@@ -26,6 +26,7 @@ import { ConsultarExpedienteComponent } from './consultar-expediente/consultar-e
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import { MenuConsultaMedicaComponent } from './menu-consulta-medica/menu-consulta-medica.component';
 import { ConsultarHistorialMedicoComponent } from './consultar-historial-medico/consultar-historial-medico.component';
+import { AgregarConsultaMedicaComponent } from './agregar-consulta-medica/agregar-consulta-medica.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { ConsultarHistorialMedicoComponent } from './consultar-historial-medico/
     ConsultarExpedienteComponent,
     DeleteDialogComponent,
     MenuConsultaMedicaComponent,
-    ConsultarHistorialMedicoComponent
+    ConsultarHistorialMedicoComponent,
+    AgregarConsultaMedicaComponent
   ],
   imports: [
     BrowserModule,

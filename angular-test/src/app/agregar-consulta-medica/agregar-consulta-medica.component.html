@@ -1,0 +1,43 @@
+<div class="container">
+    <h2>AGREGAR CONSULTA MEDICA</h2>
+  
+    <form [formGroup]="formulario" (ngSubmit)="enviarFormulario()">
+      <div class="form-group">
+        <label for="sintomas">Síntomas</label>
+        <textarea id="sintomas" formControlName="sintomas" rows="4" class="form-control" placeholder="Describa los síntomas del animal"></textarea>
+      </div>
+  
+      <div class="form-group">
+        <label for="diagnostico">Diagnóstico</label>
+        <textarea id="diagnostico" formControlName="diagnostico" rows="4" class="form-control" placeholder="Describa el diagnóstico"></textarea>
+      </div>
+  
+      <div class="form-group">
+        <label for="examenesRecomendados">Exámenes recomendados</label>
+        <textarea id="examenesRecomendados" formControlName="examenesRecomendados" rows="4" class="form-control" placeholder="Exámenes recomendados para el animal"></textarea>
+      </div>
+  
+      <div class="form-group">
+        <label for="observaciones">Observaciones</label>
+        <textarea id="observaciones" formControlName="observaciones" rows="4" class="form-control" placeholder="Observaciones adicionales"></textarea>
+      </div>
+  
+      <div class="form-group">
+        <label for="nombreVeterinario">Nombre del Veterinario</label>
+        <input id="nombreVeterinario" formControlName="nombreVeterinario" type="text" class="form-control" placeholder="Nombre completo del veterinario" (input)="toUpperCase($event)">
+      </div>
+      <br>
+
+      <!-- Botones al final del formulario -->
+        <div class="d-flex justify-content-between">
+            <!-- Botón Regresar -->
+            <button type="button" class="btn btn-secondary" (click)="regresar()">Regresar</button>
+        
+            <!-- Botones Guardar y Limpiar con gap para espaciado -->
+            <div class="d-flex gap-2">
+            <button type="button" class="btn btn-danger" (click)="limpiarFormulario()">Limpiar</button>
+            <button type="submit" class="btn btn-primary" [disabled]="formulario.invalid">Guardar</button>
+            </div>
+        </div>
+    </form>
+</div>

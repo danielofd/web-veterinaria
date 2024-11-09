@@ -15,6 +15,7 @@ import { ModificarCitaComponent } from './modificar-cita/modificar-cita.componen
 import { ConsultarExpedienteComponent } from './consultar-expediente/consultar-expediente.component';
 import { MenuConsultaMedicaComponent } from './menu-consulta-medica/menu-consulta-medica.component';
 import { ConsultarHistorialMedicoComponent } from './consultar-historial-medico/consultar-historial-medico.component';
+import { AgregarConsultaMedicaComponent } from './agregar-consulta-medica/agregar-consulta-medica.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -29,9 +30,10 @@ const routes: Routes = [
   {path: 'menu-citas', component: MenuCitasComponent}, //ruta para el componente menu citas
   {path: 'crear-cita', component: CrearCitaComponent}, //ruta para el componente crear citas
   {path: 'consultar-cita', component: ConsultarCitaComponent}, //ruta para el componente consultar citas
-  {path: 'modificar-cita', component: ModificarCitaComponent}, //ruta para el componente crear citas
-  {path: 'menu-consulta-medica', component: MenuConsultaMedicaComponent}, //ruta para el componente crear citas
-  {path: 'consultar-historial-medico', component: ConsultarHistorialMedicoComponent}, //ruta para el componente crear citas
+  {path: 'modificar-cita', component: ModificarCitaComponent}, //ruta para el componente modificar citas
+  {path: 'menu-consulta-medica', component: MenuConsultaMedicaComponent}, //ruta para el componente menu consulta medica
+  {path: 'consultar-historial-medico', component: ConsultarHistorialMedicoComponent}, //ruta para el componente consultar historial medico
+  {path: 'agregar-consulta-medica', component: AgregarConsultaMedicaComponent}, //ruta para el componente agregar consulta medica
   {path: '**', redirectTo: '/login', pathMatch: 'full'}
 ];
 

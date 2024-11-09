@@ -87,7 +87,7 @@ export class ConsultarHistorialMedicoComponent {
     //this.registros.splice(index, 1); // Eliminar el registro del array
 
     //redirige al componente modificar cita
-    //this.router.navigate(['/modificar-expediente', { data: JSON.stringify(registro) }]);
+    this.router.navigate(['agregar-consulta-medica', { data: JSON.stringify(registro) }]);
 
 
   }
