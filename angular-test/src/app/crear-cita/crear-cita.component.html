@@ -6,14 +6,18 @@
             </div>
 
             <div class="col-12 col-md-2 mb-3"> <!-- Ancho reducido -->
-                <label for="date">Fecha</label>
+                <label for="date">FECHA(*)</label>
                 <input type="date" id="date" class="form-control form-control-sm" formControlName="fecha" (change)="onFechaChange($event)">
             </div>
 
             <div class="col-12 col-md-2 mb-3"> <!-- Campo de texto para Nombre del propietario -->
-                <label for="propietario">Nombre del propietario</label>
+                <label for="propietario">NOMBRE DEL PROPIETARIO(*)</label>
                 <!-- <input type="text" id="propietario" class="form-control form-control-sm" formControlName="nombrePropietario"> -->
-                <input type="text" id="propietario" style="text-transform:uppercase" class="form-control form-control-sm" formControlName="nombrePropietario">
+                <input type="text" id="propietario" 
+                style="text-transform:uppercase" 
+                (keypress)="validateAlpha($event)" 
+                class="form-control form-control-sm" 
+                formControlName="nombrePropietario">
                 <div *ngIf="formularioRegistro.get('nombrePropietario')?.invalid && (formularioRegistro.get('nombrePropietario')?.touched || formularioRegistro.get('nombrePropietario')?.dirty)" class="text-danger">
                     <div *ngIf="formularioRegistro.get('nombrePropietario')?.errors?.['required']">El nombre es requerido.</div>
                     <div *ngIf="formularioRegistro.get('nombrePropietario')?.errors?.['invalidText']">Solo se permiten letras y espacios.</div>
@@ -21,7 +25,7 @@
             </div>
 
             <div class="col-12 col-md-2 mb-3"> <!-- Ancho reducido -->
-                <label for="vet">Veterinarios</label>
+                <label for="vet">VETERINARIOS(*)</label>
                 <select id="vet" class="form-select form-select-sm" formControlName="veter" (change)="onVeterinarioChange($event)">
                     <!-- <option value="">Seleccione un veterinario</option> -->
                     <option *ngFor="let vet of veterinarios" [value]="vet.empId">
@@ -31,7 +35,7 @@
             </div>
 
             <div class="col-12 col-md-2 mb-3"> <!-- Ancho reducido -->
-                <label for="horas">Horarios disponibles</label>
+                <label for="horas">HORARIOS DISPONIBLES(*)</label>
                 <select id="horas" class="form-select form-select-sm" formControlName="hora" (change)="onHorarioChange($event)">
                     <!-- <option value="">Seleccione una hora</option> -->
                     <option *ngFor="let horario of horarios" [value]="horario.hocHorario">

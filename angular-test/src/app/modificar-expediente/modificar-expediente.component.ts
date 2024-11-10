@@ -37,12 +37,12 @@ export class ModificarExpedienteComponent implements OnInit {
       // Inicializa el formulario aquí    
       this.formulario = this.fb.group({
         masId: ['', Validators.required], // Código de Expediente
-        masNombre: ['', Validators.required],
-        masPropietario: ['', Validators.required],
-        masColor: ['', Validators.required],
+        masNombre: ['', Validators.required],//
+        masPropietario: ['', Validators.required],//
+        masColor: ['', Validators.required],//
         masGenero:['', Validators.required],
-        razNombre:['', Validators.required],
-        timGrupo:['', Validators.required],
+        razNombre:['', Validators.required],//
+        timGrupo:['', Validators.required],//
         masPeso:['', Validators.required],
         masTemperatura:['', Validators.required],
         masFrecardiaca:['', Validators.required],
@@ -244,7 +244,7 @@ const expediente = {
   masId: this.formulario.get('masId')?.value.toUpperCase(),
   masNombre: this.formulario.get('masNombre')?.value.toUpperCase(),
   masPropietario: this.formulario.get('masPropietario')?.value.toUpperCase(),
-  masGenero: this.formulario.get('masGenero')?.value.toUpperCase(),
+  masGenero: this.formulario.get('masGenero')?.value,
   masColor: this.formulario.get('masColor')?.value.toUpperCase(),
   masPeso: this.formulario.get('masPeso')?.value,
   masTemperatura: this.formulario.get('masTemperatura')?.value,

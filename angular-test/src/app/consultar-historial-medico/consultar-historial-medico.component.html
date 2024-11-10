@@ -3,16 +3,77 @@
         <div class="row justify-content-center mb-3 align-items-end">
             <div class="col-auto">
                 <label for="codigoExpediente">Código de Expediente:</label>
-                <input type="text" formControlName="codigoExpediente" class="form-control" required>
+                <div class="input-container">
+                    <input type="text" 
+                        formControlName="codigoExpediente" 
+                        class="form-control" 
+                        minlength="8"
+                        maxlength="8"
+                        (keypress)="validateNumber($event)" 
+                        (focus)="showCodigoExpedienteMessage()"  
+                        (blur)="hideCodigoExpedienteMessage()">   
+
+                    <!-- Mensaje flotante que aparece cuando el input tiene foco -->
+                    <div class="text-danger" *ngIf="isCodigoExpedienteFocused">
+                        <small>El tamaño debe ser de 8 dígitos.</small>
+                    </div>
+                    <!-- Mensaje de error después de hacer clic en "Consultar" si el código no tiene 8 dígitos -->
+                    <div class="text-danger" *ngIf="isCodigoExpedienteInvalid">
+                        <small>El tamaño debe ser de 8 dígitos.</small>
+                    </div>
+                </div>
             </div>
+            
             <div class="col-auto">
                 <label for="nombreMascota">Nombre de Mascota:</label>
-                <input type="text" formControlName="nombreMascota" class="form-control" required>
+                <div class="input-container">
+                    <input type="text" 
+                           formControlName="nombreMascota" 
+                           class="form-control"
+                           maxlength="40"
+                           (input)="toUpperCase($event)"  
+                           (keypress)="validateAlpha($event)"   
+                           (focus)="showNombreMascotaMessage()"  
+                           (blur)="hideNombreMascotaMessage()">   
+            
+                    <!-- Mensaje flotante que aparece cuando el campo recibe el foco -->
+                    <div class="text-danger" *ngIf="isNombreMascotaFocused">
+                        <small>El tamaño máximo es de 40 caracteres.</small>
+                    </div>
+            
+                    <!-- Mensaje de error que aparece cuando el tamaño excede los 40 caracteres -->
+                    <div class="text-danger" *ngIf="isNombreMascotaInvalid">
+                        <small>El tamaño máximo es de 40 caracteres.</small>
+                    </div>
+                </div>
             </div>
+
+
             <div class="col-auto">
                 <label for="nombrePropietario">Nombre del Propietario:</label>
-                <input type="text" formControlName="nombrePropietario" class="form-control" required>
+                <div class="input-container">
+                    <input type="text" 
+                           formControlName="nombrePropietario" 
+                           class="form-control"
+                           maxlength="40"
+                           (input)="toUpperCase($event)"  
+                           (keypress)="validateAlpha($event)"   
+                           (focus)="showNombrePropietarioMessage()"  
+                           (blur)="hideNombrePropietarioMessage()">   
+            
+                    <!-- Mensaje flotante que aparece cuando el campo recibe el foco -->
+                    <div class="text-danger" *ngIf="isNombrePropietarioFocused">
+                        <small>El tamaño máximo es de 40 caracteres.</small>
+                    </div>
+            
+                    <!-- Mensaje de error que aparece cuando el tamaño excede los 40 caracteres -->
+                    <div class="text-danger" *ngIf="isNombrePropietarioInvalid">
+                        <small>El tamaño máximo es de 40 caracteres.</small>
+                    </div>
+                </div>
             </div>
+
+
             <div class="col-auto">
                 
                 <button type="button" class="btn btn-primary" (click)="consultarExpedienteHistorial()" >
@@ -90,7 +151,7 @@
             </button>
         </div>
         <div class="col-auto">
-            <button type="button" class="btn btn-light">
+            <button type="button" class="btn btn-light" (click)="limpiarFormulario()"  >
                 <span class="material-symbols-outlined" style="vertical-align: middle;">
                     mop
                 </span>

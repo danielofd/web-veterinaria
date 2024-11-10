@@ -251,6 +251,7 @@ export class CrearExpedienteComponent implements OnInit{
   procesoMsg(msj: string) {
     const snackBarRef = this.snackBar.open(msj, 'Cerrar', {
       duration: 20000,
+      verticalPosition: 'top',
       panelClass: ['snackbar-confirm'],
     });
   
@@ -260,6 +261,7 @@ export class CrearExpedienteComponent implements OnInit{
   procesoMsgError() {
     const snackBarRef = this.snackBar.open('Datos incompletos, por favor revise el formulario.', 'Cerrar', {
       duration: 5000,
+      verticalPosition: 'top',
       panelClass: ['snackbar-error'], // Puedes definir un estilo diferente para los mensajes de error
     });
   }

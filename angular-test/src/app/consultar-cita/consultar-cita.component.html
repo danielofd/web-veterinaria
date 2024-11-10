@@ -2,11 +2,22 @@
     <form [formGroup]="formulario">
         <div class="row justify-content-center mb-3 align-items-end">
             <div class="col-auto">
-                <label for="fecha">FECHA(*):</label>
-                <input type="date" formControlName="fecha" class="form-control" required>
+                <label for="fecha">FECHA(*)</label>
+                <div class="input-container">
+                    <input type="date" 
+                           formControlName="fecha" 
+                           class="form-control" 
+                           required
+                           (focus)="isFechaRequired = false"> <!-- Desactivar el mensaje cuando el usuario hace focus -->
+                           
+                    <!-- Mensaje flotante que aparece si la fecha no está seleccionada al hacer clic en "Consultar" -->
+                    <div class="text-danger" *ngIf="isFechaRequired">
+                        <small>La fecha es obligatoria.</small>
+                    </div>
+                </div>
             </div>
             <div class="col-auto">
-                <label for="hora">HORA:</label>
+                <label for="hora">HORA</label>
                 <select formControlName="hora" class="form-control" required>
                     <option value="08:00:00">8:00 AM</option>
                     <option value="09:00:00">9:00 AM</option>
@@ -19,9 +30,37 @@
                 </select>
             </div>
             <div class="col-auto">
-                <label for="nombrePropietario">NOMBRE DEL PROPIETARIO:</label>
-                <input type="text" formControlName="nombrePropietario" class="form-control" required>
+                <label for="nombrePropietario">NOMBRE DEL PROPIETARIO</label>
+                <div class="input-container">
+                    <input type="text" 
+                           formControlName="nombrePropietario" 
+                           class="form-control"
+                           (input)="toUpperCase($event)" 
+                           (keypress)="validateAlpha($event)" 
+                           (focus)="showWarningMessage()" 
+                           (blur)="hideWarningMessage()" 
+                           maxlength="40">
+            
+                    <!-- Mensaje flotante que aparece cuando el input tiene foco -->
+                    <div class="text-danger" *ngIf="isFocused">
+                        <small>El tamaño máximo es de 40 caracteres.</small>
+                    </div>
+                </div>
             </div>
+            <div class="col-auto">
+                <label for="estado">ESTADO</label>
+                <select formControlName="estado" class="form-control">
+                    <option value="">TODAS</option>
+                    <option value="0">VENCIDAS</option>
+                    <option value="1">ACTIVAS</option>
+                    <option value="2">CANCELADAS</option>
+                  </select>
+                
+                  <!-- Mensaje de error si no se selecciona una opción -->
+                  <div class="text-danger" *ngIf="formulario.get('estado')?.invalid && formulario.get('estado')?.touched">
+                    <small>El campo estado es obligatorio.</small>
+                  </div>
+              </div>
             <div class="col-auto">
                 
                 <button type="button" class="btn btn-primary" (click)="consultarCita()">
@@ -29,6 +68,7 @@
                     CONSULTAR
                 </button>
             </div>
+            
         </div>
     </form>
 
@@ -41,6 +81,7 @@
                     <th>Hora</th>
                     <th>Propietario</th>
                     <th>Veterinario</th>
+                    <th>Estado</th>
                     <th style="width: 260px;">Acciones</th> <!-- Ancho reducido para Acciones -->
                 </tr>
             </thead>
@@ -51,6 +92,13 @@
                     <td>{{ registro.hora }}</td>
                     <td>{{ registro.propietario }}</td>
                     <td>{{ registro.veterinario }}</td>
+                    <!-- <td>{{ registro.estado }}</td> -->
+                    <td>
+                        <!-- Validación y formato condicional para el estado -->
+                        {{ getEstadoTexto(registro.estado) }}
+                      </td>
+
+
                     <td style="width: 200px;"> <!-- Ancho reducido para Acciones -->
                         <button class="btn btn-warning btn-sm me-2" (click)="editarRegistro(i)">
                             <span class="material-symbols-outlined" style="vertical-align: middle;" >
@@ -80,7 +128,7 @@
             </button>
         </div>
         <div class="col-auto">
-            <button type="button" class="btn btn-light">
+            <button type="button" class="btn btn-light" (click)="limpiarFormulario()" >
                 <span class="material-symbols-outlined" style="vertical-align: middle;">
                     mop
                     </span>

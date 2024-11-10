@@ -1,0 +1,13 @@
+.input-container {
+    position: relative;
+}
+
+.text-danger {
+    position: absolute;
+    top: 100%;  /* Coloca el mensaje debajo del input */
+    left: 0;
+    font-size: 14px;
+    color: red;
+    margin-top: 4px;
+    display: block;
+}

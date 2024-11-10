@@ -258,7 +258,7 @@ guardarCita(){
   this.formularioRegistro.get('veter')?.invalid ||
   this.formularioRegistro.get('hora')?.invalid) {
     // Aquí puedes mostrar un mensaje o hacer algo en caso de que el formulario sea inválido
-    this.procesoMsg('POR FAVOR COMPLETAR TODOS LOS CAMPOS OBLIGATORIOS.');
+    this.procesoMsg('POR FAVOR COMPLETAR TODOS LOS CAMPOS OBLIGATORIOS(*).');
     return; // Evita continuar si el formulario no es válido
 }
 
@@ -280,8 +280,19 @@ procesoMsg(msj: string) {
   const snackBarRef = this.snackBar.open(msj, 'Cerrar', {
     duration: 20000,
     panelClass: ['snackbar-confirm'],
+    verticalPosition: 'top'
   });
 
 
+}
+
+// En tu componente TypeScript
+validateAlpha(event: KeyboardEvent): void {
+  const regex = /^[A-Za-z\s]*$/;  // Solo permite letras y espacios
+  const char = event.key;
+
+  if (!regex.test(char)) {
+      event.preventDefault();  // Bloquea la tecla si no es una letra o espacio
+  }
 }
 }

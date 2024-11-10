@@ -51,7 +51,7 @@ export class DatosService {
 
 
   //obtener citas guardadas
-  buscarCita(fecha: string, hora :string|null, prop:string|null): Observable<any[]> {
+  buscarCita(fecha: string, hora :string|null, prop:string|null, estado:string): Observable<any[]> {
 
     // Validar hora: si está vacía, establecerla en null
   if (hora === "") {
@@ -68,7 +68,8 @@ export class DatosService {
     const body = {
       fecha: fecha,
       hora: hora,
-      propietario: prop
+      propietario: prop,
+      estadoIn: estado
     };
 
     console.log(body);
