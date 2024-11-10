@@ -1,26 +1,79 @@
 <div class="container">
     <form [formGroup]="formulario">
+        
         <div class="row justify-content-center mb-3 align-items-end">
-            <div class="col-auto">
-                <label for="codigoExpediente">Código de Expediente:</label>
-                <input type="text" formControlName="codigoExpediente" class="form-control" required>
+            <!-- Campo de código de expediente -->
+            <div class="col-auto d-flex flex-column">
+                <label for="codigoExpediente">CÓDIGO DE EXPEDIENTE:</label>
+                <div class="input-container">
+                    <input type="text" 
+                           formControlName="codigoExpediente" 
+                           class="form-control" 
+                           (input)="toUpperCase($event)"  
+                           (keypress)="validateNumber($event)" 
+                           minlength="8" 
+                           maxlength="8">
+                    <div class="text-danger" *ngIf="formulario.get('codigoExpediente')!.invalid && formulario.get('codigoExpediente')!.touched">
+                        <small *ngIf="formulario.get('codigoExpediente')!.hasError('minlength')">
+                            El código debe ser de 8 dígitos.
+                        </small>
+                    </div>
+                </div>
             </div>
-            <div class="col-auto">
-                <label for="nombreMascota">Nombre de Mascota:</label>
-                <input type="text" formControlName="nombreMascota" class="form-control" required>
+        
+            <!-- Campo de nombre de mascota -->
+            <div class="col-auto d-flex flex-column">
+                <label for="nombreMascota">NOMBRE DE MASCOTA:</label>
+                <div class="input-container">
+                    <input type="text" 
+                           formControlName="nombreMascota" 
+                           class="form-control" 
+                           (input)="toUpperCase($event)" 
+                           
+                           (focus)="showWarningMessage()" 
+                           (blur)="hideWarningMessage()" 
+                           (keypress)="validateAlpha($event)" 
+                           maxlength="40">
+                    <div class="text-danger" *ngIf="isFocused">
+                        <small *ngIf="isFocused">
+                            El tamaño máximo es 40 caracteres.
+                        </small>
+                    </div>
+                </div>
             </div>
-            <div class="col-auto">
-                <label for="nombrePropietario">Nombre del Propietario:</label>
-                <input type="text" formControlName="nombrePropietario" class="form-control" required>
+        
+            <!-- Campo de nombre del propietario -->
+            <div class="col-auto d-flex flex-column">
+                <label for="nombrePropietario">NOMBRE DEL PROPIETARIO:</label>
+                <div class="input-container">
+                    <input type="text" 
+                           formControlName="nombrePropietario" 
+                           class="form-control"  
+                           (input)="toUpperCase($event)" 
+                           (keypress)="validateAlpha($event)" 
+                           (focus)="showWarningMessage2()"
+                           (blur)="hideWarningMessage2()" 
+                           maxlength="40">
+                    <div class="text-danger" *ngIf="isFocused2">
+                        <small *ngIf="isFocused2">
+                            El tamaño máximo es 40 caracteres.
+                        </small>
+                    </div>
+                </div>
             </div>
-            <div class="col-auto">
-                
-                <button type="button" class="btn btn-primary" (click)="consultarExpediente()" >
-                    <span class="material-symbols-outlined" style="vertical-align: middle;">search</span> <!-- Icono para consultar cita -->
-                    Consultar
+        
+            <!-- Botón Consultar -->
+            <div class="col-auto d-flex align-items-end">
+                <button type="button" class="btn btn-primary" (click)="consultarExpediente()">
+                    <span class="material-symbols-outlined" style="vertical-align: middle;">search</span> 
+                    CONSULTAR
                 </button>
             </div>
         </div>
+        
+        
+        
+        
     </form>
 
     <div class="table-responsive" style="height: 500px; overflow-y: auto;">
@@ -52,13 +105,13 @@
                             <span class="material-symbols-outlined" style="vertical-align: middle;">
                                 edit_document
                             </span>
-                            Modificar
+                            MODIFICAR
                         </button>
                         <button class="btn btn-danger btn-sm">
                             <span class="material-symbols-outlined" style="vertical-align: middle;">
                                 delete
                             </span>
-                            Eliminar
+                            ELIMINAR
                         </button>
 
                         
@@ -78,7 +131,7 @@
             </button>
         </div>
         <div class="col-auto">
-            <button type="button" class="btn btn-light">
+            <button type="button" class="btn btn-light" (click)="limpiarFormulario()"  >
                 <span class="material-symbols-outlined" style="vertical-align: middle;">
                     mop
                 </span>

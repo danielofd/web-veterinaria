@@ -1,0 +1,53 @@
+/* Aseguramos que el formulario tenga un contexto relativo */
+form {
+    position: relative;
+}
+
+/* Contenedor del mensaje de error debajo del input */
+.error-container {
+    margin-top: 5px; /* Espacio entre el campo de texto y el mensaje de error */
+    padding-left: 5px; /* Para alinear el mensaje con el borde del input */
+}
+
+/* Estilo del mensaje de error */
+.text-danger {
+    font-size: 12px;
+    color: red;
+}
+
+/* Para mantener el mensaje de error debajo sin afectar el layout */
+.error-container small {
+    display: block;
+}
+
+/* Contenedor principal */
+.row {
+    display: flex;
+    justify-content: center;  /* Centra los elementos horizontalmente */
+    align-items: center;      /* Alinea los elementos verticalmente */
+  }
+  
+  /* Contenedor de cada input */
+  .input-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  /* Mensajes de error flotantes */
+  .input-container .text-danger {
+    position: absolute;
+    top: 100%;  /* Coloca el mensaje de error debajo del input */
+    left: 0;
+    width: 100%;
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+    background-color: #fff;  /* Fondo blanco para que el mensaje no se mezcle con el input */
+    padding: 2px 5px;
+    border-radius: 3px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);  /* Sombra ligera para mayor visibilidad */
+  }
+  
+  

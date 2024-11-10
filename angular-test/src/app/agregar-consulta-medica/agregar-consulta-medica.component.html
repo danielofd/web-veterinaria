@@ -31,12 +31,32 @@
       <!-- Botones al final del formulario -->
         <div class="d-flex justify-content-between">
             <!-- Botón Regresar -->
-            <button type="button" class="btn btn-secondary" (click)="regresar()">Regresar</button>
+            <button type="button" class="btn btn-secondary" (click)="regresar()">
+
+                
+                    <span class="material-symbols-outlined" style="vertical-align: middle;">keyboard_return</span>
+                    REGRESAR
+              
+
+
+             
+            </button>
         
             <!-- Botones Guardar y Limpiar con gap para espaciado -->
             <div class="d-flex gap-2">
-            <button type="button" class="btn btn-danger" (click)="limpiarFormulario()">Limpiar</button>
-            <button type="submit" class="btn btn-primary" [disabled]="formulario.invalid">Guardar</button>
+            <button type="button" class="btn btn-danger" (click)="limpiarFormulario()">
+                <span class="material-symbols-outlined" style="vertical-align: middle;" >
+                    mop
+                    </span>
+                LIMPIAR
+            </button>
+
+            <button type="submit" class="btn btn-success">
+                <span class="material-symbols-outlined" style="vertical-align: middle;" >
+                    save
+                    </span>
+                GUARDAR CONSULTA
+            </button>
             </div>
         </div>
     </form>
