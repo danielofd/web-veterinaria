@@ -29,7 +29,12 @@ export class ModificarExpedienteComponent implements OnInit {
 
   razas: Raza[]=[];
 
-  selectedRaza: string | undefined; // Valor seleccionado
+  selectedRaza: number=0; // Valor seleccionado
+
+  codExpediente: string="";
+
+  nombreTipo: string="";
+  nombreRaza: string="";
 
   constructor( private route: ActivatedRoute, private datosService: DatosService, private router: Router, private dialog: MatDialog,private http: HttpClient,
     private fb: FormBuilder,private snackBar: MatSnackBar){
@@ -50,6 +55,8 @@ export class ModificarExpedienteComponent implements OnInit {
         masTelefono:['', Validators.required],
         masMedReferido:['', Validators.required],
         masCorreo:['', Validators.required],
+        raza:[''],
+        tipo:['']
 
     });
 
@@ -77,9 +84,21 @@ export class ModificarExpedienteComponent implements OnInit {
         //console.log(data.fecha);
         //data.fecha='';
 
+        
+
         console.log("registro seleccionado: " +data);
         const registro = JSON.parse(data); // Parsear el JSON para obtener el objeto
        
+        //guarda codExpediente
+        this.codExpediente = registro.masId;
+        console.log("codigo expediente => " +this.codExpediente)
+
+        this.selectedRaza=Number(registro.razId);
+        console.log("id raza => " +this.selectedRaza);
+
+        this.nombreRaza=registro.razNombre;
+        this.nombreTipo=registro.timGrupo;
+
         /*
         registro.fecha='';
         registro.veterinario='';
@@ -88,7 +107,31 @@ export class ModificarExpedienteComponent implements OnInit {
 
         console.log(registro);
 
-        this.formulario.patchValue(registro); // Rellenar el formulario con los datos
+
+        const expediente = {
+          masId: registro.masId,
+          masNombre: registro.masNombre,
+          masPropietario: registro.masPropietario,
+          masGenero: registro.masGenero,
+          masColor: registro.masColor,
+          masPeso: registro.masPeso,
+          masTemperatura: registro.masTemperatura,
+          masFrecardiaca: registro.masFrecardiaca,
+          masDireccion: registro.masDireccion,
+          masTelefono: registro.masTelefono,
+          masMedReferido: registro.masMedReferido,
+          masCorreo: registro.masCorreo,
+          raza: registro.razNombre,
+          tipo: registro.timGrupo,
+          razId:registro.razId,
+          razNombre: registro.razNombre
+        };
+
+        console.log("obj enviado a form: "+expediente);
+
+        //this.formulario.patchValue(registro); // Rellenar el formulario con los datos
+
+        this.formulario.patchValue(expediente); // Rellenar el formulario con los datos
 
         //this.fillForm(); // Llenar el formulario con los datos
       }
@@ -201,15 +244,15 @@ export class ModificarExpedienteComponent implements OnInit {
     this.formulario.get('masDireccion')?.invalid 
     ||
     this.formulario.get('masTelefono')?.invalid 
-     
+     /*
     ||
     this.formulario.get('razNombre')?.invalid
-   
+    */
     ) {
       // Aquí puedes mostrar un mensaje o hacer algo en caso de que el formulario sea inválido
       this.procesoMsg('POR FAVOR COMPLETAR TODOS LOS CAMPOS OBLIGATORIOS(*).');
       return; // Evita continuar si el formulario no es válido
-  }
+    }
 
   console.log("campos correctos");
   
@@ -239,6 +282,8 @@ export class ModificarExpedienteComponent implements OnInit {
       usuCod = data
     });
 
+
+
     // Creamos un objeto constante para agrupar los valores
 const expediente = {
   masId: this.formulario.get('masId')?.value.toUpperCase(),
@@ -255,13 +300,22 @@ const expediente = {
   masCorreo: this.formulario.get('masCorreo')?.value,
   //raza: this.formulario.get('razNombre')?.value,  // Raza ya definida
   raza: {
-    razId: parseInt(this.formulario.get('razNombre')?.value, 10)
+
+    razId: isNaN(parseInt(this.formulario.get('razNombre')?.value, 10))
+      ? this.selectedRaza
+      : parseInt(this.formulario.get('razNombre')?.value, 10)
+
+    
+    //razId: parseInt(this.formulario.get('razNombre')?.value, 10)
   },
   usuCodigo: usuCod
 };
 
     
     console.log(expediente)
+
+    //agrego break para que no haga la peticion
+    //return;
 
 
     this.datosService.modificarExpediente(expediente).subscribe(
@@ -311,9 +365,27 @@ const expediente = {
     const snackBarRef = this.snackBar.open(msj, 'Cerrar', {
       duration: 20000,
       panelClass: ['snackbar-confirm'],
+      verticalPosition: 'top',
     });
   
     
+  }
+
+  limpiarFormulario(){
+    this.formulario.reset(); // Limpia el formulario
+    //this.registros=[];
+    //this.isFechaRequired = false;  // Muestra el mensaje si la fecha está vacía
+
+    this.formulario.reset({
+      masGenero: '1',  // Establecer "TODAS" como valor por defecto
+      timGrupo: '',
+      masId: this.codExpediente,
+      raza:this.nombreRaza,
+      tipo:this.nombreTipo,
+      razId:this.selectedRaza,
+      masMedReferido:''
+    });
+
   }
 
 }

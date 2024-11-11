@@ -7,7 +7,7 @@
       <div class="row">
         <!-- Campo Código de Expediente (solo lectura) -->
         <div class="col-md-6 mb-3">
-          <label class="form-label" for="masId">Código de Expediente</label>
+          <label class="form-label" for="masId">(*)CODIGO DE EXPEDIENTE</label>
           <input
             type="text"
             class="form-control"
@@ -21,7 +21,7 @@
   
         <!-- Campo Nombre de la Mascota -->
         <div class="col-md-6 mb-3">
-          <label class="form-label" for="name">Nombre de la Mascota</label>
+          <label class="form-label" for="name">(*)NOMBRE DE LA MASCOTA</label>
           <input
             type="text"
             class="form-control"
@@ -36,7 +36,7 @@
       <div class="row">
         <!-- Campo Nombre del Propietario -->
         <div class="col-md-6 mb-3">
-          <label class="form-label" for="masPropietario">Nombre del Propietario</label>
+          <label class="form-label" for="masPropietario">(*)NOMBRE DEL PROPIETARIO</label>
           <input
             type="text"
             class="form-control"
@@ -48,8 +48,9 @@
         </div>
   
         <!-- Campo Tipo de Mascota -->
-        <div class="col-md-6 mb-3">
-          <label class="form-label" for="timGrupo">Tipo de Mascota</label>
+        <!-- <div class="col-md-6 mb-3">
+
+          <label class="form-label" for="timGrupo">(*)TIPO DE MASCOTA</label>
           <select
             id="timGrupo"
             class="form-select"
@@ -58,13 +59,45 @@
           <option value="">Seleccione un tipo</option>
           <option *ngFor="let tipo of tiposMascotas" [value]="tipo.timId">{{ tipo.timGrupo }}</option>
           </select>
+        </div> -->
+
+        <div class="col-md-6 mb-3">
+          <div class="row">
+            <!-- Campo de texto alineado a la izquierda -->
+            <div class="col-md-6">
+              <label class="form-label" for="mascotaBusqueda">TIPO DE MASCOTA REGISTRADO</label>
+              <input
+                id="tipo"
+                type="text"
+                class="form-control"
+                formControlName="tipo"
+                readonly
+              />
+            </div>
+        
+            <!-- Select alineado a la derecha -->
+            <div class="col-md-6">
+              <label class="form-label" for="timGrupo">CAMBIAR TIPO(OPCIONAL)</label>
+              <select
+                id="timGrupo"
+                class="form-select"
+                formControlName="timGrupo"
+              >
+                <!-- <option value="">Seleccione un tipo</option> -->
+                <option *ngFor="let tipo of tiposMascotas" [value]="tipo.timId">{{ tipo.timGrupo }}</option>
+              </select>
+            </div>
+          </div>
         </div>
+        
+
+
       </div>
   
       <div class="row">
         <!-- Campo Género -->
         <div class="col-md-6 mb-3">
-          <label class="form-label" for="masGenero">Género</label>
+          <label class="form-label" for="masGenero">(*)GENERO</label>
           <select
             class="form-select"
             id="masGenero"
@@ -90,41 +123,77 @@
         </div>
         -->
             <!-- Campo Raza -->
-          <div class="col-md-6 mb-3">
-            <label class="form-label" for="razNombre">Raza</label>
+          <!-- <div class="col-md-6 mb-3">
+            <label class="form-label" for="razNombre">(*)RAZA</label>
 
             <select id="razNombre" class="form-select" formControlName="razNombre" >
-              <!-- Si estamos cargando, mostrar un option con texto "Cargando..." -->
+             
               <option *ngIf="isLoading" value="" disabled>Cargando...</option>
           
-              <!-- Si ya tenemos los datos, mostrar las razas -->
+             
               <option *ngFor="let raza of razas" [value]="raza.razId">
                 {{ raza.razNombre }}
               </option>
             </select>
              
             
+          </div> -->
+
+          <div class="col-md-6 mb-3">
+            <div class="row">
+              <!-- Campo de texto alineado a la izquierda -->
+              <div class="col-md-6">
+                <label class="form-label" for="razaBusqueda">RAZA REGISTRADA</label>
+                <input
+                  id="raza"
+                  type="text"
+                  class="form-control"
+                  placeholder="Buscar raza"
+                  formControlName="raza"
+                  readonly
+                />
+              </div>
+          
+              <!-- Select alineado a la derecha -->
+              <div class="col-md-6">
+                <label class="form-label" for="razNombre">CAMBIAR RAZA(OPCIONAL)</label>
+                <select
+                  id="razNombre"
+                  class="form-select"
+                  formControlName="razNombre"
+                >
+                  <!-- Si estamos cargando, mostrar un option con texto "Cargando..." -->
+                  <option *ngIf="isLoading" value="" disabled>Cargando...</option>
+          
+                  <!-- Si ya tenemos los datos, mostrar las razas -->
+                  <option *ngFor="let raza of razas" [value]="raza.razId">
+                    {{ raza.razNombre }}
+                  </option>
+                </select>
+              </div>
+            </div>
           </div>
+          
 
       </div>
   
       <div class="row">
         <!-- Campo Color -->
         <div class="col-md-6 mb-3">
-          <label class="form-label" for="masColor">Color</label>
+          <label class="form-label" for="masColor">(*)COLOR</label>
           <input
             type="text"
             class="form-control"
             id="masColor"
             formControlName="masColor"
             style="text-transform:uppercase"
-            placeholder="Nombre de la Mascota"
+            placeholder="COLOR DE LA MASCOTA"
           >
         </div>
   
         <!-- Campo Peso -->
         <div class="col-md-6 mb-3">
-          <label class="form-label" for="masPeso">Peso (lb)</label>
+          <label class="form-label" for="masPeso">(*)PESO(lb)</label>
           <input
             type="text"
             class="form-control"
@@ -139,7 +208,7 @@
       <div class="row">
         <!-- Campo Temperatura -->
         <div class="col-md-6 mb-3">
-          <label class="form-label" for="masTemperatura">Temperatura (°C)</label>
+          <label class="form-label" for="masTemperatura">(*)TEMPERATURA(°C)</label>
           <input
             type="text"
             class="form-control"
@@ -152,7 +221,7 @@
   
         <!-- Campo Frecuencia Cardiaca -->
         <div class="col-md-6 mb-3">
-          <label class="form-label" for="masFrecardiaca">Frecuencia Cardiaca</label>
+          <label class="form-label" for="masFrecardiaca">(*)FRECUENCIA CARDIACA</label>
           <input
             type="text"
             class="form-control"
@@ -168,7 +237,7 @@
       <div class="row">
         <!-- Campo Dirección -->
         <div class="col-md-6 mb-3">
-          <label class="form-label" for="masDireccion">Dirección</label>
+          <label class="form-label" for="masDireccion">(*)DIRECCION</label>
           <input
             type="text"
             class="form-control"
@@ -181,7 +250,7 @@
   
         <!-- Campo Teléfono -->
         <div class="col-md-6 mb-3">
-          <label class="form-label" for="masTelefono">Teléfono</label>
+          <label class="form-label" for="masTelefono">(*)TELEFONO</label>
           <input
             type="text"
             class="form-control"
@@ -196,7 +265,7 @@
       <div class="row">
         <!-- Campo Médico Referido -->
         <div class="col-md-6 mb-3">
-          <label class="form-label" for="masMedReferido">Médico Referido (no obligatorio)</label>
+          <label class="form-label" for="masMedReferido">MEDICO REFERIDO</label>
           <input
             type="text"
             class="form-control"
@@ -209,7 +278,7 @@
   
         <!-- Campo Correo Electrónico -->
         <div class="col-md-6 mb-3">
-          <label class="form-label" for="masCorreo">Correo Electrónico</label>
+          <label class="form-label" for="masCorreo">(*)CORREO ELECTRONICO</label>
           <input
             type="email"
             class="form-control"
@@ -226,7 +295,7 @@
           REGRESAR
         </button>
         <div>
-          <button type="button" class="btn btn-danger me-2">
+          <button type="button" class="btn btn-danger me-2"  (click)="limpiarFormulario()"  >
             <span class="material-symbols-outlined" style="vertical-align: middle;">
               cleaning_bucket
             </span>
