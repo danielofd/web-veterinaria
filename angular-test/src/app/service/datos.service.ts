@@ -140,4 +140,11 @@ export class DatosService {
     return this.http.post<any>(this.apiUrl+'/actualizarExpediente', expediente);
   }
 
+
+  //guardar consulta medica
+  // Método para hacer el POST request
+  agregaraConsultaMedica(data: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl+'/nuevaConsulta', data);
+  }
+
 }
