@@ -388,4 +388,22 @@ const expediente = {
 
   }
 
+
+    // En tu componente TypeScript
+validateAlpha(event: KeyboardEvent): void {
+  const regex = /^[A-Za-z\s]*$/;  // Solo permite letras y espacios
+  const char = event.key;
+
+  if (!regex.test(char)) {
+      event.preventDefault();  // Bloquea la tecla si no es una letra o espacio
+  }
+}
+
+hasErrors(controlName: string, errorType: string) {
+
+  console.log(errorType);
+
+  return this.formulario.get(controlName)?.hasError(errorType) && this.formulario.get(controlName)?.touched
+}
+
 }

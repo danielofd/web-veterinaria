@@ -430,6 +430,7 @@ onVeterinarioChange(event: Event): void {
     const snackBarRef = this.snackBar.open(msj, 'Cerrar', {
       duration: 20000,
       panelClass: ['snackbar-confirm'],
+      verticalPosition: 'top',
     });
   
   

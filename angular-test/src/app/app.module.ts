@@ -27,6 +27,7 @@ import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import { MenuConsultaMedicaComponent } from './menu-consulta-medica/menu-consulta-medica.component';
 import { ConsultarHistorialMedicoComponent } from './consultar-historial-medico/consultar-historial-medico.component';
 import { AgregarConsultaMedicaComponent } from './agregar-consulta-medica/agregar-consulta-medica.component';
+import { VerHistorialMedicoComponent } from './ver-historial-medico/ver-historial-medico.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { AgregarConsultaMedicaComponent } from './agregar-consulta-medica/agrega
     DeleteDialogComponent,
     MenuConsultaMedicaComponent,
     ConsultarHistorialMedicoComponent,
-    AgregarConsultaMedicaComponent
+    AgregarConsultaMedicaComponent,
+    VerHistorialMedicoComponent
   ],
   imports: [
     BrowserModule,

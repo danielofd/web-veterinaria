@@ -147,4 +147,11 @@ export class DatosService {
     return this.http.post<any>(this.apiUrl+'/nuevaConsulta', data);
   }
 
+
+  // Método GET para obtener historial médico, ahora acepta un parámetro empId
+  buscarHistorialMedico(empId: number): Observable<any[]> {
+    const url = `${this.apiUrl+'/buscarHistorialMedico'}/${empId}`;  // Construimos la URL con el parámetro empId
+    return this.http.get<any[]>(url);  // Realizamos la solicitud GET con la URL construida
+  }
+
 }

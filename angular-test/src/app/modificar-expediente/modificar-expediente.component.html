@@ -23,13 +23,21 @@
         <div class="col-md-6 mb-3">
           <label class="form-label" for="name">(*)NOMBRE DE LA MASCOTA</label>
           <input
+          [ngClass]="{'is-invalid': hasErrors('masNombre', 'required') || hasErrors('masNombre', 'maxlength') || hasErrors('masNombre', 'soloLetras')}"
             type="text"
             class="form-control"
             id="masNombre"
             formControlName="masNombre"
+            maxlength="50"
             style="text-transform:uppercase"
+            (keypress)="validateAlpha($event)"
             placeholder="Nombre de la Mascota"
+            
           >
+          <div class="text-danger" *ngIf="hasErrors('masNombre', 'required')">Campo obligatorio</div>
+          <div class="text-danger" *ngIf="hasErrors('masNombre', 'maxlength')">Máximo 50 caracteres</div>
+          <div class="text-danger" *ngIf="hasErrors('masNombre', 'soloLetras')">Solo se permiten letras y espacios</div>
+        
         </div>
       </div>
   
@@ -38,13 +46,22 @@
         <div class="col-md-6 mb-3">
           <label class="form-label" for="masPropietario">(*)NOMBRE DEL PROPIETARIO</label>
           <input
+          [ngClass]="{'is-invalid': hasErrors('masPropietario', 'required') || hasErrors('masPropietario', 'maxlength') || hasErrors('masPropietario', 'soloLetras')}"
             type="text"
             class="form-control"
             id="masPropietario"
             formControlName="masPropietario"
             style="text-transform:uppercase"
+            maxlength="50"
+            (keypress)="validateAlpha($event)"
             placeholder="Nombre del Propietario"
           >
+
+          <div class="text-danger" *ngIf="hasErrors('masPropietario', 'required')">Campo obligatorio</div>
+          <div class="text-danger" *ngIf="hasErrors('masPropietario', 'maxlength')">Máximo 50 caracteres</div>
+          <div class="text-danger" *ngIf="hasErrors('masPropietario', 'soloLetras')">Solo se permiten letras y espacios</div>
+        
+          
         </div>
   
         <!-- Campo Tipo de Mascota -->
@@ -187,6 +204,7 @@
             id="masColor"
             formControlName="masColor"
             style="text-transform:uppercase"
+            (keypress)="validateAlpha($event)"
             placeholder="COLOR DE LA MASCOTA"
           >
         </div>
@@ -272,6 +290,7 @@
             style="text-transform:uppercase"
             id="masMedReferido"
             formControlName="masMedReferido"
+            (keypress)="validateAlpha($event)"
             placeholder="Nombre del médico"
           >
         </div>

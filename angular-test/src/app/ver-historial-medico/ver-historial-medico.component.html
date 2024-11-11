@@ -1,0 +1,58 @@
+<div class="consulta-container">
+
+    <!-- Botón alineado a la izquierda -->
+    <button class="left-button" (click)="regresar()">
+      <span class="material-symbols-outlined" style="vertical-align: middle;">keyboard_return</span>
+      REGRESAR
+    </button>
+  
+    <h2>HISTORIAL MEDICO</h2>
+  
+    <!-- Verifica si hay consultas -->
+    <!-- <div *ngIf="consultas.length === 0" class="no-consultas-message">
+      <p><strong>NO TIENE CONSULTAS MEDICAS</strong></p>
+    </div> -->
+  
+    <!-- Lista de consultas en formato de tarjetas -->
+    <div *ngIf="consultas.length > 0" class="consultas-list">
+      <div *ngFor="let consulta of consultas" class="consulta-card" (click)="onSelectConsulta(consulta)">
+        
+        <!-- Información de la consulta -->
+        <div class="consulta-header">
+          <h3>{{ consulta.empNombre }}</h3>
+          <span class="consulta-fecha">{{ consulta.conFecConsulta }}</span>
+        </div>
+  
+        <div class="consulta-details">
+          <p><strong>Síntomas:</strong> {{ consulta.conSintomas }}</p>
+          <p><strong>Diagnóstico:</strong> {{ consulta.conDiagnostico }}</p>
+          <p><strong>Exámenes:</strong> {{ consulta.conExamenes }}</p>
+          <p><strong>Observaciones:</strong> {{ consulta.conObservaciones }}</p>
+        </div>
+  
+        <button class="view-button" (click)="verDetalles(consulta)">
+          <span class="material-symbols-outlined" style="vertical-align: middle;">visibility</span>
+          VER DETALLES
+        </button>
+      </div>
+    </div>
+  
+    <!-- Modal de detalles -->
+    <div *ngIf="isModalOpen" class="modal-overlay">
+      <div class="modal-content">
+        <h3>Detalles de la Consulta</h3>
+        <p><strong>Nombre del Paciente:</strong> {{ selectedConsulta?.empNombre }}</p>
+        <p><strong>Fecha de Consulta:</strong> {{ selectedConsulta?.conFecConsulta }}</p>
+        <p><strong>Síntomas:</strong> {{ selectedConsulta?.conSintomas }}</p>
+        <p><strong>Diagnóstico:</strong> {{ selectedConsulta?.conDiagnostico }}</p>
+        <p><strong>Exámenes:</strong> {{ selectedConsulta?.conExamenes }}</p>
+        <p><strong>Observaciones:</strong> {{ selectedConsulta?.conObservaciones }}</p>
+        
+        <!-- Botón para cerrar el modal -->
+        <button class="close-modal-button" (click)="closeModal()">Cerrar</button>
+      </div>
+    </div>
+  
+  </div>
+  
+  

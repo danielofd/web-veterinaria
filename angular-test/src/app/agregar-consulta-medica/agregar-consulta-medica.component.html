@@ -3,28 +3,34 @@
   
     <form [formGroup]="formulario" (ngSubmit)="enviarFormulario()">
       <div class="form-group">
-        <label for="sintomas">Síntomas</label>
-        <textarea id="sintomas" formControlName="sintomas" rows="4" class="form-control" placeholder="Describa los síntomas del animal"></textarea>
+        <label for="sintomas">(*)SINTOMAS</label>
+        <textarea id="sintomas" formControlName="sintomas" rows="4" class="form-control" placeholder="Describa los síntomas de la mascota"></textarea>
       </div>
   
       <div class="form-group">
-        <label for="diagnostico">Diagnóstico</label>
+        <label for="diagnostico">(*)DIAGNOSTICO</label>
         <textarea id="diagnostico" formControlName="diagnostico" rows="4" class="form-control" placeholder="Describa el diagnóstico"></textarea>
       </div>
   
       <div class="form-group">
-        <label for="examenesRecomendados">Exámenes recomendados</label>
-        <textarea id="examenesRecomendados" formControlName="examenesRecomendados" rows="4" class="form-control" placeholder="Exámenes recomendados para el animal"></textarea>
+        <label for="examenesRecomendados">(*)EXAMENES RECOMENDADOS</label>
+        <textarea id="examenesRecomendados" formControlName="examenesRecomendados" rows="4" class="form-control" placeholder="Exámenes recomendados para la mascota"></textarea>
       </div>
   
       <div class="form-group">
-        <label for="observaciones">Observaciones</label>
+        <label for="observaciones">(*)OBSERVACIONES</label>
         <textarea id="observaciones" formControlName="observaciones" rows="4" class="form-control" placeholder="Observaciones adicionales"></textarea>
       </div>
   
       <div class="form-group">
-        <label for="nombreVeterinario">Nombre del Veterinario</label>
-        <input id="nombreVeterinario" formControlName="nombreVeterinario" type="text" class="form-control" placeholder="Nombre completo del veterinario" (input)="toUpperCase($event)">
+        <label for="nombreVeterinario">(*)NOMBRE DEL VETERINARIO</label>
+        <!-- <input id="nombreVeterinario" formControlName="nombreVeterinario" type="text" class="form-control" placeholder="Nombre completo del veterinario" (input)="toUpperCase($event)"> -->
+        <select id="vet" class="form-select form-select-sm" formControlName="nombreVeterinario">
+          <!-- <option value="">Seleccione un veterinario</option> -->
+              <option *ngFor="let vet of veterinarios" [value]="vet.empId">
+                  {{ vet.empNombre }} {{ vet.empApellido }}
+              </option>
+          </select>
       </div>
       <br>
 

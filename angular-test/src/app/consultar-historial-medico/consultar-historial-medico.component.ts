@@ -104,8 +104,34 @@ export class ConsultarHistorialMedicoComponent {
     this.formulario.patchValue(registro); // Cargar los valores en el formulario
     //this.registros.splice(index, 1); // Eliminar el registro del array
 
-    //redirige al componente modificar cita
-    //this.router.navigate(['/modificar-expediente', { data: JSON.stringify(registro) }]);
+    this.datosService.buscarHistorialMedico(registro.expId).subscribe(
+      (data) => {
+        console.log("---respuesta recibida: "+data)
+
+        if (data && data.length > 0) {
+          // Si hay datos, asignamos las consultas y mostramos mensaje de éxito
+          //this.consultas = data;
+          console.log("---Consultas cargadas exitosamente.");
+
+          //redirige al componente modificar cita
+          this.router.navigate(['/ver-historial-medico', { data: JSON.stringify(registro) }]);
+        } else {
+          // Si no hay datos, mostramos mensaje indicando que no hay consultas
+          console.log("---No tiene consultas médicas.");
+          this.openSnackBar("ESTE EXPEDIENTE NO TIENE CONSULTAS MEDICAS.");
+          return;
+        }
+
+
+        //this.consultas = data;  // Asignamos la respuesta del GET a la variable consultas
+      },
+      (error) => {
+        console.error('Error al cargar las consultas:', error);
+      }
+    );
+
+
+    
 
 
   }
