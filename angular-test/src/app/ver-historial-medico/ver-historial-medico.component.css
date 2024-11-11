@@ -174,13 +174,12 @@
     background-color: #0056b3;
   }
 
-  /*para el boton izquierdo*/
-  /* Estilos para el botón alineado a la izquierda */
+  /* Estilo base para el botón */
 .left-button {
     position: absolute;
-    top: 20px;  /* Ajusta la posición en la parte superior */
+    top: 20px;  /* Posición superior para el botón */
     left: 0;    /* Alineado al borde izquierdo */
-    margin-left: 20px; /* Espacio de 20px desde el borde izquierdo de la pantalla */
+    margin-left: 105px; /* Espacio desde el borde izquierdo */
     background-color: #007bff;
     color: white;
     border: none;
@@ -189,20 +188,41 @@
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s;
+    display: flex;
+    align-items: center;
   }
-  
   
   .left-button:hover {
     background-color: #0056b3;
   }
-
-  /* Estilo para el mensaje cuando no hay consultas */
-.no-consultas-message {
-    text-align: center;
-    color: #ff5733;  /* Color rojo para resaltar el mensaje */
-    font-size: 18px;
-    font-weight: bold;
-    margin-top: 20px;
+  
+  .left-button span {
+    margin-right: 8px;  /* Espacio entre el ícono y el texto */
+  }
+  
+  /* Media Query para pantallas más pequeñas (móviles) */
+  @media (max-width: 600px) {
+    .left-button {
+      font-size: 14px; /* Reducir el tamaño de la fuente */
+      padding: 8px 12px; /* Reducir el tamaño del padding */
+      margin-left: 10px; /* Reducir el espacio desde el borde */
+    }
+  
+    .left-button span {
+      font-size: 18px; /* Reducir el tamaño del ícono en pantallas pequeñas */
+    }
+  }
+  
+  /* Media Query para tabletas (pantallas de 601px a 1024px) */
+  @media (max-width: 1024px) and (min-width: 601px) {
+    .left-button {
+      font-size: 15px;  /* Tamaño de fuente adecuado para tabletas */
+      padding: 9px 13px; /* Padding intermedio */
+    }
+  
+    .left-button span {
+      font-size: 20px; /* Tamaño de ícono adecuado para tabletas */
+    }
   }
   
   
