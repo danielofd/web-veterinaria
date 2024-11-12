@@ -165,7 +165,11 @@
                 <label class="form-label" for="email">CORREO ELECTRONICO(*)</label>
                 <input
                     [ngClass]="{'is-invalid': hasErrors('email', 'required') || hasErrors('email', 'email') || hasErrors('email', 'maxlength')}"
-                    type="email" class="form-control" id="email" formControlName="email" placeholder="Ejemplo: usuario@gmail.com"
+                    type="email" 
+                    class="form-control" 
+                    id="email" 
+                    formControlName="email" 
+                    placeholder="Ejemplo: usuario@gmail.com"
                     (blur)="onBlurEmail()">
                 <div class="text-danger" *ngIf="hasErrors('email', 'required')"> Campo obligatorio </div>
                 <div class="text-danger" *ngIf="hasErrors('email', 'email')"> Formato de correo inválido </div>

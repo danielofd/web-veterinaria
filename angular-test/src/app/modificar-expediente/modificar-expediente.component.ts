@@ -48,13 +48,13 @@ export class ModificarExpedienteComponent implements OnInit {
         masGenero:['', Validators.required],
         razNombre:['', Validators.required],//
         timGrupo:['', Validators.required],//
-        masPeso:['', Validators.required],
+        masPeso:['', [Validators.required,  Validators.pattern('^[0-9]{1,3}(\.[0-9]{1,2})?$')]],
         masTemperatura:['', Validators.required],
-        masFrecardiaca:['', Validators.required],
+        masFrecardiaca:['', [Validators.required, Validators.pattern('^[0-9]*$')]],
         masDireccion:['', Validators.required],
-        masTelefono:['', Validators.required],
+        masTelefono:['', [Validators.required]],
         masMedReferido:['', Validators.required],
-        masCorreo:['', Validators.required],
+        masCorreo:['', [Validators.required, Validators.email]],
         raza:[''],
         tipo:['']
 
@@ -405,5 +405,57 @@ hasErrors(controlName: string, errorType: string) {
 
   return this.formulario.get(controlName)?.hasError(errorType) && this.formulario.get(controlName)?.touched
 }
+
+
+// Método para validar en tiempo real usando keypress
+validateEmailOnKeypress(event: KeyboardEvent): void {
+  const emailInput = event.target as HTMLInputElement;
+  const emailValue = emailInput.value;
+  
+  // Expresión regular simple para validar correos electrónicos
+  const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+  
+  if (emailPattern.test(emailValue)) {
+    emailInput.setCustomValidity('');
+  } else {
+    emailInput.setCustomValidity('Correo electrónico no válido');
+  }
+}
+
+ // Método para validar la entrada de números decimales
+ validateDecimalInput(event: KeyboardEvent): void {
+  const inputChar = String.fromCharCode(event.charCode); // Obtener el carácter presionado
+  const currentValue = (event.target as HTMLInputElement).value; // Obtener el valor actual del input
+  
+  // Expresión regular para validar que solo se ingresen números y un punto decimal
+  const validPattern = /^[0-9]{1,3}(\.[0-9]{0,2})?$/;
+
+  // Si la tecla presionada es un número o el punto decimal y el valor sigue el patrón
+  if (!validPattern.test(currentValue + inputChar)) {
+    event.preventDefault(); // Bloquear la tecla si no cumple con el patrón
+  }
+}
+
+// Método para validar la entrada de solo números enteros en el evento keypress
+validateIntegerInput(event: KeyboardEvent): void {
+  const inputChar = String.fromCharCode(event.charCode); // Obtener el carácter presionado
+  
+  // Si el carácter presionado no es un número (del 0 al 9), prevén la entrada
+  if (!/^[0-9]$/.test(inputChar)) {
+    event.preventDefault();  // Bloquear la entrada no válida
+  }
+}
+  
+
+  validarNumeros(event: KeyboardEvent) {
+    const charCode = event.charCode;
+    if (charCode < 48 || charCode > 57) { // Verificar si no es un número
+      event.preventDefault(); // Bloquear la tecla
+    }
+  }
+
+
+
+
 
 }

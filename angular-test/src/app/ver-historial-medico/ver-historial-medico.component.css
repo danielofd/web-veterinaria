@@ -179,7 +179,7 @@
     position: absolute;
     top: 20px;  /* Posición superior para el botón */
     left: 0;    /* Alineado al borde izquierdo */
-    margin-left: 105px; /* Espacio desde el borde izquierdo */
+    margin-left: 15%; /* Espacio desde el borde izquierdo */
     background-color: #007bff;
     color: white;
     border: none;

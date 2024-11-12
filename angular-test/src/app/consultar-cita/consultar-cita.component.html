@@ -106,7 +106,7 @@
                                 </span>
                             MODIFICAR
                         </button>
-                        <button class="btn btn-danger btn-sm" (click)="eliminarRegistro(i)">
+                        <button class="btn btn-danger btn-sm" (click)="eliminarRegistro(i)" [disabled]="registro.estado === 0 || registro.estado === 2">
                             <span class="material-symbols-outlined" style="vertical-align: middle;">
                                 cancel
                                 </span>

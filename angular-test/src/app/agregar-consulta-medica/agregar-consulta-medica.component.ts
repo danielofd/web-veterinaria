@@ -20,6 +20,8 @@ export class AgregarConsultaMedicaComponent implements OnInit {
   idEmpleado : number =0;
   idExpediente: number=0;
 
+  codEmp: string="";
+
   constructor(private fb: FormBuilder, private datosService: DatosService, 
     private router: Router, private snackBar: MatSnackBar, private dialog: MatDialog,
     private route: ActivatedRoute,
@@ -88,6 +90,11 @@ export class AgregarConsultaMedicaComponent implements OnInit {
     // Obtenemos los valores del formulario
     const formValues = this.formulario.value;
 
+    this.datosService.currentData.subscribe(data =>{
+      console.log("usu correlativo: "+data);
+      this.codEmp = data
+    });
+
     // Aquí puedes definir los valores del request
   const request = {
     empId: formValues.nombreVeterinario,
@@ -96,7 +103,7 @@ export class AgregarConsultaMedicaComponent implements OnInit {
     conDiagnostico: formValues.diagnostico,
     conExamenes: formValues.examenesRecomendados,
     conObservaciones: formValues.observaciones,
-    usuCodigo: ''  // Aquí puedes poner el código de usuario si es necesario
+    usuCodigo: this.codEmp  // Aquí puedes poner el código de usuario si es necesario
   };
 
 

@@ -199,6 +199,7 @@
         <div class="col-md-6 mb-3">
           <label class="form-label" for="masColor">(*)COLOR</label>
           <input
+          [ngClass]="{'is-invalid': hasErrors('masColor', 'required') || hasErrors('masColor', 'maxlength') || hasErrors('masColor', 'soloLetras')}"
             type="text"
             class="form-control"
             id="masColor"
@@ -206,7 +207,12 @@
             style="text-transform:uppercase"
             (keypress)="validateAlpha($event)"
             placeholder="COLOR DE LA MASCOTA"
+            maxlength="25"
           >
+          <div class="text-danger" *ngIf="hasErrors('masColor', 'required')">Campo obligatorio</div>
+          <div class="text-danger" *ngIf="hasErrors('masColor', 'maxlength')">Máximo 25 caracteres</div>
+          <div class="text-danger" *ngIf="hasErrors('masColor', 'soloLetras')">Solo se permiten letras y espacios</div>
+
         </div>
   
         <!-- Campo Peso -->
@@ -217,9 +223,14 @@
             class="form-control"
             id="masPeso"
             formControlName="masPeso"
+            (keypress)="validateDecimalInput($event)"
+            [class.is-invalid]="formulario.get('masPeso')?.invalid && formulario.get('masPeso')?.touched"
             placeholder="0.00"
             onfocus="this.select();"
           >
+          <div *ngIf="formulario.get('masPeso')?.invalid && formulario.get('masPeso')?.touched" class="invalid-feedback">
+            Ingrese un valor válido (hasta 3 enteros y 2 decimales).
+          </div>
         </div>
       </div>
   
@@ -232,9 +243,15 @@
             class="form-control"
             id="masTemperatura"
             formControlName="masTemperatura"
+            maxlength="3"
+            (keypress)="validateIntegerInput($event)"
+            [class.is-invalid]="formulario.get('masTemperatura')?.invalid && formulario.get('masTemperatura')?.touched"
             placeholder="0.00"
             onfocus="this.select();"
           >
+          <div *ngIf="formulario.get('masTemperatura')?.invalid && formulario.get('masTemperatura')?.touched" class="invalid-feedback">
+            Ingrese un valor válido.
+          </div>
         </div>
   
         <!-- Campo Frecuencia Cardiaca -->
@@ -247,8 +264,13 @@
             formControlName="masFrecardiaca"
             maxlength="3"
             placeholder="Ejemplo: 75"
+            (keypress)="validateIntegerInput($event)"
+            [class.is-invalid]="formulario.get('masFrecardiaca')?.invalid && formulario.get('masFrecardiaca')?.touched"
             onfocus="this.select();"
           >
+          <div *ngIf="formulario.get('masFrecardiaca')?.invalid && formulario.get('masFrecardiaca')?.touched" class="invalid-feedback">
+            Ingrese un número entero válido.
+          </div>
         </div>
       </div>
   
@@ -257,13 +279,17 @@
         <div class="col-md-6 mb-3">
           <label class="form-label" for="masDireccion">(*)DIRECCION</label>
           <input
+            [ngClass]="{'is-invalid': hasErrors('masDireccion', 'required') || hasErrors('masDireccion', 'maxlength') || hasErrors('masDireccion', 'soloLetras')}"
             type="text"
             class="form-control"
             style="text-transform:uppercase"
             id="masDireccion"
             formControlName="masDireccion"
             placeholder="Dirección del propietario"
+            maxlength="150"
           >
+          <div class="text-danger" *ngIf="hasErrors('masDireccion', 'required')">Campo obligatorio</div>
+                <div class="text-danger" *ngIf="hasErrors('masDireccion', 'maxlength')">Máximo 150 caracteres</div>
         </div>
   
         <!-- Campo Teléfono -->
@@ -274,9 +300,16 @@
             class="form-control"
             id="masTelefono"
             formControlName="masTelefono"
-            maxlength="9"
+            maxlength="8"
             placeholder="Ejemplo: 1234-5678"
+            (keypress)="validateIntegerInput($event)"
+            [class.is-invalid]="formulario.get('masTelefono')?.invalid && formulario.get('masTelefono')?.touched"
+            
           >
+          <div *ngIf="formulario.get('masTelefono')?.invalid && formulario.get('masTelefono')?.touched" class="invalid-feedback">
+            Ingrese un número entero válido.
+          </div>
+         
         </div>
       </div>
   
@@ -292,6 +325,7 @@
             formControlName="masMedReferido"
             (keypress)="validateAlpha($event)"
             placeholder="Nombre del médico"
+            maxlength="50"
           >
         </div>
   
@@ -302,9 +336,14 @@
             type="email"
             class="form-control"
             id="masCorreo"
+            (keypress)="validateEmailOnKeypress($event)"
+            [class.is-invalid]="formulario.get('masCorreo')?.invalid && formulario.get('masCorreo')?.touched"
             formControlName="masCorreo"
             placeholder="Ejemplo: usuario@gmail.com"
           >
+          <div *ngIf="formulario.get('masCorreo')?.invalid && formulario.get('masCorreo')?.touched" class="invalid-feedback">
+            Ingrese un correo electrónico válido.
+          </div>
         </div>
       </div>
   
