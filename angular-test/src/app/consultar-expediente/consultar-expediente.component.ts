@@ -4,6 +4,9 @@ import { DatosService } from '../service/datos.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+// Asegúrate de que la librería bootstrap esté importada globalmente
+declare var bootstrap: any;  // Esto es necesario para que TypeScript reconozca 'bootstrap'
+
 
 @Component({
   selector: 'app-consultar-expediente',
@@ -13,6 +16,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class ConsultarExpedienteComponent {
 
   formulario: FormGroup;
+
+  detalleExpediente: any = null;
+
+  selectedRegistro: any;   // Registro seleccionado para el modal
 
   isFocused: boolean = false;
   isFocused2: boolean = false;
@@ -32,6 +39,30 @@ export class ConsultarExpedienteComponent {
       ]],
       nombrePropietario:[]
     });
+  }
+
+  abrirModalDetalles(registro: any) {
+    // Asignamos el detalle del expediente a la variable
+    this.detalleExpediente = registro;
+
+    // Mostramos el modal
+    const modal = new bootstrap.Modal(document.getElementById('modalDetallesExpediente')!);
+    modal.show();
+  }
+
+  abrirModalConsultaMedica(registro: any) {
+    // Aquí puedes guardar el registro si necesitas usarlo en el modal
+    // Luego, abre el modal para las opciones de consulta médica.
+
+    this.selectedRegistro = registro;  // Asignamos el registro seleccionado
+
+    console.log("regitro: " +this.selectedRegistro);
+
+    const modalElement = document.getElementById('modalConsultaMedica');
+    if (modalElement) {
+      const modal = new bootstrap.Modal(modalElement);
+      modal.show();
+    }
   }
 
 
@@ -226,6 +257,27 @@ validateNumber(event: KeyboardEvent): void {
   if (!regex.test(char)) {
       event.preventDefault();  // Bloquea la tecla si no es un número
   }
+}
+
+//para agregar consulta medica
+agregarConsulta(registro: any) {
+  //const registro = this.registros[index];
+  console.log(registro);
+  this.formulario.patchValue(registro); // Cargar los valores en el formulario
+  //this.registros.splice(index, 1); // Eliminar el registro del array
+
+
+    // Cerrar el modal antes de redirigir
+    const modalElement = document.getElementById('modalConsultaMedica');
+    const modal = bootstrap.Modal.getInstance(modalElement!);  // Obtener la instancia del modal
+    modal.hide();  // Cerrar el modal
+
+    console.log("Entra a metodo agregar consulta"+modal)
+
+
+  //redirige al componente modificar cita
+  this.router.navigate(['agregar-consulta-medica', { data: JSON.stringify(registro) }]);
+
 }
 
 }

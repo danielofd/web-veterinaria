@@ -1,6 +1,5 @@
 <div class="container">
     <form [formGroup]="formulario">
-        
         <div class="row justify-content-center mb-3 align-items-end">
             <!-- Campo de código de expediente -->
             <div class="col-auto d-flex flex-column">
@@ -29,7 +28,6 @@
                            formControlName="nombreMascota" 
                            class="form-control" 
                            (input)="toUpperCase($event)" 
-                           
                            (focus)="showWarningMessage()" 
                            (blur)="hideWarningMessage()" 
                            (keypress)="validateAlpha($event)" 
@@ -70,61 +68,165 @@
                 </button>
             </div>
         </div>
-        
-        
-        
-        
     </form>
 
     <div class="table-responsive" style="height: 500px; overflow-y: auto;">
-        <table class="table table-striped mt-4" style="max-width: 100%;">
+        <table class="table table-striped mt-4" style="max-width: 100%; table-layout: fixed;">
             <thead>
                 <tr>
-                    <th class="d-none">Id</th> <!-- Usar d-none para ocultar la columna -->
-                    <th>Código de Expediente</th>
-                    <th>Nombre de Mascota</th>
-                    <th>Especie</th>
-                    <th>Raza</th>
-                    <th>Color</th>
-                    <th>Nombre Propietario</th>
-                    <th style="width: 260px;">Acciones</th> <!-- Ancho reducido para Acciones -->
+                    <th style="width: 20%;">Código de Expediente</th>
+                    <th style="width: 20%;">Nombre de Mascota</th>
+                    <th style="width: 35%;">Nombre del propietario</th>
+                    <th class="text-center" style="width: 25%;">Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let registro of registros; let i = index">
-                    <td class="d-none">{{registro.id}}</td> <!-- Usar d-none aquí también -->
                     <td>{{ registro.masId }}</td>
                     <td>{{ registro.masNombre }}</td>
-                    <td>{{ registro.timGrupo }}</td>
-                    <td>{{ registro.razNombre }}</td>
-                    <td>{{ registro.masColor }}</td>
                     <td>{{ registro.masPropietario }}</td>
-                    <td style="width: 200px;">
-
-                        <button class="btn btn-warning btn-sm me-2" (click)="editarRegistro(i)" >
-                            <span class="material-symbols-outlined" style="vertical-align: middle;">
-                                edit_document
+                    <td>
+                        <button class="btn btn-info btn-sm mx-2" style="max-width: 150px; word-wrap: break-word; white-space: normal;" (click)="abrirModalDetalles(registro)">
+                            <span class="material-symbols-outlined" style="vertical-align: middle; font-size: 18px;">
+                                visibility
                             </span>
-                            MODIFICAR
+                            <span style="font-size: 12px;">Ver Detalles</span>
                         </button>
-                        <button class="btn btn-danger btn-sm">
-                            <span class="material-symbols-outlined" style="vertical-align: middle;">
-                                delete
+                        <button class="btn btn-success btn-sm mx-2" style="max-width: 150px; word-wrap: break-word; white-space: normal;" (click)="abrirModalConsultaMedica(registro)">
+                            <span class="material-symbols-outlined" style="vertical-align: middle; font-size: 18px;">
+                                medical_services
                             </span>
-                            ELIMINAR
+                            <span style="font-size: 12px;">Consulta Médica</span>
                         </button>
-
-                        
                     </td>
+                    <!-- <td>
+                            <button class="btn btn-success btn-sm" (click)="abrirModalConsultaMedica(registro)">
+                            <span class="material-symbols-outlined" style="vertical-align: middle;">
+                                medical_services
+                            </span>
+                            Consulta Médica
+                        </button>
+                    </td> -->
                 </tr>
             </tbody>
         </table>
     </div>
 
+    <!-- Modal Detalles de Expediente -->
+<div class="modal fade" id="modalDetallesExpediente" tabindex="-1" aria-labelledby="modalDetallesExpedienteLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+           
+            <!-- Encabezado del modal -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalDetallesExpedienteLabel">Detalles de Expediente</h5>
+                <!-- Botón Cerrar (X) -->
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <!-- Cuerpo del modal -->
+            <div class="modal-body">
+                <div *ngIf="detalleExpediente">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td><strong>Código de Expediente:</strong></td>
+                                <td>{{ detalleExpediente.masId }}</td>
+                                <td><strong>Especie:</strong></td>
+                                <td>{{ detalleExpediente.timGrupo }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Nombre de Mascota:</strong></td>
+                                <td>{{ detalleExpediente.masNombre }}</td>
+                                <td><strong>Raza:</strong></td>
+                                <td>{{ detalleExpediente.razNombre }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Color:</strong></td>
+                                <td>{{ detalleExpediente.masColor }}</td>
+                                <td><strong>Propietario:</strong></td>
+                                <td>{{ detalleExpediente.masPropietario }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div *ngIf="!detalleExpediente">
+                    <p>No se han encontrado detalles.</p>
+                </div>
+            </div>
+
+            <!-- Pie de modal con los botones de acción -->
+            <div class="modal-footer">
+                <!-- Botón Consulta Médica (Verde) -->
+                <!-- <button type="button" class="btn btn-success">
+                    <span class="material-symbols-outlined" style="vertical-align: middle; margin-right: 8px;">medical_services</span>
+                    Consulta Médica
+                </button> -->
+
+                <!-- Botón Modificar (Amarillo) -->
+                <button type="button" class="btn btn-warning">
+                    <span class="material-symbols-outlined" style="vertical-align: middle; margin-right: 8px;">edit</span>
+                    Modificar
+                </button>
+
+                <!-- Botón Eliminar (Rojo) -->
+                <button type="button" class="btn btn-danger">
+                    <span class="material-symbols-outlined" style="vertical-align: middle; margin-right: 8px;">delete</span>
+                    Eliminar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+  <!-- Modal Consulta Médica -->
+<div class="modal fade" id="modalConsultaMedica" tabindex="-1" aria-labelledby="modalConsultaMedicaLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered"> <!-- Modal más grande y centrado -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalConsultaMedicaLabel">Opciones de Consulta Médica</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Verifica si hay detalles de expediente -->
+                <div *ngIf="selectedRegistro; else noDetalles">
+                    <!-- Mostrar los botones solo si selectedRegistro existe -->
+                    <div class="d-flex justify-content-center">
+                        <!-- Botón Agregar Consulta Médica -->
+                        <button class="btn btn-primary mx-3 w-48" (click)="agregarConsulta(selectedRegistro)">
+                            <span class="material-symbols-outlined" style="vertical-align: middle; margin-right: 8px;">add_circle</span>
+                            Agregar Consulta Médica
+                        </button>
+                        <!-- Botón Ver Historial Médico -->
+                        <button class="btn btn-secondary mx-3 w-48">
+                            <span class="material-symbols-outlined" style="vertical-align: middle; margin-right: 8px;">history</span>
+                            Ver Historial Médico
+                        </button>
+                    </div>
+                </div>
+                <!-- Si no hay detalles, mostrar mensaje alternativo -->
+                <ng-template #noDetalles>
+                    <p>No se han encontrado detalles.</p>
+                </ng-template>
+            </div>
+            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
     <!-- Botones en la parte inferior -->
     <div class="row justify-content-center mt-4">
         <div class="col-auto">
-            
             <button type="button" class="btn btn-secondary" (click)="regresar()" >
                 <span class="material-symbols-outlined" style="vertical-align: middle;">keyboard_return</span>
                 Regresar
@@ -140,4 +242,3 @@
         </div>
     </div>
 </div>
-

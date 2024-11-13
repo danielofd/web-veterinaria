@@ -154,7 +154,7 @@ export class AgregarConsultaMedicaComponent implements OnInit {
 
   regresar(): void {
     // Ejemplo de redirección a una ruta específica
-    this.router.navigate(['/consultar-historial-medico']); // Cambia '/menu' a la ruta que necesites
+    this.router.navigate(['/consultar-expediente']); // Cambia '/menu' a la ruta que necesites
   }
 
 
