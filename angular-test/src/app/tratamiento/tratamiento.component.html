@@ -1,0 +1,44 @@
+<div class="modal-overlay">
+    <div class="modal-content tratamiento-modal">
+      <h3>Agregar Tratamiento</h3>
+      <hr />
+  
+      <!-- Tabla para agregar tratamiento -->
+      <div class="tratamiento-detalles">
+        <table class="table" *ngIf="tratamientos.length > 0">
+          <thead>
+            <tr>
+              <th>Medicamento</th>
+              <th>Dosis</th>
+              <th>Frecuencia</th>
+              <th>Duración</th>
+              <th>Fecha de Inicio</th>
+              <th>Fecha de Creación del Tratamiento</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let tratamiento of tratamientos; let i = index">
+              <td><input type="text" [(ngModel)]="tratamiento.medicamento" placeholder="Medicamento"></td>
+              <td><input type="text" [(ngModel)]="tratamiento.dosis" placeholder="Dosis"></td>
+              <td><input type="text" [(ngModel)]="tratamiento.frecuencia" placeholder="Frecuencia"></td>
+              <td><input type="text" [(ngModel)]="tratamiento.duracion" placeholder="Duración"></td>
+              <td><input type="date" [(ngModel)]="tratamiento.fechaInicio"></td>
+              <td><input type="date" [(ngModel)]="tratamiento.fechaCreacion"></td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <!-- Botón para agregar nueva fila -->
+        <button class="action-button" (click)="agregarFila()">Agregar Más</button>
+      </div>
+  
+      <hr />
+  
+      <!-- Botones de acción -->
+      <div class="action-buttons">
+        <button class="action-button guardar" (click)="guardarTratamiento()">Guardar Tratamiento</button>
+        <button class="action-button cancelar" (click)="closeTratamientoModal()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+  

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatosService } from '../service/datos.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ModalServiceService } from '../modal-service.service';
 
 @Component({
   selector: 'app-ver-historial-medico',
@@ -17,12 +18,22 @@ export class VerHistorialMedicoComponent implements OnInit {
   isModalOpen: boolean = false; // Estado del modal
   selectedConsulta: any; // Consulta seleccionada para mostrar en el modal
 
+  isLoading = true; // Inicialmente está en true mientras cargan los datos
+
+  selectedConsulta2: any = null;
+  isConsultaModalOpen = false;
+
+  registroExp: any;
+
+  isTratamientoModalOpen: boolean = false;  // Estado del modal de tratamiento
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private datosService: DatosService,
     private snackBar: MatSnackBar,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private modalService: ModalServiceService
     //private consultaService: ConsultaService
   ) {
     this.consultaForm = this.fb.group({
@@ -33,11 +44,18 @@ export class VerHistorialMedicoComponent implements OnInit {
       conObservaciones: [''],
       empNombre: [''],
     });
+
   }
+
+  //  // Función para abrir el modal de tratamiento
+  //  openTratamientoModal(): void {
+  //   this.modalService.openModal();  // Llamamos al servicio para abrir el modal
+  // }
 
 
   ngOnInit(): void {
 
+   
 
      // Obtener los datos pasados a través de la ruta
      this.route.params.subscribe(params => {
@@ -51,8 +69,15 @@ export class VerHistorialMedicoComponent implements OnInit {
 
         console.log("registro seleccionado: " +data);
         const registro = JSON.parse(data); // Parsear el JSON para obtener el objeto
+        
+        this.registroExp=registro;
+
+        console.log("---ver registro---");
+        console.log( this.registroExp);
 
         this.loadConsultas(registro.expId);
+
+        
 
         //guardo id expediente
         //this.idExpediente = registro.expId;
@@ -78,6 +103,17 @@ export class VerHistorialMedicoComponent implements OnInit {
     
   }
 
+  
+  // openConsultaModal(consulta: any): void {
+  //   this.selectedConsulta2 = consulta;
+  //   this.isConsultaModalOpen = true;
+  // }
+
+  // closeConsultaModal(): void {
+  //   this.isConsultaModalOpen = false;
+  //   this.selectedConsulta2 = null;
+  // }
+
 
   // Método para cargar las consultas, acepta empId como parámetro
   loadConsultas(empId: number): void {
@@ -85,11 +121,15 @@ export class VerHistorialMedicoComponent implements OnInit {
       (data) => {
         console.log("---respuesta recibida: "+data)
         this.consultas = data;  // Asignamos la respuesta del GET a la variable consultas
+        this.isLoading = false;  // Activamos el estado de carga
       },
       (error) => {
         console.error('Error al cargar las consultas:', error);
+        this.isLoading = false;  // Activamos el estado de carga
       }
     );
+
+   
   }
 
   onSelectConsulta(consulta: any): void {
@@ -134,7 +174,7 @@ export class VerHistorialMedicoComponent implements OnInit {
   
   regresar(): void {
     // Ejemplo de redirección a una ruta específica
-    this.router.navigate(['/consultar-historial-medico']); // Cambia '/menu' a la ruta que necesites
+    this.router.navigate(['/consultar-expediente']); // Cambia '/menu' a la ruta que necesites
   }
 
   procesoMsg(msj: string) {
@@ -145,6 +185,54 @@ export class VerHistorialMedicoComponent implements OnInit {
     });
   
   
+  }
+
+  modificarConsulta(){
+      console.log("presiono modificar consulta medica....");
+  }
+
+
+  // Abre el modal al hacer clic en la tarjeta de consulta
+  openConsultaModal(consulta: any): void {
+    this.selectedConsulta = consulta;
+    this.isConsultaModalOpen = true;
+  }
+
+  // Cierra el modal
+  closeConsultaModal(): void {
+    this.isConsultaModalOpen = false;
+    this.selectedConsulta = null;
+  }
+
+  // Acciones para los botones en consulta-card
+  modifyConsulta(consulta: any): void {
+
+    
+    // Lógica para modificar la consulta
+    console.log('Modificar consulta', consulta);
+    // Aquí puedes agregar la lógica para modificar la consulta (p.ej., abrir otro modal)
+  }
+
+  addExamenes(consulta: any): void {
+    // Lógica para agregar exámenes
+    console.log('Agregar exámenes a', consulta);
+    // Aquí puedes agregar la lógica para agregar exámenes (p.ej., abrir un formulario para agregar exámenes)
+  }
+
+  addTratamiento(consulta: any): void {
+    // Lógica para agregar tratamiento
+    console.log('Agregar tratamiento a', consulta);
+    // Aquí puedes agregar la lógica para agregar tratamiento (p.ej., abrir un formulario para agregar tratamiento)
+  }
+
+  // Abrir el modal de tratamiento
+  openTratamientoModal() {
+    this.isTratamientoModalOpen = true;
+  }
+
+  // Cerrar el modal de tratamiento
+  closeTratamientoModal() {
+    this.isTratamientoModalOpen = false;
   }
 
 }

@@ -12,46 +12,89 @@
     <!-- <div *ngIf="consultas.length === 0" class="no-consultas-message">
       <p><strong>NO TIENE CONSULTAS MEDICAS</strong></p>
     </div> -->
-  
-    <!-- Lista de consultas en formato de tarjetas -->
-    <div *ngIf="consultas.length > 0" class="consultas-list">
-      <div *ngFor="let consulta of consultas" class="consulta-card" (click)="onSelectConsulta(consulta)">
-        
-        <!-- Información de la consulta -->
-        <div class="consulta-header">
-          <h3>{{ consulta.empNombre }}</h3>
-          <span class="consulta-fecha">{{ consulta.conFecConsulta }}</span>
-        </div>
-  
-        <div class="consulta-details">
-          <p><strong>Síntomas:</strong> {{ consulta.conSintomas }}</p>
-          <p><strong>Diagnóstico:</strong> {{ consulta.conDiagnostico }}</p>
-          <p><strong>Exámenes:</strong> {{ consulta.conExamenes }}</p>
-          <p><strong>Observaciones:</strong> {{ consulta.conObservaciones }}</p>
-        </div>
-  
-        <button class="view-button" (click)="verDetalles(consulta)">
-          <span class="material-symbols-outlined" style="vertical-align: middle;">visibility</span>
-          VER DETALLES
-        </button>
-      </div>
+
+              <!-- Indicador de Cargando -->
+<div *ngIf="isLoading" class="consulta-card loading">
+  <div class="loading-message">
+    Cargando...
+  </div>
+</div>
+
+      <!-- Lista de Consultas -->
+<div *ngIf="consultas.length > 0" class="consultas-list">
+  <div *ngFor="let consulta of consultas" class="consulta-card" (click)="openConsultaModal(consulta)">
+    <!-- Información de la consulta -->
+    <div class="consulta-header">
+      <h3>Veterinario: {{ consulta.empNombre }}</h3>
+      <span class="consulta-fecha">{{ consulta.conFecConsulta }}</span>
     </div>
-  
-    <!-- Modal de detalles -->
-    <div *ngIf="isModalOpen" class="modal-overlay">
-      <div class="modal-content">
-        <h3>Detalles de la Consulta</h3>
-        <p><strong>Nombre del Paciente:</strong> {{ selectedConsulta?.empNombre }}</p>
-        <p><strong>Fecha de Consulta:</strong> {{ selectedConsulta?.conFecConsulta }}</p>
-        <p><strong>Síntomas:</strong> {{ selectedConsulta?.conSintomas }}</p>
-        <p><strong>Diagnóstico:</strong> {{ selectedConsulta?.conDiagnostico }}</p>
-        <p><strong>Exámenes:</strong> {{ selectedConsulta?.conExamenes }}</p>
-        <p><strong>Observaciones:</strong> {{ selectedConsulta?.conObservaciones }}</p>
-        
-        <!-- Botón para cerrar el modal -->
-        <button class="close-modal-button" (click)="closeModal()">Cerrar</button>
-      </div>
+
+    <div class="consulta-details">
+      <p><strong>Síntomas:</strong> {{ consulta.conSintomas }}</p>
+      <p><strong>Diagnóstico:</strong> {{ consulta.conDiagnostico }}</p>
+      <p><strong>Exámenes:</strong> {{ consulta.conExamenes }}</p>
+      <p><strong>Observaciones:</strong> {{ consulta.conObservaciones }}</p>
     </div>
+
+  </div>
+</div>
+
+        <!-- Modal de consulta médica con exámenes y tratamientos -->
+<div *ngIf="isConsultaModalOpen" class="modal-overlay">
+  <div class="modal-content consulta-modal">
+    <h3>Consulta Médica</h3>
+    <hr />
+
+    <!-- Detalles de la consulta médica -->
+    <div class="consulta-medica">
+      <p><strong>Expediente:</strong> {{ registroExp.masId }}</p>
+      <p><strong>Nombre del Paciente:</strong> {{ registroExp.masNombre }}</p>
+      <p><strong>Fecha de Consulta:</strong> {{ selectedConsulta?.conFecConsulta }}</p>
+      <p><strong>Síntomas:</strong> {{ selectedConsulta?.conSintomas }}</p>
+      <p><strong>Diagnóstico:</strong> {{ selectedConsulta?.conDiagnostico }}</p>
+    </div>
+
+    <hr />
+
+    <!-- Exámenes recomendados -->
+    <div class="examenes-recomendados">
+      <h4>Exámenes:</h4>
+      <p>{{ selectedConsulta?.conExamenes }}</p>
+    </div>
+
+    <hr />
+
+    <!-- Tratamientos -->
+    <div class="tratamientos">
+      <h4>Tratamientos:</h4>
+      <p>{{ selectedConsulta?.conTratamientos }}</p>
+    </div>
+
+    <hr />
+
+    <!-- Botones de acción en el modal -->
+    <div class="action-buttons">
+      <button class="action-button modificar" (click)="modifyConsulta(selectedConsulta)">
+        <span class="material-symbols-outlined">edit</span> Modificar
+      </button>
+      <button class="action-button agregar-examenes" (click)="addExamenes(selectedConsulta)">
+        <span class="material-symbols-outlined">add_circle</span> Agregar Exámenes
+      </button>
+      <!-- Botón para abrir el modal de Tratamiento -->
+      <button class="action-button agregar-consulta" (click)="openTratamientoModal()">
+        <span class="material-symbols-outlined">add_box</span> Agregar Tratamiento
+      </button>
+    </div>
+
+    <!-- Botón para cerrar el modal -->
+    <button class="close-modal-button" (click)="closeConsultaModal()">Cerrar</button>
+  </div>
+</div>
+
+<!-- Modal Tratamiento -->
+<app-tratamiento *ngIf="isTratamientoModalOpen" (close)="closeTratamientoModal()"></app-tratamiento>
+
+
   
   </div>
   

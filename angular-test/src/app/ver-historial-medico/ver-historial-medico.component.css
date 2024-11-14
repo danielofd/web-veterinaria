@@ -1,228 +1,270 @@
 /* Estilos para la sección del historial médico */
 .consulta-container {
-    padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-  }
-  
-  /* Título principal */
-  .consulta-container h2 {
-    font-size: 2rem;
-    color: #333;
-    text-align: center;
-    margin-bottom: 30px;
-  }
-  
-  /* Contenedor de las tarjetas de consulta */
-  .consultas-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
-    justify-items: center;
-  }
-  
-  /* Estilo de cada tarjeta de consulta */
-  .consulta-card {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 350px;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  /* Efecto al pasar el mouse por encima de la tarjeta */
-  .consulta-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-  }
-  
-  /* Estilo de la cabecera de la tarjeta */
-  .consulta-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-  }
-  
-  .consulta-header h3 {
-    font-size: 1.25rem;
-    color: #333;
-    margin: 0;
-  }
-  
-  .consulta-fecha {
-    font-size: 1rem;
-    color: #777;
-  }
-  
-  /* Estilo de los detalles de la consulta */
-  .consulta-details p {
-    font-size: 1rem;
-    color: #555;
-    margin: 5px 0;
-  }
-  
-  /* Estilo del botón para ver más detalles */
-  .view-button {
-    display: inline-block;
-    padding: 10px 15px;
-    margin-top: 15px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    text-align: center;
-    width: 100%;
-    transition: background-color 0.3s ease;
-  }
-  
-  /* Efecto al pasar el mouse por encima del botón */
-  .view-button:hover {
-    background-color: #0056b3;
-  }
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
 
+/* Título principal */
+.consulta-container h2 {
+  font-size: 2rem;
+  color: #333;
+  text-align: center;
+  margin-bottom: 30px;
+}
 
-  /*para el modal*/
-  /* Estilos para el modal */
+/* Contenedor de las tarjetas de consulta */
+.consultas-list {
+  display: flex; /* Cambiado de grid a flexbox */
+  flex-direction: column; /* Apilar las tarjetas en una columna */
+  gap: 20px; /* Espacio entre las filas */
+}
+
+/* Estilo de cada tarjeta de consulta */
+.consulta-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 80%; /* Aumentamos el ancho para hacerla más rectangular */
+  height: auto; /* La altura se ajustará automáticamente */
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin: 0 auto; /* Centra las tarjetas dentro del contenedor */
+}
+
+/* Efecto al pasar el mouse por encima de la tarjeta */
+.consulta-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Estilo de la cabecera de la tarjeta */
+.consulta-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.consulta-header h3 {
+  font-size: 1.25rem;
+  color: #333;
+  margin: 0;
+}
+
+.consulta-fecha {
+  font-size: 1rem;
+  color: #777;
+}
+
+/* Estilo de los detalles de la consulta */
+.consulta-details p {
+  font-size: 1rem;
+  color: #555;
+  margin: 5px 0;
+}
+
+/* Estilo del botón para ver más detalles */
+.view-button {
+  display: inline-block;
+  padding: 10px 15px;
+  margin-top: 15px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+
+/* Efecto al pasar el mouse por encima del botón */
+.view-button:hover {
+  background-color: #0056b3;
+}
+
+/* Estilos para el modal */
 .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6); /* Fondo semitransparente */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-  
-  .modal-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    width: 80%;
-    max-width: 500px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    text-align: left;
-  }
-  
-  .modal-content h3 {
-    margin-top: 0;
-  }
-  
-  .modal-content p {
-    font-size: 1rem;
-    margin: 8px 0;
-  }
-  
-  .close-modal-button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 10px;
-    cursor: pointer;
-    width: 100%;
-    margin-top: 20px;
-  }
-  
-  .close-modal-button:hover {
-    background-color: #0056b3;
-  }
-  
-  /* Estilos para las tarjetas de consulta */
-  .consulta-card {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 350px;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .consulta-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-  }
-  
-  .view-button {
-    display: inline-block;
-    padding: 10px 15px;
-    margin-top: 15px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    text-align: center;
-    width: 100%;
-    transition: background-color 0.3s ease;
-  }
-  
-  .view-button:hover {
-    background-color: #0056b3;
-  }
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Fondo semitransparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
 
-  /* Estilo base para el botón */
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 500px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: left;
+}
+
+.modal-content h3 {
+  margin-top: 0;
+}
+
+.modal-content p {
+  font-size: 1rem;
+  margin: 8px 0;
+}
+
+.close-modal-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.close-modal-button:hover {
+  background-color: #0056b3;
+}
+
+/* Estilo base para el botón */
 .left-button {
-    position: absolute;
-    top: 20px;  /* Posición superior para el botón */
-    left: 0;    /* Alineado al borde izquierdo */
-    margin-left: 15%; /* Espacio desde el borde izquierdo */
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s;
-    display: flex;
-    align-items: center;
-  }
-  
-  .left-button:hover {
-    background-color: #0056b3;
-  }
-  
-  .left-button span {
-    margin-right: 8px;  /* Espacio entre el ícono y el texto */
-  }
-  
-  /* Media Query para pantallas más pequeñas (móviles) */
-  @media (max-width: 600px) {
-    .left-button {
+  position: absolute;
+  top: 20px;  /* Posición superior para el botón */
+  left: 0;    /* Alineado al borde izquierdo */
+  margin-left: 15%; /* Espacio desde el borde izquierdo */
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+  display: flex;
+  align-items: center;
+}
+
+.left-button:hover {
+  background-color: #0056b3;
+}
+
+.left-button span {
+  margin-right: 8px;  /* Espacio entre el ícono y el texto */
+}
+
+/* Media Query para pantallas más pequeñas (móviles) */
+@media (max-width: 600px) {
+  .left-button {
       font-size: 14px; /* Reducir el tamaño de la fuente */
       padding: 8px 12px; /* Reducir el tamaño del padding */
       margin-left: 10px; /* Reducir el espacio desde el borde */
-    }
-  
-    .left-button span {
-      font-size: 18px; /* Reducir el tamaño del ícono en pantallas pequeñas */
-    }
   }
-  
-  /* Media Query para tabletas (pantallas de 601px a 1024px) */
-  @media (max-width: 1024px) and (min-width: 601px) {
-    .left-button {
+
+  .left-button span {
+      font-size: 18px; /* Reducir el tamaño del ícono en pantallas pequeñas */
+  }
+}
+
+/* Media Query para tabletas (pantallas de 601px a 1024px) */
+@media (max-width: 1024px) and (min-width: 601px) {
+  .left-button {
       font-size: 15px;  /* Tamaño de fuente adecuado para tabletas */
       padding: 9px 13px; /* Padding intermedio */
-    }
-  
-    .left-button span {
-      font-size: 20px; /* Tamaño de ícono adecuado para tabletas */
-    }
   }
-  
-  
+
+  .left-button span {
+      font-size: 20px; /* Tamaño de ícono adecuado para tabletas */
+  }
+}
+
+
+/* Estilos para los botones de acción */
+.action-buttons {
+  display: flex;
+  gap: 15px; /* Espacio entre los botones */
+  justify-content: space-between;
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+/* Estilo base para todos los botones de acción */
+.action-button {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  width: 100%; /* Hace que los botones ocupen todo el ancho disponible */
+  max-width: 180px; /* Limita el ancho máximo de los botones */
+  font-weight: bold;
+}
+
+/* Botón de Modificar (Amarillo) */
+.modificar {
+  background-color: #FFA500; /* Amarillo */
+  color: rgb(0, 0, 0);
+}
+
+.modificar:hover {
+  background-color: #f39c12; /* Amarillo más oscuro */
+}
+
+/* Botón de Agregar Exámenes (Verde) */
+.agregar-examenes {
+  background-color: #2ecc71; /* Verde */
+  color: rgb(0, 0, 0);
+}
+
+.agregar-examenes:hover {
+  background-color: #27ae60; /* Verde más oscuro */
+}
+
+/* Botón de Agregar Consulta (Verde) */
+.agregar-consulta {
+  background-color: #2ecc71; /* Verde */
+  color: rgb(0, 0, 0);
+}
+
+.agregar-consulta:hover {
+  background-color: #27ae60; /* Verde más oscuro */
+}
+
+.action-button span {
+  margin-right: 8px;  /* Espacio entre el ícono y el texto */
+}
+
+
+
+/* Estilo para el mensaje de "Cargando..." */
+.consulta-card.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px; /* Ajusta este valor según el tamaño de tu tarjeta */
+  background-color: #f0f0f0;
+  border-radius: 8px;
+}
+
+.loading-message {
+  font-size: 18px;
+  color: #666;
+  font-weight: bold;
+}
+
+
+
+

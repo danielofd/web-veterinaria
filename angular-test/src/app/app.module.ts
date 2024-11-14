@@ -28,6 +28,7 @@ import { MenuConsultaMedicaComponent } from './menu-consulta-medica/menu-consult
 import { ConsultarHistorialMedicoComponent } from './consultar-historial-medico/consultar-historial-medico.component';
 import { AgregarConsultaMedicaComponent } from './agregar-consulta-medica/agregar-consulta-medica.component';
 import { VerHistorialMedicoComponent } from './ver-historial-medico/ver-historial-medico.component';
+import { TratamientoComponent } from './tratamiento/tratamiento.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { VerHistorialMedicoComponent } from './ver-historial-medico/ver-historia
     MenuConsultaMedicaComponent,
     ConsultarHistorialMedicoComponent,
     AgregarConsultaMedicaComponent,
-    VerHistorialMedicoComponent
+    VerHistorialMedicoComponent,
+    TratamientoComponent
   ],
   imports: [
     BrowserModule,

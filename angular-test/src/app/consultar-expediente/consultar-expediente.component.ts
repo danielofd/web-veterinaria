@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DatosService } from '../service/datos.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { LoadingService } from '../loading.service';
 
 // Asegúrate de que la librería bootstrap esté importada globalmente
 declare var bootstrap: any;  // Esto es necesario para que TypeScript reconozca 'bootstrap'
@@ -26,7 +27,10 @@ export class ConsultarExpedienteComponent {
 
   registros: any[] = []; // Arreglo para almacenar los registros
 
-  constructor(private fb: FormBuilder, private datosService: DatosService, private router: Router, private snackBar: MatSnackBar) {
+  isLoading = false; // Esta propiedad controlará la visibilidad de la fila "Cargando..."   
+
+  constructor(private fb: FormBuilder, private datosService: DatosService, 
+    private router: Router, private snackBar: MatSnackBar) {
     this.formulario = this.fb.group({
       codigoExpediente:['',[ 
         Validators.pattern(/^\d{8}$/),
@@ -39,12 +43,18 @@ export class ConsultarExpedienteComponent {
       ]],
       nombrePropietario:[]
     });
+
+  
   }
+
+
 
   abrirModalDetalles(registro: any) {
     // Asignamos el detalle del expediente a la variable
     this.detalleExpediente = registro;
 
+    console.log("---------registro seleccionado----------")
+    console.log(this.detalleExpediente)
     // Mostramos el modal
     const modal = new bootstrap.Modal(document.getElementById('modalDetallesExpediente')!);
     modal.show();
@@ -69,6 +79,12 @@ export class ConsultarExpedienteComponent {
   consultarExpediente() {
     console.log('probando consulta...');
 
+    //limpia la tabla
+    this.registros=[];
+
+    this.isLoading = true; // Mostrar "Cargando..." al empezar a cargar los datos
+    
+
     //valida campos obligatorios antes de guardar
   //if (this.formulario.get('fecha')?.invalid) {
     // Aquí puedes mostrar un mensaje o hacer algo en caso de que el formulario sea inválido
@@ -89,8 +105,13 @@ export class ConsultarExpedienteComponent {
       // Si ninguno de los tres campos tiene valor
       console.log('Debe colocar un parámetro de búsqueda en los tres campos: Código, Mascota o Propietario.');
       this.openSnackBar("INGRESE UN PARAMETRO DE BUSQUEDA EN:\nCODIGO EXPEDIENTE, NOMBRE DE MASCOSTA O PROPIETARIO.");
+
+      this.isLoading = false; // Ocultar "Cargando..." cuando los datos hayan llegado
+
       return;
     } 
+
+    
     /*
     else {
       // Si al menos uno de los campos tiene valor
@@ -105,6 +126,8 @@ export class ConsultarExpedienteComponent {
       // Si el código no tiene exactamente 8 caracteres, no es válido
       console.log("El código de expediente debe tener exactamente 8 dígitos.");
       //this.openSnackBar("El código debe tener exactamente 8 dígitos.");
+
+      this.isLoading = false; // Ocultar "Cargando..." cuando los datos hayan llegado
       return; // Cancelar la operación
     }
 
@@ -112,6 +135,7 @@ export class ConsultarExpedienteComponent {
   if (mascota && mascota.length > 30) {
     console.log('El nombre de la mascota no puede exceder los 30 caracteres.');
     //this.openSnackBar("El nombre de la mascota no puede exceder los 30 caracteres.");
+    this.isLoading = false; // Ocultar "Cargando..." cuando los datos hayan llegado
     return; // Detenemos el flujo si la validación falla
   }
   
@@ -130,12 +154,14 @@ export class ConsultarExpedienteComponent {
             // Si data es null, undefined o un array vacío, imprime el mensaje
             console.log('No existen datos');
             this.openSnackBar("NO HAY REGISTROS RELACIONADO CON LA BUSQUEDA.");
+            this.isLoading = false; // Ocultar "Cargando..." cuando los datos hayan llegado
             return;
           } else {
             // Si data tiene contenido, asignar los datos a registros y reiniciar el formulario
             console.log('Datos recibidos:', data); // Para depuración
             this.registros = data; // Asignar los datos a registros
             this.formulario.reset(); // Reiniciar el formulario
+            this.isLoading = false; // Ocultar "Cargando..." cuando los datos hayan llegado
           }
 
 
@@ -145,8 +171,11 @@ export class ConsultarExpedienteComponent {
         (error) => {
           console.error('Error al buscar citas', error);
           // Puedes mostrar un mensaje al usuario aquí
+          this.isLoading = false; // Ocultar "Cargando..." cuando los datos hayan llegado
         }
       );
+
+   
     
   }
 
@@ -278,6 +307,47 @@ agregarConsulta(registro: any) {
   //redirige al componente modificar cita
   this.router.navigate(['agregar-consulta-medica', { data: JSON.stringify(registro) }]);
 
+}
+
+verHistorialMedico(registro: any) {
+  //const registro = this.registros[index];
+  console.log(registro);
+  this.formulario.patchValue(registro); // Cargar los valores en el formulario
+  //this.registros.splice(index, 1); // Eliminar el registro del array
+
+  this.datosService.buscarHistorialMedico(registro.expId).subscribe(
+    (data) => {
+      console.log("---respuesta recibida: "+data)
+
+      if (data && data.length > 0) {
+        // Si hay datos, asignamos las consultas y mostramos mensaje de éxito
+        //this.consultas = data;
+        console.log("---Consultas cargadas exitosamente.");
+
+        //redirige al componente modificar cita
+        this.router.navigate(['/ver-historial-medico', { data: JSON.stringify(registro) }]);
+      } else {
+        // Si no hay datos, mostramos mensaje indicando que no hay consultas
+        console.log("---No tiene consultas médicas.");
+        this.openSnackBar("ESTE EXPEDIENTE NO TIENE CONSULTAS MEDICAS.");
+        return;
+      }
+
+
+      //this.consultas = data;  // Asignamos la respuesta del GET a la variable consultas
+    },
+    (error) => {
+      console.error('Error al cargar las consultas:', error);
+    }
+
+    
+  );
+
+  // Cerrar el modal antes de redirigir
+  const modalElement = document.getElementById('modalConsultaMedica');
+  const modal = bootstrap.Modal.getInstance(modalElement!);  // Obtener la instancia del modal
+  modal.hide();  // Cerrar el modal
+  
 }
 
 }
