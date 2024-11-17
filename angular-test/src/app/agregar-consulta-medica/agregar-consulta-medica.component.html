@@ -1,69 +1,75 @@
 <div class="container">
-    <h2>AGREGAR CONSULTA MEDICA</h2>
-  
-    <form [formGroup]="formulario" (ngSubmit)="enviarFormulario()">
+  <h2>AGREGAR CONSULTA MEDICA</h2>
+
+  <form [formGroup]="formulario" (ngSubmit)="enviarFormulario()">
+    
+    <!-- Campos visibles para Asistente, Veterinario y Admin -->
+    <div class="form-group">
+      <label for="temperatura">(*)TEMPERATURA</label>
+      <input id="temperatura" formControlName="temperatura" type="number" class="form-control" placeholder="Temperatura de la mascota">
+    </div>
+
+    <div class="form-group">
+      <label for="peso">(*)PESO</label>
+      <input id="peso" formControlName="peso" type="number" class="form-control" placeholder="Peso de la mascota">
+    </div>
+
+    <div class="form-group">
+      <label for="frecuenciaCardiaca">(*)FRECUENCIA CARDIACA</label>
+      <input id="frecuenciaCardiaca" formControlName="frecuenciaCardiaca" type="number" class="form-control" placeholder="Frecuencia cardíaca de la mascota">
+    </div>
+
+    <!-- Campos adicionales solo para Veterinario y Admin -->
+    <div *ngIf="usuarioRol === 'Veterinario' || usuarioRol === 'Admin'">
       <div class="form-group">
         <label for="sintomas">(*)SINTOMAS</label>
         <textarea id="sintomas" formControlName="sintomas" rows="4" class="form-control" placeholder="Describa los síntomas de la mascota"></textarea>
       </div>
-  
+
       <div class="form-group">
         <label for="diagnostico">(*)DIAGNOSTICO</label>
         <textarea id="diagnostico" formControlName="diagnostico" rows="4" class="form-control" placeholder="Describa el diagnóstico"></textarea>
       </div>
-  
+
       <div class="form-group">
         <label for="examenesRecomendados">(*)EXAMENES RECOMENDADOS</label>
         <textarea id="examenesRecomendados" formControlName="examenesRecomendados" rows="4" class="form-control" placeholder="Exámenes recomendados para la mascota"></textarea>
       </div>
-  
+
       <div class="form-group">
         <label for="observaciones">(*)OBSERVACIONES</label>
         <textarea id="observaciones" formControlName="observaciones" rows="4" class="form-control" placeholder="Observaciones adicionales"></textarea>
       </div>
-  
+
       <div class="form-group">
         <label for="nombreVeterinario">(*)NOMBRE DEL VETERINARIO</label>
-        <!-- <input id="nombreVeterinario" formControlName="nombreVeterinario" type="text" class="form-control" placeholder="Nombre completo del veterinario" (input)="toUpperCase($event)"> -->
         <select id="vet" class="form-select form-select-sm" formControlName="nombreVeterinario">
-          <!-- <option value="">Seleccione un veterinario</option> -->
-              <option *ngFor="let vet of veterinarios" [value]="vet.empId">
-                  {{ vet.empNombre }} {{ vet.empApellido }}
-              </option>
-          </select>
+          <option *ngFor="let vet of veterinarios" [value]="vet.empId">
+            {{ vet.empNombre }} {{ vet.empApellido }}
+          </option>
+        </select>
       </div>
-      <br>
+    </div>
 
-      <!-- Botones al final del formulario -->
-        <div class="d-flex justify-content-between">
-            <!-- Botón Regresar -->
-            <button type="button" class="btn btn-secondary" (click)="regresar()">
+    <!-- Botones al final del formulario -->
+    <div class="d-flex justify-content-between">
+      <button type="button" class="btn btn-secondary" (click)="regresar()">
+        <span class="material-symbols-outlined" style="vertical-align: middle;">keyboard_return</span>
+        REGRESAR
+      </button>
 
-                
-                    <span class="material-symbols-outlined" style="vertical-align: middle;">keyboard_return</span>
-                    REGRESAR
-              
+      <div class="d-flex gap-2">
+        <button type="button" class="btn btn-danger" (click)="limpiarFormulario()">
+          <span class="material-symbols-outlined" style="vertical-align: middle;">mop</span>
+          LIMPIAR
+        </button>
 
-
-             
-            </button>
-        
-            <!-- Botones Guardar y Limpiar con gap para espaciado -->
-            <div class="d-flex gap-2">
-            <button type="button" class="btn btn-danger" (click)="limpiarFormulario()">
-                <span class="material-symbols-outlined" style="vertical-align: middle;" >
-                    mop
-                    </span>
-                LIMPIAR
-            </button>
-
-            <button type="submit" class="btn btn-success">
-                <span class="material-symbols-outlined" style="vertical-align: middle;" >
-                    save
-                    </span>
-                GUARDAR CONSULTA
-            </button>
-            </div>
-        </div>
-    </form>
+        <button type="submit" class="btn btn-success">
+          <span class="material-symbols-outlined" style="vertical-align: middle;">save</span>
+          GUARDAR CONSULTA
+        </button>
+      </div>
+    </div>
+  </form>
 </div>
+

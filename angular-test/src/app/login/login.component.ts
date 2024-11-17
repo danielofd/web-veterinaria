@@ -112,7 +112,7 @@ export class LoginComponent {
                 // Configurar el usuario actual con rolId y rolNombre
                //almacena el codigo del empleado
                const usuCorrelativo = response.usuCorreltivo;
-               this.datosService.changeData(usuCorrelativo);
+               //this.datosService.changeData(usuCorrelativo);
                 /**
                 this.authService.setCurrentUser({
                     //roleId: response.rolId,
@@ -123,6 +123,8 @@ export class LoginComponent {
                 */
                 const rolNombre = response.rolNombre;
                 console.log("Rol: ", rolNombre); // Verifica si rolNombre es correcto
+
+                this.datosService.changeData(response);
 
                 // Evaluar el campo rolNombre
                 if (rolNombre === 'Asistente') {

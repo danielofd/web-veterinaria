@@ -74,7 +74,8 @@
 
     <!-- Botones de acción en el modal -->
     <div class="action-buttons">
-      <button class="action-button modificar" (click)="modifyConsulta(selectedConsulta)">
+      <!-- <button class="action-button modificar" (click)="modifyConsulta(selectedConsulta)"> -->
+        <button class="action-button modificar" (click)="openModificarModal(selectedConsulta)">
         <span class="material-symbols-outlined">edit</span> Modificar
       </button>
       <button class="action-button agregar-examenes" (click)="addExamenes(selectedConsulta)">
@@ -94,7 +95,11 @@
 <!-- Modal Tratamiento -->
 <app-tratamiento *ngIf="isTratamientoModalOpen" (close)="closeTratamientoModal()"></app-tratamiento>
 
-
+<app-modificar-consulta *ngIf="isModificarModalOpen" 
+[consulta]="selectedConsulta" 
+(close)="closeModificarModal()" 
+(save)="saveModifiedConsulta($event)">
+</app-modificar-consulta>
   
   </div>
   

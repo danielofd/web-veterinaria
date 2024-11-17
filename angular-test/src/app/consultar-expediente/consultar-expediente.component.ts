@@ -27,7 +27,9 @@ export class ConsultarExpedienteComponent {
 
   registros: any[] = []; // Arreglo para almacenar los registros
 
-  isLoading = false; // Esta propiedad controlará la visibilidad de la fila "Cargando..."   
+  isLoading = false; // Esta propiedad controlará la visibilidad de la fila "Cargando..."  
+
+  usuarioRol: string="";
 
   constructor(private fb: FormBuilder, private datosService: DatosService, 
     private router: Router, private snackBar: MatSnackBar) {
@@ -42,6 +44,13 @@ export class ConsultarExpedienteComponent {
         Validators.maxLength(40)
       ]],
       nombrePropietario:[]
+    });
+
+
+    //recupera info login
+    this.datosService.currentData.subscribe(data =>{
+      console.log("usu correlativo: "+data.rolNombre);
+      this.usuarioRol = data.rolNombre
     });
 
   
@@ -184,11 +193,18 @@ export class ConsultarExpedienteComponent {
     this.router.navigate(['/menu-expediente']); // Cambia '/menu' a la ruta que necesites
   }
 
-  editarRegistro(index: number) {
-    const registro = this.registros[index];
+  
+  //editarRegistro(index: number) {
+    editarRegistro(registro: any) {
+    //const registro = this.registros[index];
     console.log(registro);
     this.formulario.patchValue(registro); // Cargar los valores en el formulario
     //this.registros.splice(index, 1); // Eliminar el registro del array
+
+     // Cerrar el modal antes de redirigir
+     const modalElement = document.getElementById('modalDetallesExpediente');
+     const modal = bootstrap.Modal.getInstance(modalElement!);  // Obtener la instancia del modal
+     modal.hide();  // Cerrar el modal
 
     //redirige al componente modificar cita
     this.router.navigate(['/modificar-expediente', { data: JSON.stringify(registro) }]);

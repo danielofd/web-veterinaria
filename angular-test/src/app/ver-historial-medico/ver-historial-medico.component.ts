@@ -5,6 +5,8 @@ import { DatosService } from '../service/datos.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ModalServiceService } from '../modal-service.service';
 
+declare var bootstrap: any;  // Esto es necesario para que TypeScript reconozca 'bootstrap'
+
 @Component({
   selector: 'app-ver-historial-medico',
   templateUrl: './ver-historial-medico.component.html',
@@ -26,6 +28,8 @@ export class VerHistorialMedicoComponent implements OnInit {
   registroExp: any;
 
   isTratamientoModalOpen: boolean = false;  // Estado del modal de tratamiento
+
+  isModificarModalOpen = false;
 
   constructor(
     private fb: FormBuilder,
@@ -189,6 +193,9 @@ export class VerHistorialMedicoComponent implements OnInit {
 
   modificarConsulta(){
       console.log("presiono modificar consulta medica....");
+
+      
+
   }
 
 
@@ -206,11 +213,28 @@ export class VerHistorialMedicoComponent implements OnInit {
 
   // Acciones para los botones en consulta-card
   modifyConsulta(consulta: any): void {
+      
 
-    
-    // Lógica para modificar la consulta
-    console.log('Modificar consulta', consulta);
-    // Aquí puedes agregar la lógica para modificar la consulta (p.ej., abrir otro modal)
+            //const registro = this.registros[index];
+            console.log(consulta);
+            this.consultaForm.patchValue(consulta); // Cargar los valores en el formulario
+            //this.registros.splice(index, 1); // Eliminar el registro del array
+
+
+              // Cerrar el modal antes de redirigir
+              // const modalElement = document.getElementById('isConsultaModalOpen');
+              // const modal = bootstrap.Modal.getInstance(modalElement!);  // Obtener la instancia del modal
+              // modal.hide();  // Cerrar el modal
+
+              // console.log("Entra a metodo agregar consulta"+modal)
+
+
+            //redirige al componente modificar cita
+            // this.router.navigate(['agregar-consulta-medica', { data: JSON.stringify(consulta) }]);
+              
+              // Lógica para modificar la consulta
+              // console.log('Modificar consulta', consulta);
+              // Aquí puedes agregar la lógica para modificar la consulta (p.ej., abrir otro modal)
   }
 
   addExamenes(consulta: any): void {
@@ -235,4 +259,52 @@ export class VerHistorialMedicoComponent implements OnInit {
     this.isTratamientoModalOpen = false;
   }
 
+
+
+  //para agregar consulta medica
+agregarConsulta(registro: any) {
+  //const registro = this.registros[index];
+  console.log(registro);
+  this.consultaForm.patchValue(registro); // Cargar los valores en el formulario
+  //this.registros.splice(index, 1); // Eliminar el registro del array
+
+
+    // Cerrar el modal antes de redirigir
+    const modalElement = document.getElementById('isConsultaModalOpen');
+    const modal = bootstrap.Modal.getInstance(modalElement!);  // Obtener la instancia del modal
+    modal.hide();  // Cerrar el modal
+
+    console.log("Entra a metodo agregar consulta"+modal)
+
+
+  //redirige al componente modificar cita
+  this.router.navigate(['agregar-consulta-medica', { data: JSON.stringify(registro) }]);
+
 }
+
+// Método para abrir el modal de modificar consulta
+openModificarModal(consulta: any) {
+
+  console.log("datos de consulta: "+consulta)
+
+  this.selectedConsulta = { ...consulta }; // Creamos una copia para modificarla
+  this.isModificarModalOpen = true;
+}
+
+
+// Método para cerrar el modal de modificar consulta
+closeModificarModal() {
+  this.isModificarModalOpen = false;
+  this.selectedConsulta = null;
+}
+
+// Método para guardar la consulta modificada
+saveModifiedConsulta(consulta: any) {
+  const index = this.consultas.findIndex(c => c.conFecConsulta === consulta.conFecConsulta);
+  if (index !== -1) {
+    this.consultas[index] = consulta; // Actualizamos la consulta en el array
+  }
+}
+
+}
+

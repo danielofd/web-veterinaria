@@ -46,9 +46,13 @@ export class DatosService {
 
   //metodo para update value
   changeData(data: any){
-    this.dataSource.next(data);
-  }
 
+    console.log("--->recibe parametros de login: "+data)
+
+    this.dataSource.next(data);
+
+    
+  }
 
   //obtener citas guardadas
   buscarCita(fecha: string, hora :string|null, prop:string|null, estado:string): Observable<any[]> {

@@ -216,8 +216,8 @@ export class CrearExpedienteComponent implements OnInit{
     //Este es el campo usu_codigo (pendiente)
     //this.expediente.usuCodigo = 'FD100814';
     this.datosService.currentData.subscribe(data =>{
-      console.log("usu correlativo: "+data);
-      this.expediente.usuCodigo = data
+      console.log("usu correlativo: "+data.usuCorreltivo);
+      this.expediente.usuCodigo = data.usuCorreltivo
     });
     console.log(this.expediente)
     this._service.crearNuevoExpediente(this.expediente).subscribe(((res: HttpResponse<any>) => {

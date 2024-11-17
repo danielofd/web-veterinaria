@@ -1,0 +1,34 @@
+<div class="modal-overlay">
+    <div class="modal-content">
+      <h3>Modificar Consulta Médica</h3>
+      <hr />
+  
+      <!-- Formulario de modificación -->
+      <div class="consulta-medica">
+        <label for="sintomas">Síntomas:</label>
+        <textarea id="sintomas" [(ngModel)]="consulta.conSintomas" class="form-control"></textarea>
+  
+        <label for="diagnostico">Diagnóstico:</label>
+        <textarea id="diagnostico" [(ngModel)]="consulta.conDiagnostico" class="form-control"></textarea>
+  
+        <label for="examenes">Exámenes recomendados:</label>
+        <textarea id="examenes" [(ngModel)]="consulta.conExamenes" class="form-control"></textarea>
+  
+        <label for="observaciones">Observaciones:</label>
+        <textarea id="observaciones" [(ngModel)]="consulta.conObservaciones" class="form-control"></textarea>
+      </div>
+  
+      <hr />
+  
+      <!-- Botones de acción -->
+      <div class="action-buttons">
+        <button class="action-button modificar" (click)="saveConsulta()">
+          <span class="material-symbols-outlined">save</span> Guardar Cambios
+        </button>
+        <button class="action-button cancelar" (click)="closeModal()">
+          <span class="material-symbols-outlined">close</span> Cancelar
+        </button>
+      </div>
+    </div>
+  </div>
+  

@@ -22,6 +22,8 @@ export class AgregarConsultaMedicaComponent implements OnInit {
 
   codEmp: string="";
 
+  usuarioRol: string=""; // Aquí se almacena el rol del usuario
+
   constructor(private fb: FormBuilder, private datosService: DatosService, 
     private router: Router, private snackBar: MatSnackBar, private dialog: MatDialog,
     private route: ActivatedRoute,
@@ -31,9 +33,18 @@ export class AgregarConsultaMedicaComponent implements OnInit {
       sintomas: ['', Validators.required],
       diagnostico: ['', Validators.required],
       examenesRecomendados: ['', Validators.required],
-      observaciones: ['', Validators.required],
+      observaciones: [''],
       nombreVeterinario: ['', Validators.required]
     });
+
+   // this.usuarioRol="Asistente"
+
+     //recupera info login
+     this.datosService.currentData.subscribe(data =>{
+      console.log("rol elegido: "+data.rolNombre);
+      this.usuarioRol = data.rolNombre
+    });
+
   }
 
   //carga elementos al inicio del form
@@ -125,7 +136,7 @@ export class AgregarConsultaMedicaComponent implements OnInit {
         console.log('Consulta enviada exitosamente:', response);
         // Aquí puedes manejar la respuesta, como mostrar un mensaje de éxito, redirigir, etc.
         this.openSnackBar("CONSULTA MEDICA GUARDADA CON EXITO.");
-        this.router.navigate(['/consultar-historial-medico']);
+        this.router.navigate(['/consultar-expediente']);
 
       },
       error: (error) => {
