@@ -22,7 +22,11 @@ export class AgregarConsultaMedicaComponent implements OnInit {
 
   codEmp: string="";
 
+  usuCod: string="";
+
   usuarioRol: string=""; // Aquí se almacena el rol del usuario
+
+  selectedVetName: string=""; //veterinario seleccionado
 
   constructor(private fb: FormBuilder, private datosService: DatosService, 
     private router: Router, private snackBar: MatSnackBar, private dialog: MatDialog,
@@ -30,6 +34,9 @@ export class AgregarConsultaMedicaComponent implements OnInit {
   ) {
     // Definir el formulario con los campos requeridos
     this.formulario = this.fb.group({
+      temperatura:[''],
+      peso:[''],
+      frecuenciaCardiaca:[''],
       sintomas: ['', Validators.required],
       diagnostico: ['', Validators.required],
       examenesRecomendados: ['', Validators.required],
@@ -42,7 +49,10 @@ export class AgregarConsultaMedicaComponent implements OnInit {
      //recupera info login
      this.datosService.currentData.subscribe(data =>{
       console.log("rol elegido: "+data.rolNombre);
-      this.usuarioRol = data.rolNombre
+      this.usuarioRol = data.rolNombre;
+      this.selectedVetName = data.empNombre;
+      this.usuCod = data.usuCorreltivo;
+      this.codEmp = data.empId
     });
 
   }
@@ -50,6 +60,14 @@ export class AgregarConsultaMedicaComponent implements OnInit {
   //carga elementos al inicio del form
   ngOnInit(): void {
     this.cargarVeterinarios();
+
+    console.log("veterinario: "+this.selectedVetName);
+
+    // Después de establecer selectedVetName, seteamos ese valor en el campo "nombreVeterinario"
+    this.formulario.patchValue({
+      nombreVeterinario: this.selectedVetName
+    });
+
 
 
     // Obtener los datos pasados a través de la ruta
@@ -101,20 +119,20 @@ export class AgregarConsultaMedicaComponent implements OnInit {
     // Obtenemos los valores del formulario
     const formValues = this.formulario.value;
 
-    this.datosService.currentData.subscribe(data =>{
-      console.log("usu correlativo: "+data);
-      this.codEmp = data
-    });
+    // this.datosService.currentData.subscribe(data =>{
+    //   console.log("usu correlativo: "+data);
+    //   this.codEmp = data
+    // });
 
     // Aquí puedes definir los valores del request
   const request = {
-    empId: formValues.nombreVeterinario,
+    empId: this.codEmp,
     expId: this.idExpediente,
     conSintomas: formValues.sintomas,
     conDiagnostico: formValues.diagnostico,
     conExamenes: formValues.examenesRecomendados,
     conObservaciones: formValues.observaciones,
-    usuCodigo: this.codEmp  // Aquí puedes poner el código de usuario si es necesario
+    usuCodigo: this.usuCod  // Aquí puedes poner el código de usuario si es necesario
   };
 
 

@@ -184,7 +184,7 @@
     
                 <!-- Pie de modal con los botones de acción -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-warning" (click)="editarRegistro(detalleExpediente)">
+                    <button type="button" *ngIf="!usuarioRol" class="btn btn-warning" (click)="editarRegistro(detalleExpediente)">
                         <span class="material-symbols-outlined" style="vertical-align: middle; margin-right: 8px;">edit</span>
                         Modificar
                     </button>

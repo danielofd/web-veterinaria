@@ -32,7 +32,7 @@
     <div class="consulta-details">
       <p><strong>Síntomas:</strong> {{ consulta.conSintomas }}</p>
       <p><strong>Diagnóstico:</strong> {{ consulta.conDiagnostico }}</p>
-      <p><strong>Exámenes:</strong> {{ consulta.conExamenes }}</p>
+      <p><strong>Exámenes Recomendados:</strong> {{ consulta.conExamenes }}</p>
       <p><strong>Observaciones:</strong> {{ consulta.conObservaciones }}</p>
     </div>
 
@@ -49,9 +49,10 @@
     <div class="consulta-medica">
       <p><strong>Expediente:</strong> {{ registroExp.masId }}</p>
       <p><strong>Nombre del Paciente:</strong> {{ registroExp.masNombre }}</p>
-      <p><strong>Fecha de Consulta:</strong> {{ selectedConsulta?.conFecConsulta }}</p>
-      <p><strong>Síntomas:</strong> {{ selectedConsulta?.conSintomas }}</p>
-      <p><strong>Diagnóstico:</strong> {{ selectedConsulta?.conDiagnostico }}</p>
+      <p><strong>Fecha de Consulta:</strong> {{ selectedConsulta.conFecConsulta }}</p>
+      <p><strong>Síntomas:</strong> {{ selectedConsulta.conSintomas }}</p>
+      <p><strong>Diagnóstico:</strong> {{ selectedConsulta.conDiagnostico }}</p>
+      <p><strong>Exámenes Recomendados:</strong> {{ selectedConsulta.conExamenes }}</p>
     </div>
 
     <hr />
@@ -95,10 +96,17 @@
 <!-- Modal Tratamiento -->
 <app-tratamiento *ngIf="isTratamientoModalOpen" (close)="closeTratamientoModal()"></app-tratamiento>
 
-<app-modificar-consulta *ngIf="isModificarModalOpen" 
+<!-- <app-modificar-consulta *ngIf="isModificarModalOpen" 
 [consulta]="selectedConsulta" 
 (close)="closeModificarModal()" 
 (save)="saveModifiedConsulta($event)">
+</app-modificar-consulta> -->
+
+<!-- Modal de Modificar Consulta que se activa al hacer click -->
+<app-modificar-consulta 
+*ngIf="isModificarModalOpen"
+(close)="closeModificarModal()" 
+(save)="guardarConsulta($event)">
 </app-modificar-consulta>
   
   </div>

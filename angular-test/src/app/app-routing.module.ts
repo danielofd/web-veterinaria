@@ -17,6 +17,8 @@ import { MenuConsultaMedicaComponent } from './menu-consulta-medica/menu-consult
 import { ConsultarHistorialMedicoComponent } from './consultar-historial-medico/consultar-historial-medico.component';
 import { AgregarConsultaMedicaComponent } from './agregar-consulta-medica/agregar-consulta-medica.component';
 import { VerHistorialMedicoComponent } from './ver-historial-medico/ver-historial-medico.component';
+import { ModificarConsultaComponent } from './modificar-consulta/modificar-consulta.component';
+
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -36,6 +38,7 @@ const routes: Routes = [
   {path: 'consultar-historial-medico', component: ConsultarHistorialMedicoComponent}, //ruta para el componente consultar historial medico
   {path: 'agregar-consulta-medica', component: AgregarConsultaMedicaComponent}, //ruta para el componente agregar consulta medica
   {path: 'ver-historial-medico', component: VerHistorialMedicoComponent}, //ruta para el componente ver historial medico
+  { path: 'modificar-consulta', component: ModificarConsultaComponent },
   {path: '**', redirectTo: '/login', pathMatch: 'full'}
 ];
 

@@ -37,11 +37,14 @@
   }
   
   .action-button.cancelar {
-    background-color: #ccc;
+    background-color: #17a2b8; /* Color tipo "info" */
+    color: black; /* Color de texto en blanco */
+    font-weight: bold; /* Texto en negrita */
   }
   
   .action-button.modificar {
     background-color: #4CAF50;
-    color: white;
+    color: rgb(0, 0, 0);
+    font-weight: bold; /* Texto en negrita */
   }
   

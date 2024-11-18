@@ -3,20 +3,28 @@
 
   <form [formGroup]="formulario" (ngSubmit)="enviarFormulario()">
     
-    <!-- Campos visibles para Asistente, Veterinario y Admin -->
-    <div class="form-group">
-      <label for="temperatura">(*)TEMPERATURA</label>
-      <input id="temperatura" formControlName="temperatura" type="number" class="form-control" placeholder="Temperatura de la mascota">
-    </div>
+    <!-- Fila con los campos alineados -->
+    <div class="row g-3"> <!-- 'g-3' agrega un gap entre las columnas -->
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="temperatura">(*)TEMPERATURA</label>
+          <input id="temperatura" formControlName="temperatura" type="number" class="form-control" placeholder="Temperatura de la mascota">
+        </div>
+      </div>
 
-    <div class="form-group">
-      <label for="peso">(*)PESO</label>
-      <input id="peso" formControlName="peso" type="number" class="form-control" placeholder="Peso de la mascota">
-    </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="peso">(*)PESO</label>
+          <input id="peso" formControlName="peso" type="number" class="form-control" placeholder="Peso de la mascota">
+        </div>
+      </div>
 
-    <div class="form-group">
-      <label for="frecuenciaCardiaca">(*)FRECUENCIA CARDIACA</label>
-      <input id="frecuenciaCardiaca" formControlName="frecuenciaCardiaca" type="number" class="form-control" placeholder="Frecuencia cardíaca de la mascota">
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="frecuenciaCardiaca">(*)FRECUENCIA CARDIACA</label>
+          <input id="frecuenciaCardiaca" formControlName="frecuenciaCardiaca" type="number" class="form-control" placeholder="Frecuencia cardíaca de la mascota">
+        </div>
+      </div>
     </div>
 
     <!-- Campos adicionales solo para Veterinario y Admin -->
@@ -37,19 +45,16 @@
       </div>
 
       <div class="form-group">
-        <label for="observaciones">(*)OBSERVACIONES</label>
+        <label for="observaciones">OBSERVACIONES</label>
         <textarea id="observaciones" formControlName="observaciones" rows="4" class="form-control" placeholder="Observaciones adicionales"></textarea>
       </div>
 
       <div class="form-group">
         <label for="nombreVeterinario">(*)NOMBRE DEL VETERINARIO</label>
-        <select id="vet" class="form-select form-select-sm" formControlName="nombreVeterinario">
-          <option *ngFor="let vet of veterinarios" [value]="vet.empId">
-            {{ vet.empNombre }} {{ vet.empApellido }}
-          </option>
-        </select>
+        <input type="text" id="vet" formControlName="nombreVeterinario" class="form-control form-control-sm" [value]="selectedVetName" readonly />
       </div>
     </div>
+    <br>
 
     <!-- Botones al final del formulario -->
     <div class="d-flex justify-content-between">
@@ -72,4 +77,3 @@
     </div>
   </form>
 </div>
-

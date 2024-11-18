@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DatosService } from '../service/datos.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ModalServiceService } from '../modal-service.service';
+import { ConsultaService } from '../consulta.service';
 
 declare var bootstrap: any;  // Esto es necesario para que TypeScript reconozca 'bootstrap'
 
@@ -22,7 +23,7 @@ export class VerHistorialMedicoComponent implements OnInit {
 
   isLoading = true; // Inicialmente está en true mientras cargan los datos
 
-  selectedConsulta2: any = null;
+  //selectedConsulta2: any = null;
   isConsultaModalOpen = false;
 
   registroExp: any;
@@ -37,6 +38,7 @@ export class VerHistorialMedicoComponent implements OnInit {
     private datosService: DatosService,
     private snackBar: MatSnackBar,
     private route: ActivatedRoute,
+    private consultaService: ConsultaService,
     private modalService: ModalServiceService
     //private consultaService: ConsultaService
   ) {
@@ -201,14 +203,28 @@ export class VerHistorialMedicoComponent implements OnInit {
 
   // Abre el modal al hacer clic en la tarjeta de consulta
   openConsultaModal(consulta: any): void {
-    this.selectedConsulta = consulta;
+
+      if(consulta){
+        this.selectedConsulta = consulta;
+        console.log("consulta modal selected:" +JSON.stringify(consulta))
+        this.consultaService.setConsulta(consulta); // Actualizamos el servicio con la consulta seleccionada
+      }
+
+    // this.selectedConsulta = consulta;
+
+    // console.log("consulta modal selected:" +JSON.stringify(consulta))
+    //this.selectedConsulta=consulta;
+
+    //console.log("consulta selected 2: "+JSON.stringify(this.selectedConsulta2))
+
+    
     this.isConsultaModalOpen = true;
   }
 
   // Cierra el modal
   closeConsultaModal(): void {
     this.isConsultaModalOpen = false;
-    this.selectedConsulta = null;
+    //this.selectedConsulta = null;
   }
 
   // Acciones para los botones en consulta-card
@@ -285,26 +301,71 @@ agregarConsulta(registro: any) {
 // Método para abrir el modal de modificar consulta
 openModificarModal(consulta: any) {
 
-  console.log("datos de consulta: "+consulta)
+  if(consulta){
+    //this.selectedConsulta = consulta; // Solo asigna si consulta es válido
+    this.selectedConsulta = consulta; // Pasar la consulta seleccionada al modal
 
-  this.selectedConsulta = { ...consulta }; // Creamos una copia para modificarla
+    console.log("---almacena el obj consulta---");
+
+    console.log(this.consultaService.getConsulta());
+
+
+    console.log("---almacena el obj consulta---");
+  
+
+    this.consultaService.setConsulta(consulta); // Actualizamos el servicio con la consulta seleccionada
+  }
+
+  //this.consultaService.setConsulta(this.selectedConsulta); // Actualizamos el servicio con la consulta seleccionada
+
+  //console.log("---almacena el obj consulta---");
+  //this.selectedConsulta=consulta;
+
+  //console.log("datos de consulta: "+consulta)
+
+  //console.log("datos de selectedConsulta: "+this.selectedConsulta)
+
+  // console.log(this.consultaService.getConsulta());
+
+
+  // console.log("---almacena el obj consulta---");
+
+  //console.log("datos de selectedConsulta: "+this.selectedConsulta)
+
+   // Usamos el servicio para almacenar la consulta
+   //this.consultaService.setConsulta(consulta);
+
+  //this.selectedConsulta = { ...consulta }; // Creamos una copia para modificarla
   this.isModificarModalOpen = true;
+
+  
+
+  // Navega al componente de modificación
+  //this.router.navigate(['/modificar-consulta']);
 }
 
 
 // Método para cerrar el modal de modificar consulta
 closeModificarModal() {
   this.isModificarModalOpen = false;
-  this.selectedConsulta = null;
+  //this.selectedConsulta = null;
 }
 
 // Método para guardar la consulta modificada
-saveModifiedConsulta(consulta: any) {
-  const index = this.consultas.findIndex(c => c.conFecConsulta === consulta.conFecConsulta);
-  if (index !== -1) {
-    this.consultas[index] = consulta; // Actualizamos la consulta en el array
-  }
+guardarConsulta(modifiedConsulta: any) {
+  console.log("Consulta modificada:", modifiedConsulta);
+  // Aquí puedes agregar lógica para guardar los cambios (por ejemplo, hacer un API call)
+  // Actualizar el historial de consultas o similar
+  this.closeModificarModal(); // Cerrar el modal después de guardar
 }
+
+// Método para guardar la consulta modificada
+// saveModifiedConsulta(consulta: any) {
+//   const index = this.consultas.findIndex(c => c.conFecConsulta === consulta.conFecConsulta);
+//   if (index !== -1) {
+//     this.consultas[index] = consulta; // Actualizamos la consulta en el array
+//   }
+// }
 
 }
 

@@ -25,13 +25,13 @@
                     Citas
                 </a>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 d-none">
                 <a class="btn btn-custom-blue w-100" *ngFor="let option of consultasMedicasOption"  [routerLink]="['/menu-consulta-medica']"  >
                     <span class="material-symbols-outlined" style="vertical-align: middle;">medical_services</span> <!-- Icono opcional para consultas -->
                     Consultas Médicas
                 </a>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 d-none">
                 <a class="btn btn-custom-blue w-100" *ngFor="let option of vacunacionOption" (click)="openVacunacion()">
                     <span class="material-symbols-outlined" style="vertical-align: middle;">vaccines</span> <!-- Icono opcional para vacunación -->
                     Vacunación
