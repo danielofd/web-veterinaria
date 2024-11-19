@@ -165,7 +165,7 @@ generarCita(): void {
 
     this.datosService.currentData.subscribe(data =>{
       console.log("usu correlativo: "+data);
-      this.codigoUsu = data
+      this.codigoUsu = data.usuCorreltivo
     });
 
   

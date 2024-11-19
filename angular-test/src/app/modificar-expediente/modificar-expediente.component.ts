@@ -279,7 +279,7 @@ export class ModificarExpedienteComponent implements OnInit {
     //this.expediente.usuCodigo = 'FD100814';
     this.datosService.currentData.subscribe(data =>{
       console.log("usu correlativo: "+data);
-      usuCod = data
+      usuCod = data.usuCorreltivo
     });
 
 
