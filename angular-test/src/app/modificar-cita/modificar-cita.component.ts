@@ -460,9 +460,9 @@ onVeterinarioChange(event: Event): void {
       const charCode = event.charCode || event.keyCode;
       const charStr = String.fromCharCode(charCode);
     
-      // Permite solo letras (mayúsculas y minúsculas)
-      if (!/^[A-Za-z]+$/.test(charStr)) {
-        event.preventDefault();  // Si no es una letra, cancela la tecla
+      // Permite solo letras (mayúsculas y minúsculas) y espacios
+      if (!/^[A-Za-z ]+$/.test(charStr)) {
+        event.preventDefault();  // Si no es una letra ni un espacio, cancela la tecla
       } else {
         input.value = input.value.toUpperCase(); // Convierte a mayúsculas
       }
