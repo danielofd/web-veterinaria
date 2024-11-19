@@ -211,7 +211,9 @@ export class CrearExpedienteComponent implements OnInit{
     this.expediente.masMedReferido = this.formularioRegistro.get('med')?.value.toUpperCase();
     this.expediente.masCorreo = this.formularioRegistro.get('email')?.value;
     console.log(this.formularioRegistro.valid); 
-    this.raza.razId = 1;
+    this.raza.razId = this.formularioRegistro.get('raza')?.value;
+    console.log("raza ID: "+this.raza);
+    console.log(this.formularioRegistro.valid); 
     this.expediente.raza = this.raza;
     //Este es el campo usu_codigo (pendiente)
     //this.expediente.usuCodigo = 'FD100814';
