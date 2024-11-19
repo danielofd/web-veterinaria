@@ -157,7 +157,7 @@ export class ConsultarCitaComponent {
         console.log("CITA ELIMINARA CON EXITO");
         this.datosService.currentData.subscribe(data =>{
           //console.log("usu correlativo: "+data);
-           usuCod = data;
+           usuCod = data.usuCorreltivo;
           console.log("cod usuario:=>"+usuCod)
           
         });
