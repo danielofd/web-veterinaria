@@ -50,6 +50,9 @@
       <p><strong>Expediente:</strong> {{ registroExp.masId }}</p>
       <p><strong>Nombre del Paciente:</strong> {{ registroExp.masNombre }}</p>
       <p><strong>Fecha de Consulta:</strong> {{ selectedConsulta.conFecConsulta }}</p>
+      <p><strong>Temperatura:</strong> {{ selectedConsulta.masTemperatura }}</p>
+      <p><strong>Peso:</strong> {{ selectedConsulta.masPeso }}</p>
+      <p><strong>Frecuencia cardiaca:</strong> {{ selectedConsulta.masFreCardiaca }}</p>
       <p><strong>Síntomas:</strong> {{ selectedConsulta.conSintomas }}</p>
       <p><strong>Diagnóstico:</strong> {{ selectedConsulta.conDiagnostico }}</p>
       <p><strong>Exámenes Recomendados:</strong> {{ selectedConsulta.conExamenes }}</p>
@@ -60,7 +63,7 @@
     <!-- Exámenes recomendados -->
     <div class="examenes-recomendados">
       <h4>Exámenes:</h4>
-      <p>{{ selectedConsulta?.conExamenes }}</p>
+      <p>{{ selectedConsulta?.masExamenes }}</p>
     </div>
 
     <hr />

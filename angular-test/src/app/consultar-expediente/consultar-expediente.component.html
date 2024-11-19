@@ -99,12 +99,17 @@
                             </span>
                             <span style="font-size: 12px;">Ver Detalles</span>
                         </button>
-                        <button class="btn btn-success btn-sm mx-2" style="max-width: 150px; word-wrap: break-word; white-space: normal;" (click)="abrirModalConsultaMedica(registro)">
-                            <span class="material-symbols-outlined" style="vertical-align: middle; font-size: 18px;">
-                                medical_services
-                            </span>
-                            <span style="font-size: 12px;">Consulta Médica</span>
-                        </button>
+                        <button 
+                        *ngIf="usuarioRol !== 'Asistente'"  
+                        class="btn btn-success btn-sm mx-2" 
+                        style="max-width: 150px; word-wrap: break-word; white-space: normal;" 
+                        (click)="abrirModalConsultaMedica(registro)">
+                          <span class="material-symbols-outlined" style="vertical-align: middle; font-size: 18px;">
+                              medical_services
+                          </span>
+                          <span style="font-size: 12px;">Consulta Médica</span>
+                      </button>
+                      
                     </td>
                     <!-- <td>
                             <button class="btn btn-success btn-sm" (click)="abrirModalConsultaMedica(registro)">
@@ -184,7 +189,7 @@
     
                 <!-- Pie de modal con los botones de acción -->
                 <div class="modal-footer">
-                    <button type="button" *ngIf="!usuarioRol" class="btn btn-warning" (click)="editarRegistro(detalleExpediente)">
+                    <button type="button" *ngIf="usuarioRol === 'Asistente' || usuarioRol === 'Admin'" class="btn btn-warning" (click)="editarRegistro(detalleExpediente)">
                         <span class="material-symbols-outlined" style="vertical-align: middle; margin-right: 8px;">edit</span>
                         Modificar
                     </button>

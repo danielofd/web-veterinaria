@@ -28,16 +28,29 @@ export class AgregarConsultaMedicaComponent implements OnInit {
 
   selectedVetName: string=""; //veterinario seleccionado
 
+  isPesoFocused = false; //campo para validacion de peso
+
+  isFrecuenciaCardiacaFocused = false;//para validar campo frec cardiaca
+
+  isSintomasFocused = false;
+  validationMessage: string="";
+
   constructor(private fb: FormBuilder, private datosService: DatosService, 
     private router: Router, private snackBar: MatSnackBar, private dialog: MatDialog,
     private route: ActivatedRoute,
   ) {
     // Definir el formulario con los campos requeridos
     this.formulario = this.fb.group({
-      temperatura:[''],
-      peso:[''],
-      frecuenciaCardiaca:[''],
-      sintomas: ['', Validators.required],
+      temperatura:['',[
+        Validators.required,
+        Validators.pattern(/^\d{1,3}(\.\d{1,2})?$/), // RegEx para 3 enteros y 2 decimales
+      ]],
+      peso:['', [
+        Validators.required,
+        Validators.pattern(/^\d{1,3}(\.\d{1,2})?$/), // RegEx para 3 enteros y 2 decimales
+      ]],
+      frecuenciaCardiaca:['', [Validators.required, Validators.pattern(/^\d+$/)]],
+      sintomas: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9\s]*$/)]],
       diagnostico: ['', Validators.required],
       examenesRecomendados: ['', Validators.required],
       observaciones: [''],
@@ -59,6 +72,10 @@ export class AgregarConsultaMedicaComponent implements OnInit {
 
   //carga elementos al inicio del form
   ngOnInit(): void {
+
+    //comentar esta linea despues
+    //this.usuarioRol="Veterinario";
+
     this.cargarVeterinarios();
 
     console.log("veterinario: "+this.selectedVetName);
@@ -132,7 +149,10 @@ export class AgregarConsultaMedicaComponent implements OnInit {
     conDiagnostico: formValues.diagnostico,
     conExamenes: formValues.examenesRecomendados,
     conObservaciones: formValues.observaciones,
-    usuCodigo: this.usuCod  // Aquí puedes poner el código de usuario si es necesario
+    usuCodigo: this.usuCod,  // Aquí puedes poner el código de usuario si es necesario
+    conTemperatura: formValues.temperatura,
+    conPeso: formValues.peso,
+    conFrecardiaca: formValues.frecuenciaCardiaca
   };
 
 
@@ -253,6 +273,150 @@ export class AgregarConsultaMedicaComponent implements OnInit {
         console.error('Error al cargar veterinarios', error);
       }
     );
+  }
+
+
+  //validacion para campo peso
+  get pesoControl() {
+    return this.formulario.get('peso');
+  }
+
+  // Función para manejar el evento onFocus
+  onFocusPeso() {
+    this.isPesoFocused = true;
+  }
+
+  // Función para manejar el evento onBlur (cuando el input pierde el foco)
+  onBlurPeso() {
+    this.isPesoFocused = false;
+  }
+  get tempControl() {
+    return this.formulario.get('temperatura');
+  }
+
+
+  //validaciones para campo temperatura
+  
+
+  // Validación para permitir solo números decimales con hasta 3 enteros y 2 decimales
+  validateDecimalInput(event: KeyboardEvent) {
+    const inputValue = event.target as HTMLInputElement;
+    const value = inputValue.value;
+    const charCode = event.charCode;
+
+    // Permitir solo números, punto decimal y restricciones de 3 enteros y 2 decimales
+    const regex = /^\d{0,3}(\.\d{0,2})?$/;
+
+    // Si la tecla presionada no es un número ni un punto, prevenir la entrada
+    if (
+      (charCode < 48 || charCode > 57) && // No es un número
+      charCode !== 46 // No es el punto decimal
+    ) {
+      event.preventDefault();
+      return;
+    }
+
+    // Validar si el valor sigue el patrón deseado
+    if (!regex.test(value + String.fromCharCode(charCode))) {
+      event.preventDefault(); // Si el valor excede el formato permitido, prevenir la entrada
+    }
+  }
+
+  //para frecuencia cardiaca
+  get frecuenciaCardiacaControl() {
+    return this.formulario.get('frecuenciaCardiaca');
+  }
+
+  // Función para manejar el evento onFocus
+  onFocusFrecuenciaCardiaca() {
+    this.isFrecuenciaCardiacaFocused = true;
+  }
+
+  // Función para manejar el evento onBlur (cuando el input pierde el foco)
+  onBlurFrecuenciaCardiaca() {
+    this.isFrecuenciaCardiacaFocused = false;
+  }
+
+  // Validación para permitir solo números enteros
+  validateIntegerInput(event: KeyboardEvent) {
+    const charCode = event.charCode;
+
+    // Permitir solo números (códigos ASCII 48-57 para números 0-9)
+    if (charCode < 48 || charCode > 57) {
+      event.preventDefault(); // Si el carácter no es un número, se previene la entrada
+    }
+  }
+
+  // Getter genérico para obtener el control del formulario
+  getControl(controlName: string) {
+    return this.formulario.get(controlName);
+  }
+
+ // Función genérica para verificar si el control está inválido y tocado
+isControlInvalid(controlName: string): boolean {
+  const control = this.getControl(controlName);
+  return control ? control.invalid && control.touched : false;
+}
+
+  // Función genérica para manejar el evento onFocus
+  onFocus(validationType: string) {
+    this.isSintomasFocused = true;
+
+    // Dependiendo del tipo de validación, mostramos un mensaje apropiado
+    switch (validationType) {
+      case 'alfanumerico':
+        this.validationMessage = 'Solo se permiten caracteres alfanuméricos (letras y números).';
+        break;
+      case 'numerico':
+        this.validationMessage = 'Solo se permiten números.';
+        break;
+      case 'texto':
+        this.validationMessage = 'Solo se permiten letras.';
+        break;
+      default:
+        this.validationMessage = '';
+        break;
+    }
+  }
+
+  // Función genérica para manejar el evento keypress
+  validateInput(event: KeyboardEvent, validationType: string) {
+    const charCode = event.charCode;
+
+    // Validación dependiendo del tipo de entrada
+    switch (validationType) {
+      case 'alfanumerico':
+        // Permitir letras (A-Z, a-z), números (0-9) y espacios
+        if (
+          (charCode < 48 || charCode > 57) &&  // No es un número (0-9)
+          (charCode < 65 || charCode > 90) &&  // No es una letra mayúscula (A-Z)
+          (charCode < 97 || charCode > 122) && // No es una letra minúscula (a-z)
+          charCode !== 32                    // No es un espacio
+        ) {
+          event.preventDefault(); // Si no es alfanumérico o espacio, prevenir la entrada
+        }
+        break;
+
+      case 'numerico':
+        // Permitir solo números
+        if (charCode < 48 || charCode > 57) {
+          event.preventDefault(); // Si no es un número, prevenir la entrada
+        }
+        break;
+
+      case 'texto':
+        // Permitir solo letras (A-Z, a-z)
+        if (
+          (charCode < 65 || charCode > 90) &&  // No es una letra mayúscula
+          (charCode < 97 || charCode > 122)    // No es una letra minúscula
+        ) {
+          event.preventDefault(); // Si no es una letra, prevenir la entrada
+        }
+        break;
+
+      default:
+        break;
+    }
   }
 
 

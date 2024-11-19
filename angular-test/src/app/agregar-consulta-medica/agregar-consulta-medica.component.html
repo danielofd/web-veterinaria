@@ -8,47 +8,157 @@
       <div class="col-md-4">
         <div class="form-group">
           <label for="temperatura">(*)TEMPERATURA</label>
-          <input id="temperatura" formControlName="temperatura" type="number" class="form-control" placeholder="Temperatura de la mascota">
+          <input id="temperatura" 
+          formControlName="temperatura" 
+          type="text" class="form-control" 
+          placeholder="Temperatura de la mascota"
+          (focus)="onFocusPeso()"
+            (keypress)="validateDecimalInput($event)"
+            [class.is-invalid]="tempControl?.invalid && tempControl?.touched"
+          />
+          <div *ngIf="isPesoFocused" class="invalid-feedback">
+            Solo se permiten números decimales de dos cifras.
+          </div>
         </div>
       </div>
 
       <div class="col-md-4">
+
         <div class="form-group">
           <label for="peso">(*)PESO</label>
-          <input id="peso" formControlName="peso" type="number" class="form-control" placeholder="Peso de la mascota">
+          <input
+            id="peso"
+            formControlName="peso"
+            type="text"
+            class="form-control"
+            placeholder="Peso de la mascota"
+            (focus)="onFocusPeso()"
+            (keypress)="validateDecimalInput($event)"
+            [class.is-invalid]="pesoControl?.invalid && pesoControl?.touched"
+          />
+          <!-- Mensaje flotante de validación -->
+          <!-- <div *ngIf="pesoControl?.invalid && pesoControl?.touched" class="invalid-feedback">
+            Solo se permiten números decimales con hasta tres enteros y dos decimales.
+          </div> -->
+          <!-- Mensaje cuando el campo está en foco -->
+          <div *ngIf="isPesoFocused" class="invalid-feedback">
+            Solo se permiten números decimales de dos cifras.
+          </div>
         </div>
+        
       </div>
 
       <div class="col-md-4">
+
         <div class="form-group">
           <label for="frecuenciaCardiaca">(*)FRECUENCIA CARDIACA</label>
-          <input id="frecuenciaCardiaca" formControlName="frecuenciaCardiaca" type="number" class="form-control" placeholder="Frecuencia cardíaca de la mascota">
+          <input
+            id="frecuenciaCardiaca"
+            formControlName="frecuenciaCardiaca"
+            type="text"
+            class="form-control"
+            placeholder="Frecuencia cardíaca de la mascota"
+            maxlength="3"
+            (focus)="onFocusFrecuenciaCardiaca()"
+            (keypress)="validateIntegerInput($event)"
+            [class.is-invalid]="frecuenciaCardiacaControl?.invalid && frecuenciaCardiacaControl?.touched"
+          />
+          <!-- Mensaje cuando el campo está en foco -->
+          <div *ngIf="isFrecuenciaCardiacaFocused" class="invalid-feedback">
+            Solo se permiten números enteros.
+          </div>
+        
+          <!-- Mensaje de error de validación si el control es inválido y ha sido tocado -->
+          <!-- <div *ngIf="frecuenciaCardiacaControl?.invalid && frecuenciaCardiacaControl?.touched" class="invalid-feedback">
+            Solo se permiten números enteros.
+          </div> -->
         </div>
+        
+
       </div>
     </div>
 
     <!-- Campos adicionales solo para Veterinario y Admin -->
     <div *ngIf="usuarioRol === 'Veterinario' || usuarioRol === 'Admin'">
+      
+      <!-- campo sintomas -->
       <div class="form-group">
         <label for="sintomas">(*)SINTOMAS</label>
-        <textarea id="sintomas" formControlName="sintomas" rows="4" class="form-control" placeholder="Describa los síntomas de la mascota"></textarea>
+        <textarea
+          id="sintomas"
+          formControlName="sintomas"
+          rows="4"
+          class="form-control"
+          placeholder="Describa los síntomas de la mascota"
+          (focus)="onFocus('alfanumerico')"
+          (keypress)="validateInput($event, 'alfanumerico')"
+          [class.is-invalid]="isControlInvalid('sintomas')"
+        ></textarea>
+        <!-- Mensaje cuando el campo está en foco -->
+        <div *ngIf="isSintomasFocused" class="invalid-feedback">
+          Solo se permiten caracteres alfanuméricos (letras y números).
+        </div>
+      
+        <!-- Mensaje de error de validación si el control es inválido y ha sido tocado -->
+        <!-- <div *ngIf="sintomasControl?.invalid && sintomasControl?.touched" class="invalid-feedback">
+          Solo se permiten caracteres alfanuméricos (letras y números).
+        </div> -->
       </div>
+      <!-- campo sintomas -->
 
+       <!-- campo diagnostico -->
       <div class="form-group">
         <label for="diagnostico">(*)DIAGNOSTICO</label>
-        <textarea id="diagnostico" formControlName="diagnostico" rows="4" class="form-control" placeholder="Describa el diagnóstico"></textarea>
+        <textarea id="diagnostico" 
+        formControlName="diagnostico" 
+        rows="4" class="form-control" 
+        placeholder="Describa el diagnóstico"
+        (focus)="onFocus('alfanumerico')"
+          (keypress)="validateInput($event, 'alfanumerico')"
+          [class.is-invalid]="isControlInvalid('diagnostico')">
+      </textarea>
+      <!-- Mensaje cuando el campo está en foco -->
+      <div *ngIf="isSintomasFocused" class="invalid-feedback">
+        Solo se permiten caracteres alfanuméricos (letras y números).
       </div>
+      </div>
+       <!-- campo diagnostico -->
 
+       <!-- campo examenes -->
       <div class="form-group">
         <label for="examenesRecomendados">(*)EXAMENES RECOMENDADOS</label>
-        <textarea id="examenesRecomendados" formControlName="examenesRecomendados" rows="4" class="form-control" placeholder="Exámenes recomendados para la mascota"></textarea>
+        <textarea id="examenesRecomendados" 
+        formControlName="examenesRecomendados" 
+        rows="4" class="form-control" 
+        placeholder="Exámenes recomendados para la mascota"
+        (focus)="onFocus('alfanumerico')"
+          (keypress)="validateInput($event, 'alfanumerico')"
+          [class.is-invalid]="isControlInvalid('examenesRecomendados')"
+        ></textarea>
+        <!-- Mensaje cuando el campo está en foco -->
+          <div *ngIf="isSintomasFocused" class="invalid-feedback">
+            Solo se permiten caracteres alfanuméricos (letras y números).
+          </div>
       </div>
+       <!-- campo examenes -->
 
+      <!-- campo observaciones -->
       <div class="form-group">
         <label for="observaciones">OBSERVACIONES</label>
-        <textarea id="observaciones" formControlName="observaciones" rows="4" class="form-control" placeholder="Observaciones adicionales"></textarea>
+        <textarea id="observaciones" 
+        formControlName="observaciones" 
+        rows="4" class="form-control" 
+        placeholder="Observaciones adicionales"
+        (focus)="onFocus('alfanumerico')"
+        (keypress)="validateInput($event, 'alfanumerico')"
+        [class.is-invalid]="isControlInvalid('observaciones')"
+        ></textarea>
+        <!-- Mensaje cuando el campo está en foco -->
+        <div *ngIf="isSintomasFocused" class="invalid-feedback">
+          Solo se permiten caracteres alfanuméricos (letras y números).
+        </div>
       </div>
-
+      <!-- campo observaciones -->
       <div class="form-group">
         <label for="nombreVeterinario">(*)NOMBRE DEL VETERINARIO</label>
         <input type="text" id="vet" formControlName="nombreVeterinario" class="form-control form-control-sm" [value]="selectedVetName" readonly />

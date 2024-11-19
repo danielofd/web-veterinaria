@@ -111,6 +111,21 @@
   max-width: 500px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   text-align: left;
+  overflow-x: auto; /* Activa el desplazamiento horizontal cuando sea necesario */
+  -webkit-overflow-scrolling: touch; /* Para una experiencia de desplazamiento más fluida en dispositivos táctiles */
+
+}
+
+/*se agrego barra lateral*/
+/* Ocultar la barra de desplazamiento en navegadores basados en Webkit (Chrome, Safari) */
+.modal-content::-webkit-scrollbar {
+  display: none;
+}
+
+/* Para otros navegadores */
+.modal-content {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
 }
 
 .modal-content h3 {
