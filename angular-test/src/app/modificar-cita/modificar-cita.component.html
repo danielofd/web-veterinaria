@@ -17,7 +17,13 @@
         <div class="form-group row">
             <label for="propietario"  class="col-sm-2 col-form-label">PROPIETARIO(*):</label>
             <div class="col-sm-10">
-                <input type="text" id="propietario"  class="form-control" formControlName="propietario" >
+                <input type="text" 
+                id="propietario"  
+                class="form-control" 
+                (keypress)="validarTexto($event)" 
+                [value]="propietario"
+                style="text-transform: uppercase;"
+                formControlName="propietario" >
             </div>
         </div>
 
@@ -25,11 +31,15 @@
         <div class="form-group row">
             <label for="veterinario" class="col-sm-2 col-form-label">VETERINARIO(*):</label>
             <div class="col-sm-10">
-                <select id="vet" class="form-select form-select-sm" formControlName="veterinario"  (change)="onVeterinarioChange($event)"  >
-                    <option *ngFor="let vet of veterinarios" [value]="vet.empId">
-                        {{ vet.empNombre }} {{ vet.empApellido }}
-                    </option>
-                </select>
+                
+                <input 
+        id="vet" 
+        class="form-control form-control-sm" 
+        [value]="selectedVeterinario"  
+        readonly
+        formControlName="veterinario" 
+    />
+
             </div>
         </div>
 

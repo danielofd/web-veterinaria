@@ -14,6 +14,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class ModificarCitaComponent implements OnInit {
 
+  propietario: string = '';  // Variable que almacena el valor del propietario
+
   registro: any;
   formulario: FormGroup;
 
@@ -74,9 +76,24 @@ export class ModificarCitaComponent implements OnInit {
         */
         //console.log(registro);
 
+        this.selectedVeterinarioId=registro.veterinarioId;
+
         this.formulario.patchValue(registro); // Rellenar el formulario con los datos
 
         //this.fillForm(); // Llenar el formulario con los datos
+
+        /**llenar los argumentos para consultar*/
+        this.selectedVeterinarioId = registro.veterinarioId;
+        this.selectedFecha = registro.fecha;
+
+        console.log("----------------")
+        console.log("vet id selected: "+ this.selectedVeterinarioId)
+        console.log("fecha selected: "+ this.selectedFecha)
+        console.log("----------------")
+
+
+        /***cambios nuevos */
+        this.cargarHorarios()
 
 
       }
@@ -202,9 +219,9 @@ console.log("-----------------")
   cargarHorarios(): void {
 
     //probando si recupera id de veterinario por defecto
-    const veterinarioSeleccionada = this.formulario.get('veterinario')?.value; 
+    //const veterinarioSeleccionada = this.formulario.get('veterinario')?.value; 
 
-    console.log("veterinario selected => "+veterinarioSeleccionada);
+    //console.log("veterinario selected => "+veterinarioSeleccionada);
 
 
     if (this.selectedVeterinarioId && this.selectedFecha) {
@@ -309,7 +326,8 @@ onVeterinarioChange(event: Event): void {
       ctaPropietario:formValue.propietario.toUpperCase(),
       //horario: this.selectedHorario
       //idEmp
-      empId: this.formulario.get('veterinario')?.value
+      //empId: this.formulario.get('veterinario')?.value
+      empId: this.selectedVeterinarioId
     };
 
     console.log(JSON.stringify(citaData));
@@ -435,5 +453,19 @@ onVeterinarioChange(event: Event): void {
   
   
   }
+
+    // Función que valida solo caracteres alfabéticos y convierte a mayúsculas
+    validarTexto(event: KeyboardEvent): void {
+      const input = event.target as HTMLInputElement;
+      const charCode = event.charCode || event.keyCode;
+      const charStr = String.fromCharCode(charCode);
+    
+      // Permite solo letras (mayúsculas y minúsculas)
+      if (!/^[A-Za-z]+$/.test(charStr)) {
+        event.preventDefault();  // Si no es una letra, cancela la tecla
+      } else {
+        input.value = input.value.toUpperCase(); // Convierte a mayúsculas
+      }
+    }
 
 }
