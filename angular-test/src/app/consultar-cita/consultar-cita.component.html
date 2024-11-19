@@ -100,7 +100,7 @@
 
 
                     <td style="width: 200px;"> <!-- Ancho reducido para Acciones -->
-                        <button class="btn btn-warning btn-sm me-2" (click)="editarRegistro(i)">
+                        <button class="btn btn-warning btn-sm me-2" (click)="editarRegistro(i)" [disabled]="registro.estado === 0 || registro.estado === 2" >
                             <span class="material-symbols-outlined" style="vertical-align: middle;" >
                                 edit_document
                                 </span>
