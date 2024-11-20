@@ -15,6 +15,8 @@ export class ConsultarCitaComponent {
 
   isLoading: boolean = false;  // Variable para controlar el estado de carga
 
+  isLoadingQuery: boolean = false;  // Variable para controlar el estado del boton consultar
+
   formulario: FormGroup;
 
   isFocused: boolean = false;
@@ -78,6 +80,8 @@ export class ConsultarCitaComponent {
     this.registros=[];  //se limpia la tabla para nueva consulta
 
     this.isLoading = true; // Activar el estado de carga (Cargando...)
+
+    this.isLoadingQuery = true; //desactiva boton consultar
     
       this.datosService.buscarCita(fecha,hora,propietario,estado).subscribe(
         (data) => {
@@ -88,6 +92,7 @@ export class ConsultarCitaComponent {
             console.log('No existen datos');
             this.openSnackBar("NO HAY REGISTROS RELACIONADO CON LA BUSQUEDA.");
             this.isLoading = false; // Desactivamos el estado de carga después de recibir la respuesta
+            this.isLoadingQuery = false; //activa boton consultar
             return;
           } else {
             // Si data tiene contenido, asignar los datos a registros y reiniciar el formulario
@@ -95,6 +100,7 @@ export class ConsultarCitaComponent {
             this.registros = data; // Asignar los datos a registros
             //this.formulario.reset(); // Reiniciar el formulario
             this.isLoading = false; // Desactivamos el estado de carga después de recibir la respuesta
+            this.isLoadingQuery = false; //activa boton consultar
             this.formulario.reset({
               estado: ''  // Establecer "TODAS" como valor por defecto
             });
@@ -109,6 +115,7 @@ export class ConsultarCitaComponent {
         },
         (error) => {
           this.isLoading = false; // Desactivamos el estado de carga después de recibir la respuesta
+          this.isLoadingQuery = false; //activa boton consultar
           console.error('Error al buscar citas', error);
           // Puedes mostrar un mensaje al usuario aquí
         }

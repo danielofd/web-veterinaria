@@ -62,8 +62,8 @@
         
             <!-- Botón Consultar -->
             <div class="col-auto d-flex align-items-end">
-                <button type="button" class="btn btn-primary" (click)="consultarExpediente()">
-                    <span class="material-symbols-outlined" style="vertical-align: middle;">search</span> 
+                <button type="button" class="btn btn-primary" (click)="consultarExpediente()" [disabled]="isLoadingQuery">
+                    <span class="material-symbols-outlined" style="vertical-align: middle;">search</span>
                     CONSULTAR
                 </button>
             </div>

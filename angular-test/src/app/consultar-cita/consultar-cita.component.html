@@ -63,7 +63,7 @@
               </div>
             <div class="col-auto">
                 
-                <button type="button" class="btn btn-primary" (click)="consultarCita()">
+                <button type="button" class="btn btn-primary" (click)="consultarCita()" [disabled]="isLoadingQuery">
                     <span class="material-symbols-outlined" style="vertical-align: middle;">search</span> <!-- Icono para consultar cita -->
                     CONSULTAR
                 </button>

@@ -16,6 +16,8 @@ declare var bootstrap: any;  // Esto es necesario para que TypeScript reconozca 
 })
 export class ConsultarExpedienteComponent {
 
+  isLoadingQuery: boolean = false;  // Variable para controlar el estado de carga del botón
+
   formulario: FormGroup;
 
   detalleExpediente: any = null;
@@ -152,6 +154,8 @@ export class ConsultarExpedienteComponent {
     console.log("fecha => "+cod);
     console.log("hora => "+mascota);
     console.log("propietario => "+propietario);
+
+    this.isLoadingQuery = true; //deshabilita boton consultar
     
       this.datosService.buscarExpediente(cod,mascota,propietario).subscribe(
         (data) => {
@@ -164,6 +168,7 @@ export class ConsultarExpedienteComponent {
             console.log('No existen datos');
             this.openSnackBar("NO HAY REGISTROS RELACIONADO CON LA BUSQUEDA.");
             this.isLoading = false; // Ocultar "Cargando..." cuando los datos hayan llegado
+            this.isLoadingQuery = false; //habilita boton consultar
             return;
           } else {
             // Si data tiene contenido, asignar los datos a registros y reiniciar el formulario
@@ -171,6 +176,7 @@ export class ConsultarExpedienteComponent {
             this.registros = data; // Asignar los datos a registros
             this.formulario.reset(); // Reiniciar el formulario
             this.isLoading = false; // Ocultar "Cargando..." cuando los datos hayan llegado
+            this.isLoadingQuery = false; //habilita boton consultar
           }
 
 
@@ -181,6 +187,7 @@ export class ConsultarExpedienteComponent {
           console.error('Error al buscar citas', error);
           // Puedes mostrar un mensaje al usuario aquí
           this.isLoading = false; // Ocultar "Cargando..." cuando los datos hayan llegado
+          this.isLoadingQuery = false; //habilita boton consultar
         }
       );
 

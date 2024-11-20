@@ -14,6 +14,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class ModificarCitaComponent implements OnInit {
 
+  isSaving: boolean = false;  // Variable para controlar el estado de guardado (deshabilitar el botón durante la solicitud)
+
   propietario: string = '';  // Variable que almacena el valor del propietario
 
   registro: any;
@@ -332,6 +334,8 @@ onVeterinarioChange(event: Event): void {
 
     console.log(JSON.stringify(citaData));
 
+    this.isSaving = true; //deshabilita el boton guardar
+
     this.http.post('http://localhost:8081/happyfriends/actualizarCita', citaData, {
 
         headers: { 'Content-Type': 'application/json' },
@@ -366,6 +370,7 @@ onVeterinarioChange(event: Event): void {
         if (response === "Horario ocupado, intente con otro horario") {
           // Si el mensaje de respuesta es "Horario ocupado"
           this.procesoMsg('HORARIO OCUPADO, INTENTE CON OTRO HORARIO');
+          this.isSaving = false; //habilita el boton guardar
           console.log("Horario ocupado");
         } else {
 
@@ -387,6 +392,7 @@ onVeterinarioChange(event: Event): void {
           console.log("Registro modificado con éxito");
           this.procesoMsg('REGISTRO GUARDADO CON EXITO.');
           // Redirigir al formulario de creación de expediente
+          this.isSaving = false; //habilita el boton guardar
          this.router.navigate(['/consultar-cita']);
         }
 
@@ -398,6 +404,7 @@ onVeterinarioChange(event: Event): void {
           // Maneja el error aquí
           this.procesoMsg('ERROR AL GUARDAR EL REGISTRO.');
           // Redirigir al formulario de creación de expediente
+          this.isSaving = false; //habilita el boton guardar
          this.router.navigate(['/consultar-cita']);
         }
      
@@ -405,6 +412,7 @@ onVeterinarioChange(event: Event): void {
          
   } else {
     console.error('Por favor, complete todos los campos antes de generar la cita.');
+    this.isSaving = false; //habilita el boton guardar
 
     this.procesoMsg('POR FAVOR COMPLETE TODOS LOS CAMPOS OBLIGATORIOS (*).');
 
