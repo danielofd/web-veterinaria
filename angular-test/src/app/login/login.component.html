@@ -1,5 +1,5 @@
-<div class="container-fluid login-container" style="margin-top: 0; height: 80vh;"> <!-- Ocupa el 80% del alto de la pantalla -->
-    <div class="w-100 h-100 d-flex flex-column justify-content-start align-items-center" style="margin-top: 5%;"> <!-- Agregado margen superior -->
+<div class="container-fluid login-container" style="margin-top: 0; height: 80vh;">
+    <div class="w-100 h-100 d-flex flex-column justify-content-start align-items-center" style="margin-top: 5%;">
 
         <!-- Primera fila: imagen alineada a la izquierda -->
         <div class="mb-3">
@@ -12,7 +12,7 @@
         </div>
         
         <div class="mb-3 d-flex justify-content-center">
-            <div style="max-width: 350px; width: 100%;"> <!-- Aumentado el max-width del contenedor del formulario -->
+            <div style="max-width: 350px; width: 100%;">
                 <form [formGroup]="formularioLogin" (ngSubmit)="login()">
                     <div class="mb-3">
                         <label class="form-label" for="user">Usuario</label>
@@ -33,9 +33,14 @@
                     </div>
 
                     <div class="d-grid gap-2">
-                        <button type="submit" class="btn btn-info">Iniciar Sesión</button>
+                        <button type="submit" class="btn btn-info" [disabled]="isLoggingIn">Iniciar Sesión</button>
                     </div>
                 </form>
+
+                <!-- Texto que muestra el estado de la petición -->
+                <div *ngIf="isLoggingIn" class="text-center text-dark fw-bold mt-2">
+                    Logeando...
+                </div>
             </div>
         </div>
 

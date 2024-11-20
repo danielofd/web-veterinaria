@@ -13,6 +13,8 @@ import { DatosService } from '../service/datos.service';
 })
 export class LoginComponent {
 
+  isLoggingIn: boolean = false; //para activar-desactivar boton
+
   user: string = "";
   password: string = "";
 
@@ -101,6 +103,10 @@ export class LoginComponent {
         this.router.navigate(['/login']);
     }
         */
+
+    this.isLoggingIn = true; // Activar el estado de "Logeando..."
+
+
       //integracion con api rest
       this.authService.login(this.user, this.password).subscribe({
         next: (response) => {
@@ -145,6 +151,7 @@ export class LoginComponent {
                this.authService.setCurrentUser(response);
                 // Navegar según el rol
                 //this.router.navigate(['/home']);
+                this.isLoggingIn = false; // Desactivar el estado de "Logeando..."
             } 
             /**
             else {
@@ -156,6 +163,7 @@ export class LoginComponent {
         error: () => {
             //alert('Error en las credenciales.');
             this.openDialog('El usuario/contraseña no son válidos');
+            this.isLoggingIn = false; // Desactivar el estado de "Logeando..."
             this.router.navigate(['/login']);
         }
     });

@@ -86,6 +86,15 @@
                 </tr>
             </thead>
             <tbody>
+
+                <!-- Mostrar mensaje "Cargando..." mientras se espera la respuesta del servicio -->
+                <tr *ngIf="isLoading">
+                    <td colspan="7" class="text-center text-dark fw-bold">
+                        Cargando...
+                    </td>
+                </tr>
+
+
                 <tr *ngFor="let registro of registros; let i = index">
                     <td class="d-none">{{registro.id}}</td> <!-- Usar d-none aquí también -->
                     <td>{{ registro.fecha }}</td>

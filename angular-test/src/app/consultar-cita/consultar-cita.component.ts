@@ -13,6 +13,8 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class ConsultarCitaComponent {
 
+  isLoading: boolean = false;  // Variable para controlar el estado de carga
+
   formulario: FormGroup;
 
   isFocused: boolean = false;
@@ -35,6 +37,8 @@ export class ConsultarCitaComponent {
  
   consultarCita() {
     console.log('probando consulta...');
+
+   
 
     //valida campos obligatorios antes de guardar
   if (this.formulario.get('fecha')?.invalid) {
@@ -71,6 +75,9 @@ export class ConsultarCitaComponent {
       console.log('Formulario inválido');
     }
 
+    this.registros=[];  //se limpia la tabla para nueva consulta
+
+    this.isLoading = true; // Activar el estado de carga (Cargando...)
     
       this.datosService.buscarCita(fecha,hora,propietario,estado).subscribe(
         (data) => {
@@ -80,13 +87,14 @@ export class ConsultarCitaComponent {
             // Si data es null, undefined o un array vacío, imprime el mensaje
             console.log('No existen datos');
             this.openSnackBar("NO HAY REGISTROS RELACIONADO CON LA BUSQUEDA.");
+            this.isLoading = false; // Desactivamos el estado de carga después de recibir la respuesta
             return;
           } else {
             // Si data tiene contenido, asignar los datos a registros y reiniciar el formulario
             console.log('Datos recibidos:', data); // Para depuración
             this.registros = data; // Asignar los datos a registros
             //this.formulario.reset(); // Reiniciar el formulario
-
+            this.isLoading = false; // Desactivamos el estado de carga después de recibir la respuesta
             this.formulario.reset({
               estado: ''  // Establecer "TODAS" como valor por defecto
             });
@@ -100,6 +108,7 @@ export class ConsultarCitaComponent {
           
         },
         (error) => {
+          this.isLoading = false; // Desactivamos el estado de carga después de recibir la respuesta
           console.error('Error al buscar citas', error);
           // Puedes mostrar un mensaje al usuario aquí
         }
