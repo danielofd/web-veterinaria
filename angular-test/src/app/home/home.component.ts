@@ -9,6 +9,9 @@ import { AuthService } from '../service/auth.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+
+ 
+
   menuOptions: string[] = [];
   expedienteOption: string[]=[];
   citasOption: string[] = [];
@@ -47,6 +50,8 @@ export class HomeComponent implements OnInit {
   openVacunacion(){
     this.openSnackBar('NO DISPONIBLE POR EL MOMENTO...');
   }
+
+  
 
 
 }

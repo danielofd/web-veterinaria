@@ -8,22 +8,26 @@
         <div class="row mb-4">
             <!-- Columna para los botones -->
             <div class="col-md-3 d-flex flex-column justify-content-between" style="height: 400px;"> <!-- Altura ajustada -->
-                <a class="btn btn-custom-blue w-100 mb-3" *ngFor="let option of expedienteOption" [routerLink]="['/menu-expediente']">
-                    <span class="material-symbols-outlined" style="vertical-align: middle;">assignment</span> <!-- Icono para expediente -->
-                    Expediente
-                </a>
+                <a class="btn btn-custom-blue w-100 mb-3" *ngFor="let option of expedienteOption" 
+                [routerLink]="['/menu-expediente']"
+                title="Menú para la creación, consulta y modificación de expedientes">
+                 <span class="material-symbols-outlined" style="vertical-align: middle;">assignment</span> <!-- Icono para expediente -->
+                 Expediente
+             </a>
                 <div class="mt-5"> <!-- Espaciado adicional -->
-                    <a class="btn btn-danger w-100" [routerLink]="['/login']">
-                        <span class="material-symbols-outlined" style="vertical-align: middle;">logout</span>
-                        Salir
-                    </a>
+                    <a class="btn btn-danger w-100" [routerLink]="['/login']"
+                    title="Salir del sistema">
+                     <span class="material-symbols-outlined" style="vertical-align: middle;">logout</span>
+                     Salir
+                 </a>
                 </div>
             </div>
             <div class="col-md-3">
-                <a class="btn btn-custom-blue w-100" *ngFor="let option of citasOption" [routerLink]="['/menu-citas']">
-                    <span class="material-symbols-outlined" style="vertical-align: middle;">event</span> <!-- Icono opcional para citas -->
-                    Citas
-                </a>
+                <a class="btn btn-custom-blue w-100" *ngFor="let option of citasOption" [routerLink]="['/menu-citas']"
+                title="Menú para la creación, consulta, modificación y cancelacion de citas">
+                 <span class="material-symbols-outlined" style="vertical-align: middle;">event</span> <!-- Icono para citas -->
+                 Citas
+             </a>
             </div>
             <div class="col-md-3 d-none">
                 <a class="btn btn-custom-blue w-100" *ngFor="let option of consultasMedicasOption"  [routerLink]="['/menu-consulta-medica']"  >

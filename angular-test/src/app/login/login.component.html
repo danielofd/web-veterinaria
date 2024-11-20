@@ -1,5 +1,5 @@
 <div class="container-fluid login-container" style="margin-top: 0; height: 80vh;">
-    <div class="w-100 h-100 d-flex flex-column justify-content-start align-items-center" style="margin-top: 5%;">
+    <div class="w-100 h-100 d-flex flex-column justify-content-start align-items-center" style="margin-top: 5%; position: relative;">
 
         <!-- Primera fila: imagen alineada a la izquierda -->
         <div class="mb-3">
@@ -33,7 +33,10 @@
                     </div>
 
                     <div class="d-grid gap-2">
-                        <button type="submit" class="btn btn-info" [disabled]="isLoggingIn">Iniciar Sesión</button>
+                        <button type="submit" class="btn btn-info" [disabled]="isLoggingIn"
+                                title="Iniciar sesión en el sistema">
+                            Iniciar Sesión
+                        </button>
                     </div>
                 </form>
 
@@ -41,6 +44,12 @@
                 <div *ngIf="isLoggingIn" class="text-center text-dark fw-bold mt-2">
                     Logeando...
                 </div>
+
+                <!-- Botón redondo con ícono de bombilla a la altura del logo, ubicado al lado derecho -->
+                <button class="btn btn-secondary rounded-circle" style="position: absolute; top: 5%; right: 10px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;" 
+                        title="Bienvenido, se encuentra en la pantalla de inicio del sistema 'Mascotas Felices'">
+                    <span class="material-symbols-outlined" style="font-size: 24px;">lightbulb_2</span>
+                </button>
             </div>
         </div>
 
