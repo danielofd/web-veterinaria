@@ -1,0 +1,7 @@
+/*para los mensajes de error de validacion de campos*/
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+  /*para los mensajes de error de validacion de campos*/

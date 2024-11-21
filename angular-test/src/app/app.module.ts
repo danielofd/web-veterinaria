@@ -30,6 +30,8 @@ import { AgregarConsultaMedicaComponent } from './agregar-consulta-medica/agrega
 import { VerHistorialMedicoComponent } from './ver-historial-medico/ver-historial-medico.component';
 import { TratamientoComponent } from './tratamiento/tratamiento.component';
 import { ModificarConsultaComponent } from './modificar-consulta/modificar-consulta.component';
+import { MenuAdminComponent } from './menu-admin/menu-admin.component';
+import { CrearRolComponent } from './crear-rol/crear-rol.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,9 @@ import { ModificarConsultaComponent } from './modificar-consulta/modificar-consu
     AgregarConsultaMedicaComponent,
     VerHistorialMedicoComponent,
     TratamientoComponent,
-    ModificarConsultaComponent
+    ModificarConsultaComponent,
+    MenuAdminComponent,
+    CrearRolComponent
   ],
   imports: [
     BrowserModule,

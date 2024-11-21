@@ -1,0 +1,60 @@
+<div class="container mt-5">
+    <h2>Crear Nuevo Rol</h2>
+    <form [formGroup]="formulario" (ngSubmit)="crearRol()">
+        <!-- campo nombre rol -->
+      <div class="form-group">
+        <label for="rolNombre">(*)NOMBRE DEL ROL:</label>
+                    <input type="text" 
+                id="rolNombre" 
+                class="form-control text-uppercase" 
+                [(ngModel)]="rolNombre" 
+                maxlength="20"
+                (keypress)="validarCaracteres($event)"
+                (focus)="mostrarMensaje()" 
+                (blur)="ocultarMensaje()" 
+                name="rolNombre" required>
+        <div *ngIf="formulario.get('rolNombre')?.invalid && formulario.get('rolNombre')?.touched" class="error-message">
+            Este campo es obligatorio.
+          </div>
+          <div *ngIf="showAlert" class="error-message" role="alert">
+            El tamaño máximo del campo es de 20 caracteres.
+          </div>
+      </div>
+      <!-- campo nombre rol -->
+       <br>
+       <!-- campo descripcion rol -->
+      <div class="form-group">
+        <label for="rolDescripcion">(*)DESCRIPCION DEL ROL:</label>
+        <input type="text" id="rolDescripcion" 
+        class="form-control text-uppercase" 
+        [(ngModel)]="rolDescripcion" 
+        maxlength="100"
+        (keypress)="validarCaracteres($event)"
+                (focus)="mostrarMensajeDesc()" 
+                (blur)="ocultarMensajeDesc()" 
+        name="rolDescripcion" required>
+        <div *ngIf="formulario.get('rolDescripcion')?.invalid && formulario.get('rolDescripcion')?.touched" class="error-message">
+            Este campo es obligatorio.
+          </div>
+          <div *ngIf="showAlertDesc" class="error-message" role="alert">
+            El tamaño máximo del campo es de 100 caracteres.
+          </div>
+    </div>
+      <!-- campo descripcion rol -->
+      <div class="d-flex justify-content-between">
+        <!-- Botón Regresar con icono y color gris -->
+        <a [routerLink]="['/menu-admin']" class="btn btn-secondary mt-3">
+          <span class="material-icons" style="vertical-align: middle;">keyboard_return</span> <!-- Icono para regresar -->
+          Regresar
+        </a>
+  
+        <!-- Botón Crear Rol con ícono de guardar (save) y color verde -->
+        <button type="submit" class="btn btn-success mt-3" [disabled]="isSubmitting">
+          <span class="material-icons" style="vertical-align: middle;">save</span> <!-- Icono de guardar -->
+          Crear Rol
+        </button>
+        <!-- boton guardar rol -->
+      </div>
+    </form>
+  </div>
+  

@@ -101,7 +101,7 @@ export class AuthService {
     } else if (this.isAssistant()) {
       return ['expediente', 'citas'];
     } else if (this.isVeterinario()) {
-      return ['expediente', 'consulta medica', 'vacunacion'];
+      return ['expediente'];
     }
     return [];
   }

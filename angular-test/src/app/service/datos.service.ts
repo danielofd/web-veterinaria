@@ -158,4 +158,9 @@ export class DatosService {
     return this.http.get<any[]>(url);  // Realizamos la solicitud GET con la URL construida
   }
 
+  //metodo para crear el rol nuevo
+  crearRol(rolData: { rolNombre: string, rolDescripcion: string, usuCodigo: string }): Observable<any> {
+    return this.http.post<any>(this.apiUrl+'/nuevoRol', rolData);
+  }
+
 }

@@ -29,16 +29,16 @@
                  Citas
              </a>
             </div>
-            <div class="col-md-3 d-none">
-                <a class="btn btn-custom-blue w-100" *ngFor="let option of consultasMedicasOption"  [routerLink]="['/menu-consulta-medica']"  >
-                    <span class="material-symbols-outlined" style="vertical-align: middle;">medical_services</span> <!-- Icono opcional para consultas -->
-                    Consultas Médicas
+            <div class="col-md-3">
+                <a class="btn btn-custom-blue w-100" *ngFor="let option of consultasMedicasOption"  [routerLink]="['/menu-admin']"  >
+                    <span class="material-symbols-outlined" style="vertical-align: middle;">admin_panel_settings</span> <!-- Icono opcional para consultas -->
+                    Administración
                 </a>
             </div>
             <div class="col-md-3 d-none">
                 <a class="btn btn-custom-blue w-100" *ngFor="let option of vacunacionOption" (click)="openVacunacion()">
                     <span class="material-symbols-outlined" style="vertical-align: middle;">vaccines</span> <!-- Icono opcional para vacunación -->
-                    Vacunación
+                    Vacunacion
                 </a>
             </div>
         </div>

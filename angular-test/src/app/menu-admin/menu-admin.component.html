@@ -1,0 +1,30 @@
+<div class="container mt-5">
+    <div class="text-left mb-4">
+        <h2>MENU DE ADMINISTRACIÓN</h2>
+    </div>
+    <div class="row">
+        <!-- Opción para crear rol -->
+        <div class="col-md-12 mb-3">
+            <button *ngIf="canCreateRole" (click)="createRole()" class="btn btn-primary btn-lg w-50 text-start">
+                <span class="material-symbols-outlined" style="vertical-align: middle;">person_add</span> <!-- Icono para crear rol -->
+                CREAR ROL
+            </button>
+        </div>
+
+        <!-- Opción para crear usuario -->
+        <div class="col-md-12 mb-3">
+            <button *ngIf="canCreateUser" (click)="createUser()" class="btn btn-primary btn-lg w-50 text-start">
+                <span class="material-symbols-outlined" style="vertical-align: middle;">person_edit</span> <!-- Icono para crear usuario -->
+                CREAR USUARIO
+            </button>
+        </div>
+        
+        <!-- Opción para regresar al menú home -->
+        <div class="col-md-12 mb-3">
+            <button class="btn btn-danger btn-lg w-50 text-start" [routerLink]="['/home']">
+                <span class="material-symbols-outlined" style="vertical-align: middle;">keyboard_return</span> <!-- Icono para regresar -->
+                REGRESAR AL MENÚ PRINCIPAL
+            </button>
+        </div>
+    </div>
+</div>
