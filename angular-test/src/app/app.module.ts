@@ -32,6 +32,7 @@ import { TratamientoComponent } from './tratamiento/tratamiento.component';
 import { ModificarConsultaComponent } from './modificar-consulta/modificar-consulta.component';
 import { MenuAdminComponent } from './menu-admin/menu-admin.component';
 import { CrearRolComponent } from './crear-rol/crear-rol.component';
+import { CrearUsuarioComponent } from './crear-usuario/crear-usuario.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { CrearRolComponent } from './crear-rol/crear-rol.component';
     TratamientoComponent,
     ModificarConsultaComponent,
     MenuAdminComponent,
-    CrearRolComponent
+    CrearRolComponent,
+    CrearUsuarioComponent
   ],
   imports: [
     BrowserModule,

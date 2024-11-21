@@ -20,6 +20,7 @@ import { VerHistorialMedicoComponent } from './ver-historial-medico/ver-historia
 import { ModificarConsultaComponent } from './modificar-consulta/modificar-consulta.component';
 import { MenuAdminComponent } from './menu-admin/menu-admin.component';
 import { CrearRolComponent } from './crear-rol/crear-rol.component';
+import { CrearUsuarioComponent } from './crear-usuario/crear-usuario.component';
 
 
 const routes: Routes = [
@@ -43,6 +44,8 @@ const routes: Routes = [
   { path: 'modificar-consulta', component: ModificarConsultaComponent }, //ruta para el componente modificar consulta medica
   { path: 'menu-admin', component: MenuAdminComponent }, //ruta para el componente menu admin
   { path: 'crear-rol', component: CrearRolComponent }, //ruta para el componente crear rol
+  { path: 'crear-usuario', component:  CrearUsuarioComponent }, //ruta para el componente crear usuario
+ 
   {path: '**', redirectTo: '/login', pathMatch: 'full'}
 ];
 

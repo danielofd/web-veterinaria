@@ -1,0 +1,77 @@
+<!-- Botón Circular fuera del formulario, pegado a la esquina superior derecha -->
+<button type="button" class="btn btn-secondary position-absolute top-0 end-0 mt-2 me-2"
+        style="border-radius: 50%; width: 40px; height: 40px; padding: 0; display: flex; align-items: center; justify-content: center;"
+        data-bs-toggle="tooltip" data-bs-placement="left" title="Este formulario permite crear los accesos al sistema de la veterinaria para los empleados.">
+  <span class="material-icons" style="font-size: 24px;">info</span>
+</button>
+
+<form class="container mt-4">
+
+  <!-- Fila 1 -->
+  <div class="row mb-3">
+    <!-- Columna 1: Select de empleados -->
+    <div class="col-md-6">
+      <label for="empleado" class="form-label">Empleado</label>
+      <select id="empleado" class="form-select" [(ngModel)]="empleado" name="empleado" required>
+        <option value="">Seleccione un empleado</option>
+        <option *ngFor="let empleado of empleados" [value]="empleado.id">{{ empleado.nombre }}</option>
+      </select>
+    </div>
+
+    <!-- Columna 2: Campo de correo electrónico -->
+    <div class="col-md-6">
+      <label for="correo" class="form-label">Correo Electrónico</label>
+      <input type="email" id="correo" class="form-control" [(ngModel)]="correo" name="correo" required>
+    </div>
+  </div>
+
+  <!-- Fila 2 -->
+  <div class="row mb-3">
+    <!-- Columna 1: Select de rol -->
+    <div class="col-md-6">
+      <label for="rol" class="form-label">Rol</label>
+      <select id="rol" class="form-select" [(ngModel)]="rol" name="rol" required>
+        <option value="">Seleccione un rol</option>
+        <option *ngFor="let rol of roles" [value]="rol.id">{{ rol.nombre }}</option>
+      </select>
+    </div>
+
+    <!-- Columna 2: Campo de contraseña -->
+    <div class="col-md-6">
+      <label for="contraseña" class="form-label">Contraseña</label>
+      <input type="password" id="contraseña" class="form-control" [(ngModel)]="contrasena" name="contraseña" required>
+    </div>
+  </div>
+
+  <!-- Fila 3 -->
+  <div class="row mb-3">
+    <!-- Columna 1: Select de estado activo/inactivo -->
+    <div class="col-md-6">
+      <label for="estado" class="form-label">Estado</label>
+      <select id="estado" class="form-select" [(ngModel)]="estado" name="estado" required>
+        <option value="">Seleccione un estado</option>
+        <option value="activo">Activo</option>
+        <option value="inactivo">Inactivo</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Fila para los botones -->
+  <div class="row">
+    <div class="col-6 d-flex justify-content-start">
+      <!-- Botón Regresar -->
+      <button type="button" class="btn btn-secondary">
+        <span class="material-icons" style="vertical-align: middle;">arrow_back</span>
+        Regresar
+      </button>
+    </div>
+    <div class="col-6 d-flex justify-content-end">
+      <!-- Botón Guardar -->
+      <button type="submit" class="btn btn-success">
+        <span class="material-icons" style="vertical-align: middle;">save</span>
+        Guardar
+      </button>
+    </div>
+  </div>
+
+</form>

@@ -28,6 +28,7 @@ constructor( private router: Router,) { }
 //metodo para crear rol
 createUser() {
   console.log("-----creando nuevo usuario------");
+  this.router.navigate(['/crear-usuario']);
   }
 
 }
