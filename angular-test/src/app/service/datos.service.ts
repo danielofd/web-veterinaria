@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Raza } from 'src/models/raza';
@@ -171,6 +171,16 @@ export class DatosService {
   //metodo para cargar los roles
   getRoles(): Observable<any> {
     return this.http.get<any[]>(this.apiUrl+'/obtenerRoles');
+  }
+
+  // Método para realizar la solicitud POST
+  crearUsuario(usuario: any): Observable<any> {
+    // Aquí puedes configurar las cabeceras si es necesario (opcional)
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json' // Aseguramos que el cuerpo de la solicitud es JSON
+    });
+
+    return this.http.post<any>(this.apiUrl+'/nuevoUsuario', usuario, { headers });
   }
 
 }

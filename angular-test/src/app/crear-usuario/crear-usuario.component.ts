@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { DatosService } from '../service/datos.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -27,6 +30,9 @@ export class CrearUsuarioComponent implements OnInit  {
   roles: any[] = [];
   selectedRolId: number | null = null;
 
+  //guarda datos de login
+  empId: number | null = null;
+  usuCod: string ="";
 
   // Crear el formulario reactivo
   form: FormGroup;
@@ -34,7 +40,9 @@ export class CrearUsuarioComponent implements OnInit  {
 
   constructor(
     private datosService: DatosService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar,
   ) {
      // Inicializar el formulario con validaciones
       this.form = this.fb.group({
@@ -104,11 +112,85 @@ export class CrearUsuarioComponent implements OnInit  {
   guardarUsuario(): void {
     if (this.form.valid) {
       console.log('Formulario Enviado:', this.form.value);
+
+      const dialogRef = this.dialog.open(ConfirmDialogComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Lógica para guardar el expediente
+        this.ejecutarGuardado(this.form);
+      
+      
+      } else {
+        console.log('Guardado cancelado');
+      }
+    });
+
+
+      
+
     } else {
       this.form.markAllAsTouched();
       console.log('Formulario Inválido');
     }
   }
+  
+  ejecutarGuardado(form: FormGroup<any>) {
+
+    // Extraer los valores del formulario
+    const formValues = this.form.value;
+
+
+    this.datosService.currentData.subscribe(data =>{
+      console.log("usu correlativo: "+data.usuCorreltivo);
+      this.usuCod = data.usuCorreltivo;
+      this.empId = data.empId;
+    });
+    
+    // Crea el objeto con los datos a enviar
+    const nuevoUsuario = {
+      "usuEmail": formValues.correo, 
+      "usuPassword": formValues.contrasena,
+      "usuEstado": 1,
+      "empId": formValues.empleado,
+      "arcId": null,
+      "rolId": formValues.rol,  
+      "usuCodigo": this.usuCod
+    };
+
+    console.log("---Datos a enviar: "+JSON.stringify(nuevoUsuario));
+
+    //comentar return 
+    //return;
+
+        // Llama al servicio para crear el usuario
+    this.datosService.crearUsuario(nuevoUsuario).subscribe({
+      next: (response) => {
+        console.log('Usuario creado exitosamente', response);
+        this.procesoMsg("USUARIO CREACO CON EXITO.");
+
+        //limpia despues de guardar
+        this.form.reset(); 
+      },
+      error: (error) => {
+        console.error('Error al crear el usuario', error);
+        this.procesoMsg("ERROR AL CREAR REGISTRO.");
+      }
+    });
+  
+  }
+
+  //mensajes de alerta
+  procesoMsg(msj: string) {
+    const snackBarRef = this.snackBar.open(msj, 'Cerrar', {
+      duration: 20000,
+      verticalPosition: 'top',
+      panelClass: ['snackbar-confirm'],
+    });
+  
+    
+  }
+  
 
   // Función para limpiar los campos del formulario
   limpiar(): void {
