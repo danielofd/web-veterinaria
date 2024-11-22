@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
@@ -11,7 +11,7 @@ import { DatosService } from '../service/datos.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
   isPasswordVisible: boolean = false;  // Controla la visibilidad de la contraseña
 
@@ -20,7 +20,10 @@ export class LoginComponent {
   user: string = "";
   password: string = "";
 
-  formularioLogin: FormGroup
+  formularioLogin: FormGroup;
+
+  //para roles
+  roles: any[] = [];
 
   constructor(private datosService: DatosService,private form: FormBuilder, private router: Router, private authService: AuthService, private dialog: MatDialog) {
     this.formularioLogin = this.form.group({
@@ -28,49 +31,11 @@ export class LoginComponent {
       password: ['', Validators.required]
     })
   }
-
-  /** 
-  login(role: 'admin' | 'assistant') {
-
-    this.authService.setCurrentUser({ role });
-
-    this.user = this.formularioLogin.get('user')?.value
-    this.password = this.formularioLogin.get('password')?.value
-
-
-    if (this.formularioLogin.invalid) {
-      this.formularioLogin.markAllAsTouched();
-      return;
-    }
-
-    if(this.user === 'admin' && this.password === 'admin'){
-
-    }else
-    if(this.user === 'assistant' && this.password === 'assistant'){
-
-    }
-
-    if (this.user === 'user' && this.password === '123') {
-
-      if (role === 'admin') {
-        console.log("Entro como admin");
-        this.router.navigate(['/expedientes']); // Ruta para el administrador
-      }
-      if (role === 'assistant') {
-        console.log("Entro como asistente");
-        this.router.navigate(['/expedientes']); // Ruta para el administrador
-      }
-
-      this.router.navigate(['/home'])
-      console.log(this.formularioLogin);
-    } else {
-      alert('Verifique su usuario y contraseña...');
-      this.router.navigate(['/login'])
-    }
-
+  ngOnInit(): void {
+    this.obtenerRoles();
   }
 
-  */
+  
   login() {
     this.user = this.formularioLogin.get('user')?.value;
     this.password = this.formularioLogin.get('password')?.value;
@@ -80,31 +45,7 @@ export class LoginComponent {
         this.openDialog('Por favor, ingrese los datos válidos para continuar.');
         return;
     }
-    /*
-    // Verificar las credenciales
-    if ((this.user === 'admin' && this.password === 'admin') || 
-        (this.user === 'asistente' && this.password === 'asistente') || 
-        (this.user === 'veterinario' && this.password === 'veterinario')) { // Validación para veterinario
-        
-        // Configurar el usuario actual en el servicio
-        this.authService.setCurrentUser({ role: this.user as 'admin' | 'asistente' | 'veterinario' });
-
-        // Navegar según el rol
-        if (this.user === 'admin') {
-            console.log("Entro como admin");
-            this.router.navigate(['/home']);
-        } else if (this.user === 'asistente') {
-            console.log("Entro como asistente");
-            this.router.navigate(['/home']);
-        } else if (this.user === 'veterinario') { // Navegación para veterinario
-            console.log("Entro como veterinario");
-            this.router.navigate(['/home']);
-        }
-    } else {
-        alert('Verifique su usuario y contraseña...');
-        this.router.navigate(['/login']);
-    }
-        */
+    
 
     this.isLoggingIn = true; // Activar el estado de "Logeando..."
 
@@ -186,6 +127,19 @@ openDialog(message: string): void {
    // Método para alternar la visibilidad de la contraseña
    togglePassword(): void {
     this.isPasswordVisible = !this.isPasswordVisible;
+  }
+
+  //get roles
+  obtenerRoles(): void {
+    this.datosService.getRoles().subscribe({
+      next: (data) => {
+        this.roles = data;
+        console.log("---recupera todos los roles: "+JSON.stringify(data));
+      },
+      error: (err) => {
+        console.error('Error al obtener roles:', err);
+      }
+    });
   }
 
 }
