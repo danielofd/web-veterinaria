@@ -163,4 +163,14 @@ export class DatosService {
     return this.http.post<any>(this.apiUrl+'/nuevoRol', rolData);
   }
 
+  //metodo para cargar los empleados.
+  getEmpleados(): Observable<any> {
+    return this.http.get<any[]>(this.apiUrl+'/obtenerEmpleadosUsuario/0');
+  }
+
+  //metodo para cargar los roles
+  getRoles(): Observable<any> {
+    return this.http.get<any[]>(this.apiUrl+'/obtenerRoles');
+  }
+
 }

@@ -5,73 +5,118 @@
   <span class="material-icons" style="font-size: 24px;">info</span>
 </button>
 
-<form class="container mt-4">
-
+<form class="container mt-4" [formGroup]="form" (ngSubmit)="guardarUsuario()">
+  
   <!-- Fila 1 -->
   <div class="row mb-3">
+    
     <!-- Columna 1: Select de empleados -->
     <div class="col-md-6">
-      <label for="empleado" class="form-label">Empleado</label>
-      <select id="empleado" class="form-select" [(ngModel)]="empleado" name="empleado" required>
-        <option value="">Seleccione un empleado</option>
-        <option *ngFor="let empleado of empleados" [value]="empleado.id">{{ empleado.nombre }}</option>
+      <label for="empleadoSelect" class="form-label">NOMBRE DEL EMPLEADO</label>
+      <select id="empleadoSelect" class="form-select" formControlName="empleado" required>
+        <option *ngFor="let empleado of empleados" [value]="empleado.empId">
+          {{ empleado.empNombre }} {{ empleado.empApellido }}
+        </option>
       </select>
+      <div *ngIf="form.get('empleado')?.invalid && form.get('empleado')?.touched" class="text-danger">
+        <div *ngIf="form.get('empleado')?.hasError('required')">Este campo es obligatorio</div>
+      </div>
     </div>
 
     <!-- Columna 2: Campo de correo electrónico -->
     <div class="col-md-6">
-      <label for="correo" class="form-label">Correo Electrónico</label>
-      <input type="email" id="correo" class="form-control" [(ngModel)]="correo" name="correo" required>
+      <label for="correo" class="form-label">CORREO ELECTRONICO</label>
+      <input type="text" id="correo" class="form-control" formControlName="correo" required>
+      <div *ngIf="form.get('correo')?.invalid && form.get('correo')?.touched" class="text-danger">
+        <div *ngIf="form.get('correo')?.hasError('required')">El correo es obligatorio</div>
+        <div *ngIf="form.get('correo')?.hasError('email')">El formato del correo es incorrecto</div>
+      </div>
     </div>
   </div>
 
   <!-- Fila 2 -->
   <div class="row mb-3">
+    
     <!-- Columna 1: Select de rol -->
     <div class="col-md-6">
-      <label for="rol" class="form-label">Rol</label>
-      <select id="rol" class="form-select" [(ngModel)]="rol" name="rol" required>
-        <option value="">Seleccione un rol</option>
-        <option *ngFor="let rol of roles" [value]="rol.id">{{ rol.nombre }}</option>
+      <label for="rolSelect" class="form-label">ROL</label>
+      <select id="rolSelect" class="form-select" formControlName="rol" required>
+        <option *ngFor="let rol of roles" [value]="rol.rolId">
+          {{ rol.rolNombre }}
+        </option>
       </select>
+      <div *ngIf="form.get('rol')?.invalid && form.get('rol')?.touched" class="text-danger">
+        <div *ngIf="form.get('rol')?.hasError('required')">Este campo es obligatorio</div>
+      </div>
     </div>
 
     <!-- Columna 2: Campo de contraseña -->
     <div class="col-md-6">
-      <label for="contraseña" class="form-label">Contraseña</label>
-      <input type="password" id="contraseña" class="form-control" [(ngModel)]="contrasena" name="contraseña" required>
+      <label for="contraseña" class="form-label">CONTRASEÑA</label>
+      <div class="input-group">
+        <!-- Campo de entrada para la contraseña -->
+        <input 
+          [type]="isPasswordVisible ? 'text' : 'password'" 
+          id="contraseña" 
+          class="form-control" 
+          formControlName="contrasena" 
+          required 
+          (keypress)="togglePasswordVisibility($event)">
+        
+        <!-- Botón para ver u ocultar la contraseña -->
+        <button 
+          type="button" 
+          class="btn btn-outline-secondary" 
+          (click)="togglePassword()" 
+          style="cursor: pointer;">
+          <span class="material-icons" style="vertical-align: middle;">
+            {{ isPasswordVisible ? 'visibility_off' : 'visibility' }}
+          </span>
+        </button>
+      </div>
+    
+      <!-- Mensajes de error -->
+      <div *ngIf="form.get('contrasena')?.invalid && form.get('contrasena')?.touched" class="text-danger">
+        <div *ngIf="form.get('contrasena')?.hasError('required')">La contraseña es obligatoria</div>
+        <div *ngIf="form.get('contrasena')?.hasError('minlength')">La contraseña debe tener al menos 12 caracteres</div>
+        <div *ngIf="form.get('contrasena')?.hasError('pattern') && !form.get('contrasena')?.hasError('minlength')">
+          La contraseña debe contener al menos: una letra mayúscula, un número y un carácter especial
+        </div>
+      </div>
     </div>
-  </div>
-
-  <!-- Fila 3 -->
-  <div class="row mb-3">
-    <!-- Columna 1: Select de estado activo/inactivo -->
-    <div class="col-md-6">
-      <label for="estado" class="form-label">Estado</label>
-      <select id="estado" class="form-select" [(ngModel)]="estado" name="estado" required>
-        <option value="">Seleccione un estado</option>
-        <option value="activo">Activo</option>
-        <option value="inactivo">Inactivo</option>
-      </select>
-    </div>
+    
+    
   </div>
 
   <!-- Fila para los botones -->
   <div class="row">
     <div class="col-6 d-flex justify-content-start">
       <!-- Botón Regresar -->
-      <button type="button" class="btn btn-secondary">
+      <button type="button" class="btn btn-secondary" [routerLink]="['/menu-admin']">
         <span class="material-icons" style="vertical-align: middle;">arrow_back</span>
-        Regresar
+        REGRESAR
       </button>
     </div>
+  
+    <!-- Botón Limpiar y Guardar -->
     <div class="col-6 d-flex justify-content-end">
+      <!-- Botón Limpiar -->
+      <button type="button" class="btn btn-secondary" (click)="limpiar()" style="margin-right: 10px;">
+        <span class="material-symbols-outlined"  style="vertical-align: middle;">
+          cleaning_services
+          </span>
+        LIMPIAR
+      </button>
+  
       <!-- Botón Guardar -->
       <button type="submit" class="btn btn-success">
         <span class="material-icons" style="vertical-align: middle;">save</span>
-        Guardar
+        GUARDAR
       </button>
     </div>
   </div>
+  
 
 </form>
+
+

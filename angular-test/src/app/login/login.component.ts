@@ -13,6 +13,8 @@ import { DatosService } from '../service/datos.service';
 })
 export class LoginComponent {
 
+  isPasswordVisible: boolean = false;  // Controla la visibilidad de la contraseña
+
   isLoggingIn: boolean = false; //para activar-desactivar boton
 
   user: string = "";
@@ -179,6 +181,11 @@ openDialog(message: string): void {
 
   hasErrors(controlName: string, errorType: string) {
     return this.formularioLogin.get(controlName)?.hasError(errorType) && this.formularioLogin.get(controlName)?.touched
+  }
+
+   // Método para alternar la visibilidad de la contraseña
+   togglePassword(): void {
+    this.isPasswordVisible = !this.isPasswordVisible;
   }
 
 }
