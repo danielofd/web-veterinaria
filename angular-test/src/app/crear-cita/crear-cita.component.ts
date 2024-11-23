@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Cita } from 'src/models/cita';
+import { environment } from '../env/env';
 
 @Component({
   selector: 'app-crear-cita',
@@ -15,6 +16,8 @@ import { Cita } from 'src/models/cita';
   styleUrls: ['./crear-cita.component.css']
 })
 export class CrearCitaComponent implements OnInit {
+
+  private apiUrl = environment.apiUrl;
 
   veterinarios: any[] = [];
   horarios: any[] = [];
@@ -183,7 +186,7 @@ generarCita(): void {
 
     console.log(JSON.stringify(citaData));
 
-    this.http.post('http://localhost:8081/happyfriends/crearCita', citaData, {
+    this.http.post(this.apiUrl+'/crearCita', citaData, {
 
         headers: { 'Content-Type': 'application/json' },
         responseType: 'text' as 'json'

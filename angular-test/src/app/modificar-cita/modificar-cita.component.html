@@ -72,17 +72,36 @@
         <br>
         <div class="form-group row">
             <div class="col-sm-10 offset-sm-2">
-                <button type="submit" class="btn btn-primary me-3" (click)="modificarCita()" [disabled]="isSaving">
+                <button type="submit" class="btn btn-primary me-3" (click)="modificarCita()" [disabled]="isSaving"
+                title="Guarda los cambios de la cita.">
                     <span class="material-symbols-outlined" style="vertical-align: middle;">
                         save
                     </span>
                     GUARDAR
                 </button>
-                <button type="button" class="btn btn-light" (click)="regresar()">
+                <button type="button" class="btn btn-secondary" (click)="regresar()" title="Regresa al formulario de consulta de citas.">
                     <span class="material-symbols-outlined" style="vertical-align: middle;">keyboard_return</span>
                     REGRESAR
                 </button>
             </div>
         </div>
     </form>
+
+                       <!-- Botón redondo informativo en la esquina superior derecha -->
+                       <button type="button" class="btn btn-info position-fixed top-0 end-0 m-3 rounded-circle" 
+                       style="width: 50px; height: 50px; display: flex; justify-content: center; align-items: center;" 
+                       data-bs-toggle="tooltip" data-bs-placement="left" title="Formulario para editar la cita.">
+                   <span class="material-symbols-outlined" style="font-size: 24px;">info</span> <!-- Icono de información -->
+                   </button>
+
+
+
 </div>
+  <!-- Activar los tooltips de Bootstrap (esto puede ir en el archivo .ts o en el script del componente) -->
+  <script>
+    // Asegúrate de que los tooltips estén habilitados
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+  </script>
