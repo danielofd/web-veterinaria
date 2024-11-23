@@ -10,13 +10,13 @@
             <div class="col-md-3 d-flex flex-column justify-content-between" style="height: 400px;"> <!-- Altura ajustada -->
                 <a class="btn btn-custom-blue w-100 mb-3" *ngFor="let option of expedienteOption" 
                 [routerLink]="['/menu-expediente']"
-                title="Menú para la creación, consulta y modificación de expedientes">
+                title="Menú para la creación, consulta y modificación de expedientes.">
                  <span class="material-symbols-outlined" style="vertical-align: middle;">assignment</span> <!-- Icono para expediente -->
                  Expediente
              </a>
                 <div class="mt-5"> <!-- Espaciado adicional -->
                     <a class="btn btn-danger w-100" [routerLink]="['/login']"
-                    title="Salir del sistema">
+                    title="Salir del sistema.">
                      <span class="material-symbols-outlined" style="vertical-align: middle;">logout</span>
                      Salir
                  </a>
@@ -24,13 +24,14 @@
             </div>
             <div class="col-md-3">
                 <a class="btn btn-custom-blue w-100" *ngFor="let option of citasOption" [routerLink]="['/menu-citas']"
-                title="Menú para la creación, consulta, modificación y cancelacion de citas">
+                title="Menú para la creación, consulta, modificación y cancelacion de citas.">
                  <span class="material-symbols-outlined" style="vertical-align: middle;">event</span> <!-- Icono para citas -->
                  Citas
              </a>
             </div>
             <div class="col-md-3">
-                <a class="btn btn-custom-blue w-100" *ngFor="let option of consultasMedicasOption"  [routerLink]="['/menu-admin']"  >
+                <a class="btn btn-custom-blue w-100" *ngFor="let option of consultasMedicasOption"  [routerLink]="['/menu-admin']" 
+                title="Menú para la administración de roles, usuarios y empleados." >
                     <span class="material-symbols-outlined" style="vertical-align: middle;">admin_panel_settings</span> <!-- Icono opcional para consultas -->
                     Administración
                 </a>
@@ -43,4 +44,20 @@
             </div>
         </div>
     </div>
+
+    <!-- Botón redondo informativo en la esquina superior derecha -->
+    <button type="button" class="btn btn-info position-fixed top-0 end-0 m-3 rounded-circle" 
+            style="width: 50px; height: 50px; display: flex; justify-content: center; align-items: center;" 
+            data-bs-toggle="tooltip" data-bs-placement="left" title="Menú principal del sistema Amigos Felices">
+        <span class="material-symbols-outlined" style="font-size: 24px;">info</span> <!-- Icono de información -->
+    </button>
 </div>
+
+<!-- Activar los tooltips de Bootstrap (esto puede ir en el archivo .ts o en el script del componente) -->
+<script>
+    // Asegúrate de que los tooltips estén habilitados
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+</script>

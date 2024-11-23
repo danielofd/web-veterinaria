@@ -68,12 +68,28 @@
                 </div>
 
                 <!-- Botón redondo con ícono de bombilla a la altura del logo, ubicado al lado derecho -->
-                <button class="btn btn-secondary rounded-circle" style="position: absolute; top: 5%; right: 10px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;" 
+                <!-- <button class="btn btn-secondary rounded-circle" style="position: absolute; top: 5%; right: 10px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;" 
                         title="Bienvenido, se encuentra en la pantalla de inicio del sistema 'Mascotas Felices'">
                     <span class="material-symbols-outlined" style="font-size: 24px;">lightbulb_2</span>
-                </button>
+                </button> -->
             </div>
         </div>
 
     </div>
+
+    <!-- Botón redondo informativo en la esquina superior derecha -->
+    <button type="button" class="btn btn-info position-fixed top-0 end-0 m-3 rounded-circle" 
+            style="width: 50px; height: 50px; display: flex; justify-content: center; align-items: center;" 
+            data-bs-toggle="tooltip" data-bs-placement="left" title="Bienvenido, se encuentra en la pantalla de inicio del sistema Mascotas Felices.">
+        <span class="material-symbols-outlined" style="font-size: 24px;">info</span> <!-- Icono de información -->
+    </button>
 </div>
+<!-- Activar los tooltips de Bootstrap (esto puede ir en el archivo .ts o en el script del componente) -->
+<script>
+    // Asegúrate de que los tooltips estén habilitados
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+</script>
+

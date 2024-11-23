@@ -5,7 +5,7 @@
     <div class="row">
         <!-- Opción para crear cita -->
         <div class="col-md-12 mb-3">
-            <button *ngIf="canCreate" (click)="createCita()" class="btn btn-primary btn-lg w-50 text-start">
+            <button *ngIf="canCreate" (click)="createCita()" class="btn btn-primary btn-lg w-50 text-start" title="Crea una cita nueva.">
                 <span class="material-symbols-outlined" style="vertical-align: middle;">edit_square</span> <!-- Icono para crear cita -->
                 CREAR CITA
             </button>
@@ -13,7 +13,7 @@
 
         <!-- Opción para consultar cita -->
         <div class="col-md-12 mb-3">
-            <button *ngIf="canConsult" (click)="consultCita()" class="btn btn-primary btn-lg w-50 text-start">
+            <button *ngIf="canConsult" (click)="consultCita()" class="btn btn-primary btn-lg w-50 text-start" title="Consulta citas generadas.">
                 <span class="material-symbols-outlined" style="vertical-align: middle;">search</span> <!-- Icono para consultar cita -->
                 CONSULTAR CITA
             </button>
@@ -21,11 +21,24 @@
         
         <!-- Opción para regresar al menú home -->
         <div class="col-md-12 mb-3">
-            <button class="btn btn-danger btn-lg w-50 text-start" [routerLink]="['/home']">
+            <button class="btn btn-danger btn-lg w-50 text-start" [routerLink]="['/home']" title="Regresa al menu Citas.">
                 <span class="material-symbols-outlined" style="vertical-align: middle;">keyboard_return</span> <!-- Icono para regresar -->
                 REGRESAR AL MENÚ PRINCIPAL
             </button>
         </div>
     </div>
+                             <!-- Botón redondo informativo en la esquina superior derecha -->
+                <button type="button" class="btn btn-info position-fixed top-0 end-0 m-3 rounded-circle" 
+                style="width: 50px; height: 50px; display: flex; justify-content: center; align-items: center;" 
+                data-bs-toggle="tooltip" data-bs-placement="left" title="Menú principal para la gestión de citas.">
+                     <span class="material-symbols-outlined" style="font-size: 24px;">info</span> <!-- Icono de información -->
+                </button>
 </div>
-
+<!-- Activar los tooltips de Bootstrap (esto puede ir en el archivo .ts o en el script del componente) -->
+<script>
+    // Asegúrate de que los tooltips estén habilitados
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+</script>
