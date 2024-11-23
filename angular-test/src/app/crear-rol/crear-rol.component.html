@@ -43,18 +43,33 @@
       <!-- campo descripcion rol -->
       <div class="d-flex justify-content-between">
         <!-- Botón Regresar con icono y color gris -->
-        <a [routerLink]="['/menu-admin']" class="btn btn-secondary mt-3">
+        <a [routerLink]="['/menu-admin']" class="btn btn-secondary mt-3" title="Regresa al menú Administración.">
           <span class="material-icons" style="vertical-align: middle;">keyboard_return</span> <!-- Icono para regresar -->
           Regresar
         </a>
   
         <!-- Botón Crear Rol con ícono de guardar (save) y color verde -->
-        <button type="submit" class="btn btn-success mt-3" [disabled]="isSubmitting">
+        <button type="submit" class="btn btn-success mt-3" [disabled]="isSubmitting" title="Genera nuevo rol.">
           <span class="material-icons" style="vertical-align: middle;">save</span> <!-- Icono de guardar -->
           Crear Rol
         </button>
         <!-- boton guardar rol -->
       </div>
     </form>
+
+          <!-- Botón redondo informativo en la esquina superior derecha -->
+          <button type="button" class="btn btn-info position-fixed top-0 end-0 m-3 rounded-circle" 
+          style="width: 50px; height: 50px; display: flex; justify-content: center; align-items: center;" 
+          data-bs-toggle="tooltip" data-bs-placement="left" title="Formulario para crear roles nuevos.">
+               <span class="material-symbols-outlined" style="font-size: 24px;">info</span> <!-- Icono de información -->
+          </button>
+
   </div>
-  
+    <!-- Activar los tooltips de Bootstrap (esto puede ir en el archivo .ts o en el script del componente) -->
+<script>
+  // Asegúrate de que los tooltips estén habilitados
+  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl);
+  });
+</script>

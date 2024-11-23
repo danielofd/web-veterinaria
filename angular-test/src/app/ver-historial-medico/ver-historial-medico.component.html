@@ -1,7 +1,7 @@
 <div class="consulta-container">
 
     <!-- Botón alineado a la izquierda -->
-    <button class="left-button" (click)="regresar()">
+    <button class="left-button" (click)="regresar()" title="Regresa al formulario de consulta de expedientes.">
       <span class="material-symbols-outlined" style="vertical-align: middle;">keyboard_return</span>
       REGRESAR
     </button>
@@ -14,30 +14,30 @@
     </div> -->
 
               <!-- Indicador de Cargando -->
-<div *ngIf="isLoading" class="consulta-card loading">
-  <div class="loading-message">
-    Cargando...
-  </div>
-</div>
-
-      <!-- Lista de Consultas -->
-<div *ngIf="consultas.length > 0" class="consultas-list">
-  <div *ngFor="let consulta of consultas" class="consulta-card" (click)="openConsultaModal(consulta)">
-    <!-- Información de la consulta -->
-    <div class="consulta-header">
-      <h3>Veterinario: {{ consulta.empNombre }}</h3>
-      <span class="consulta-fecha">{{ consulta.conFecConsulta }}</span>
+    <div *ngIf="isLoading" class="consulta-card loading">
+      <div class="loading-message">
+        Cargando...
+      </div>
     </div>
 
-    <div class="consulta-details">
-      <p><strong>Síntomas:</strong> {{ consulta.conSintomas }}</p>
-      <p><strong>Diagnóstico:</strong> {{ consulta.conDiagnostico }}</p>
-      <p><strong>Exámenes Recomendados:</strong> {{ consulta.conExamenes }}</p>
-      <p><strong>Observaciones:</strong> {{ consulta.conObservaciones }}</p>
-    </div>
+          <!-- Lista de Consultas -->
+    <div *ngIf="consultas.length > 0" class="consultas-list">
+      <div *ngFor="let consulta of consultas" class="consulta-card" (click)="openConsultaModal(consulta)">
+        <!-- Información de la consulta -->
+        <div class="consulta-header">
+          <h3>Veterinario: {{ consulta.empNombre }}</h3>
+          <span class="consulta-fecha">{{ consulta.conFecConsulta }}</span>
+        </div>
 
-  </div>
-</div>
+        <div class="consulta-details">
+          <p><strong>Síntomas:</strong> {{ consulta.conSintomas }}</p>
+          <p><strong>Diagnóstico:</strong> {{ consulta.conDiagnostico }}</p>
+          <p><strong>Exámenes Recomendados:</strong> {{ consulta.conExamenes }}</p>
+          <p><strong>Observaciones:</strong> {{ consulta.conObservaciones }}</p>
+        </div>
+
+      </div>
+    </div>
 
         <!-- Modal de consulta médica con exámenes y tratamientos -->
 <div *ngIf="isConsultaModalOpen" class="modal-overlay">
@@ -79,14 +79,14 @@
     <!-- Botones de acción en el modal -->
     <div class="action-buttons">
       <!-- <button class="action-button modificar" (click)="modifyConsulta(selectedConsulta)"> -->
-        <button class="action-button modificar" (click)="openModificarModal(selectedConsulta)">
+        <button class="action-button modificar" (click)="openModificarModal(selectedConsulta)" [disabled]="isDisabled" title="Modifica la consulta médica.">
         <span class="material-symbols-outlined">edit</span> Modificar
       </button>
-      <button class="action-button agregar-examenes" (click)="addExamenes(selectedConsulta)">
+      <button class="action-button agregar-examenes" (click)="addExamenes(selectedConsulta)" title="Agrega los examenes de la consulta médica.">
         <span class="material-symbols-outlined">add_circle</span> Agregar Exámenes
       </button>
       <!-- Botón para abrir el modal de Tratamiento -->
-      <button class="action-button agregar-consulta" (click)="openTratamientoModal()">
+      <button class="action-button agregar-consulta" (click)="openTratamientoModal()" title="Agrega el tratamiento de la consulta médica.">
         <span class="material-symbols-outlined">add_box</span> Agregar Tratamiento
       </button>
     </div>
@@ -111,7 +111,21 @@
 (close)="closeModificarModal()" 
 (save)="guardarConsulta($event)">
 </app-modificar-consulta>
+
+        <!-- Botón redondo informativo en la esquina superior derecha -->
+        <button type="button" class="btn btn-info position-fixed top-0 end-0 m-3 rounded-circle" 
+        style="width: 50px; height: 50px; display: flex; justify-content: center; align-items: center;" 
+        data-bs-toggle="tooltip" data-bs-placement="left" title="Formulario para ver historial médico.">
+             <span class="material-symbols-outlined" style="font-size: 24px;">info</span> <!-- Icono de información -->
+        </button>
   
   </div>
   
-  
+  <!-- Activar los tooltips de Bootstrap (esto puede ir en el archivo .ts o en el script del componente) -->
+<script>
+  // Asegúrate de que los tooltips estén habilitados
+  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl);
+  });
+</script>

@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-crear-rol',
@@ -29,7 +30,8 @@ export class CrearRolComponent implements OnInit  {
   constructor(private datosService: DatosService,
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router
   ) { 
     // Inicializamos el formulario con validaciones
     this.formulario = this.fb.group({
@@ -130,7 +132,7 @@ export class CrearRolComponent implements OnInit  {
 
            // Limpiar el formulario después de guardarlo
            this.formulario.reset(); 
-
+           this.router.navigate(['/menu-admin']); // Cambia '/menu' a la ruta que necesites
         }
 
          // Deshabilitar el botón mientras se realiza la solicitud

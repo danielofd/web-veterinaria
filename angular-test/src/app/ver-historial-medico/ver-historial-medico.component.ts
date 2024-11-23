@@ -15,6 +15,8 @@ declare var bootstrap: any;  // Esto es necesario para que TypeScript reconozca 
 })
 export class VerHistorialMedicoComponent implements OnInit {
 
+  isDisabled: boolean=true; //para deshabilitar boton
+
   consultaForm: FormGroup;
   consultas: any[] = [];
 

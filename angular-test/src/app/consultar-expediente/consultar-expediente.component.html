@@ -62,7 +62,8 @@
         
             <!-- Botón Consultar -->
             <div class="col-auto d-flex align-items-end">
-                <button type="button" class="btn btn-primary" (click)="consultarExpediente()" [disabled]="isLoadingQuery">
+                <button type="button" class="btn btn-primary" (click)="consultarExpediente()" [disabled]="isLoadingQuery"
+                title="Consulta los expedientes generados.">
                     <span class="material-symbols-outlined" style="vertical-align: middle;">search</span>
                     CONSULTAR
                 </button>
@@ -93,7 +94,8 @@
                     <td>{{ registro.masNombre }}</td>
                     <td>{{ registro.masPropietario }}</td>
                     <td>
-                        <button class="btn btn-info btn-sm mx-2" style="max-width: 150px; word-wrap: break-word; white-space: normal;" (click)="abrirModalDetalles(registro)">
+                        <button class="btn btn-info btn-sm mx-2" style="max-width: 150px; word-wrap: break-word; white-space: normal;" (click)="abrirModalDetalles(registro)"
+                        title="Ver detalles del expediente.">
                             <span class="material-symbols-outlined" style="vertical-align: middle; font-size: 18px;">
                                 visibility
                             </span>
@@ -103,7 +105,8 @@
                         *ngIf="usuarioRol !== 'Asistente'"  
                         class="btn btn-success btn-sm mx-2" 
                         style="max-width: 150px; word-wrap: break-word; white-space: normal;" 
-                        (click)="abrirModalConsultaMedica(registro)">
+                        (click)="abrirModalConsultaMedica(registro)"
+                        title="Ver menú de consulta médica.">
                           <span class="material-symbols-outlined" style="vertical-align: middle; font-size: 18px;">
                               medical_services
                           </span>
@@ -189,11 +192,12 @@
     
                 <!-- Pie de modal con los botones de acción -->
                 <div class="modal-footer">
-                    <button type="button" *ngIf="usuarioRol === 'Asistente' || usuarioRol === 'Admin'" class="btn btn-warning" (click)="editarRegistro(detalleExpediente)">
+                    <button type="button" *ngIf="usuarioRol === 'Asistente' || usuarioRol === 'Admin'" class="btn btn-warning" (click)="editarRegistro(detalleExpediente)"
+                    title="Edita el expediente seleccionado.">
                         <span class="material-symbols-outlined" style="vertical-align: middle; margin-right: 8px;">edit</span>
                         Modificar
                     </button>
-                    <button type="button" class="btn btn-danger">
+                    <button type="button" class="btn btn-danger" title="Elimina el expediente seleccionado.">
                         <span class="material-symbols-outlined" style="vertical-align: middle; margin-right: 8px;">delete</span>
                         Eliminar
                     </button>
@@ -221,12 +225,14 @@
                     <!-- Mostrar los botones solo si selectedRegistro existe -->
                     <div class="d-flex flex-column align-items-center"> <!-- Alineación vertical -->
                         <!-- Botón Agregar Consulta Médica -->
-                        <button class="btn btn-primary mb-3 w-75" (click)="agregarConsulta(selectedRegistro)">
+                        <button class="btn btn-primary mb-3 w-75" (click)="agregarConsulta(selectedRegistro)"
+                        title="Genera nueva consulta medica.">
                             <span class="material-symbols-outlined" style="vertical-align: middle; margin-right: 8px;">add_circle</span>
                             Agregar Consulta Médica
                         </button>
                         <!-- Botón Ver Historial Médico -->
-                        <button *ngIf="usuarioRol !== 'Asistente'" class="btn btn-secondary mb-3 w-75" (click)="verHistorialMedico(selectedRegistro)">
+                        <button *ngIf="usuarioRol !== 'Asistente'" class="btn btn-secondary mb-3 w-75" (click)="verHistorialMedico(selectedRegistro)" 
+                        title="Ver todo el historial medico.">
                             <span class="material-symbols-outlined" style="vertical-align: middle; margin-right: 8px;">history</span>
                             Ver Historial Médico
                         </button>
@@ -254,13 +260,13 @@
     <!-- Botones en la parte inferior -->
     <div class="row justify-content-center mt-4">
         <div class="col-auto">
-            <button type="button" class="btn btn-secondary" (click)="regresar()" >
+            <button type="button" class="btn btn-secondary" (click)="regresar()" title="Regresa al menú Expedientes.">
                 <span class="material-symbols-outlined" style="vertical-align: middle;">keyboard_return</span>
                 Regresar
             </button>
         </div>
         <div class="col-auto">
-            <button type="button" class="btn btn-light" (click)="limpiarFormulario()"  >
+            <button type="button" class="btn btn-light" (click)="limpiarFormulario()" title="Limpia el formulario." >
                 <span class="material-symbols-outlined" style="vertical-align: middle;">
                     mop
                 </span>
@@ -268,4 +274,21 @@
             </button>
         </div>
     </div>
+
+
+            <!-- Botón redondo informativo en la esquina superior derecha -->
+            <button type="button" class="btn btn-info position-fixed top-0 end-0 m-3 rounded-circle" 
+            style="width: 50px; height: 50px; display: flex; justify-content: center; align-items: center;" 
+            data-bs-toggle="tooltip" data-bs-placement="left" title="Formulario para consultar expedientes.">
+                 <span class="material-symbols-outlined" style="font-size: 24px;">info</span> <!-- Icono de información -->
+            </button>
+
 </div>
+<!-- Activar los tooltips de Bootstrap (esto puede ir en el archivo .ts o en el script del componente) -->
+<script>
+    // Asegúrate de que los tooltips estén habilitados
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+</script>

@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -12,6 +13,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./crear-usuario.component.css']
 })
 export class CrearUsuarioComponent implements OnInit  {
+
+  isSubmitting: boolean = false;
 
     // Variables para el formulario
   empleado: string = '';
@@ -43,6 +46,7 @@ export class CrearUsuarioComponent implements OnInit  {
     private fb: FormBuilder,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
+    private router: Router,
   ) {
      // Inicializar el formulario con validaciones
       this.form = this.fb.group({
@@ -163,6 +167,9 @@ export class CrearUsuarioComponent implements OnInit  {
     //comentar return 
     //return;
 
+
+    this.isSubmitting = true; //se deshabilita boton guardar
+
         // Llama al servicio para crear el usuario
     this.datosService.crearUsuario(nuevoUsuario).subscribe({
       next: (response) => {
@@ -171,11 +178,15 @@ export class CrearUsuarioComponent implements OnInit  {
 
         //limpia despues de guardar
         this.form.reset(); 
+        this.router.navigate(['/menu-admin']); // Cambia '/menu' a la ruta que necesites
+        this.isSubmitting = false; //se habilita boton guardar
       },
       error: (error) => {
         console.error('Error al crear el usuario', error);
         this.procesoMsg("ERROR AL CREAR REGISTRO.");
+        this.isSubmitting = false; //se habilita boton guardar
       }
+
     });
   
   }

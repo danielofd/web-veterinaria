@@ -1,9 +1,3 @@
-<!-- Botón Circular fuera del formulario, pegado a la esquina superior derecha -->
-<button type="button" class="btn btn-secondary position-absolute top-0 end-0 mt-2 me-2"
-        style="border-radius: 50%; width: 40px; height: 40px; padding: 0; display: flex; align-items: center; justify-content: center;"
-        data-bs-toggle="tooltip" data-bs-placement="left" title="Este formulario permite crear los accesos al sistema de la veterinaria para los empleados.">
-  <span class="material-icons" style="font-size: 24px;">info</span>
-</button>
 
 <form class="container mt-4" [formGroup]="form" (ngSubmit)="guardarUsuario()">
   
@@ -92,7 +86,7 @@
   <div class="row">
     <div class="col-6 d-flex justify-content-start">
       <!-- Botón Regresar -->
-      <button type="button" class="btn btn-secondary" [routerLink]="['/menu-admin']">
+      <button type="button" class="btn btn-secondary" [routerLink]="['/menu-admin']" title="Regresa al menú Administración.">
         <span class="material-icons" style="vertical-align: middle;">arrow_back</span>
         REGRESAR
       </button>
@@ -101,7 +95,7 @@
     <!-- Botón Limpiar y Guardar -->
     <div class="col-6 d-flex justify-content-end">
       <!-- Botón Limpiar -->
-      <button type="button" class="btn btn-secondary" (click)="limpiar()" style="margin-right: 10px;">
+      <button type="button" class="btn btn-secondary" (click)="limpiar()" style="margin-right: 10px;" title="Limpia formulario.">
         <span class="material-symbols-outlined"  style="vertical-align: middle;">
           cleaning_services
           </span>
@@ -109,14 +103,27 @@
       </button>
   
       <!-- Botón Guardar -->
-      <button type="submit" class="btn btn-success">
+      <button type="submit" class="btn btn-success" title="Genera nuevo usuario." [disabled]="isSubmitting">
         <span class="material-icons" style="vertical-align: middle;">save</span>
         GUARDAR
       </button>
     </div>
   </div>
-  
+  <!-- Botón redondo informativo en la esquina superior derecha -->
+  <button type="button" class="btn btn-info position-fixed top-0 end-0 m-3 rounded-circle" 
+  style="width: 50px; height: 50px; display: flex; justify-content: center; align-items: center;" 
+  data-bs-toggle="tooltip" data-bs-placement="left" title="Formulario para crear usuarios nuevos.">
+       <span class="material-symbols-outlined" style="font-size: 24px;">info</span> <!-- Icono de información -->
+  </button>
+
 
 </form>
 
-
+  <!-- Activar los tooltips de Bootstrap (esto puede ir en el archivo .ts o en el script del componente) -->
+  <script>
+    // Asegúrate de que los tooltips estén habilitados
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+  </script>
