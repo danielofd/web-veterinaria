@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { ConsultaService } from '../consulta.service';
 import { DatosService } from '../service/datos.service';
 import { GlobalService } from '../global.service';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-modificar-consulta-medica',
@@ -99,6 +100,7 @@ export class ModificarConsultaMedicaComponent implements OnInit {
 
       const conId = this.consultaService.getConsulta();
 
+      //request a enviar
       const dataReq ={
         conId: conId.conId,
         conSintomas: formValues.conSintomas,
@@ -113,9 +115,37 @@ export class ModificarConsultaMedicaComponent implements OnInit {
 
       console.log("------------");
       console.log(dataReq);
+
+      
+      const dialogRef = this.dialog.open(ConfirmDialogComponent);
+
+
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          // Lógica para guardar la consulta
+         
+          this.datosService.actualizarConsulta(dataReq).subscribe(
+            (response) => {
+              console.log("respuesta => "+response);
+              this.procesoMsg("REGISTRO MODIFICADO CON EXITO.");
+              this.router.navigate(['/ver-historial-medico']);
+            },
+            (error) => {
+              console.error('Error al actualizar consulta', error);
+              this.procesoMsg("ERROR AL MODIFICAR EL REGISTRO.");
+            }
+          );
+
+        
+        } else {
+          console.log('Guardado cancelado');
+        }
+      });
+    
       
     } else {
       console.log("Formulario inválido");
+      this.procesoMsg("DEBE COMPLETAR LOS CAMPOS OBLIGATORIOS(*)");
     }
 
 
@@ -260,6 +290,17 @@ export class ModificarConsultaMedicaComponent implements OnInit {
   //-----
   regresar() {
     this.router.navigate(['/ver-historial-medico']);
+    }
+  //----
+     //mensajes de alerta
+     procesoMsg(msj: string) {
+      const snackBarRef = this.snackBar.open(msj, 'Cerrar', {
+        duration: 20000,
+        verticalPosition: 'top',
+        panelClass: ['snackbar-confirm'],
+      });
+    
+      
     }
 
 //fin de codigo.

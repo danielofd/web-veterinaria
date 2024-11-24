@@ -183,4 +183,17 @@ export class DatosService {
     return this.http.post<any>(this.apiUrl+'/nuevoUsuario', usuario, { headers });
   }
 
+  //Metodo para modificar consulta
+  actualizarConsulta(consulta: any): Observable<any> {
+    // Headers si es necesario (si la API requiere un token o algo específico)
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+
+    return this.http.post<any>(this.apiUrl+'/actualizarConsulta', consulta, { 
+      headers: { 'Content-Type': 'application/json' },
+      responseType: 'text' as 'json'
+     });
+  }
+
 }
