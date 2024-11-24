@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { ConsultaService } from '../consulta.service';
 import { DatosService } from '../service/datos.service';
+import { GlobalService } from '../global.service';
 
 @Component({
   selector: 'app-modificar-consulta-medica',
@@ -23,6 +24,8 @@ export class ModificarConsultaMedicaComponent implements OnInit {
   validationMessage: string="";
   consultaForm: FormGroup;
 
+  consulta: any;
+  usuCodigo: any;
 
 
   constructor(private consultaService: ConsultaService,
@@ -31,6 +34,7 @@ export class ModificarConsultaMedicaComponent implements OnInit {
     private dialog: MatDialog,
     private router: Router,
     private datosService: DatosService,
+    private globalService: GlobalService,
   ) {
       // Inicializar el formulario con validaciones
     this.consultaForm = this.fb.group({
@@ -42,10 +46,37 @@ export class ModificarConsultaMedicaComponent implements OnInit {
       conExamenes: ['', Validators.required],  // Exámenes recomendados obligatorios
       conObservaciones: ['']  // Observaciones obligatorias
     });
+
+    this.globalService.currentData.subscribe(data =>{
+      console.log("data: "+data);
+       this.consulta=data;
+    });
     
   }
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+
+    const dataFrom = this.consultaService.getConsulta();
+
+    console.log("----------data almacenada----------");
+    console.log(dataFrom)
+    console.log("----------data almacenada----------");
+
+    const response = {
+
+      masPeso: dataFrom.masPeso,
+      masTemperatura: dataFrom.masTemperatura,
+      masFreCardiaca: dataFrom.masFreCardiaca,
+      conSintomas: dataFrom.conSintomas,
+      conDiagnostico: dataFrom.conDiagnostico,
+      conExamenes: dataFrom.conExamenes,
+      conObservaciones: dataFrom.conObservaciones,
+    };
+
+    //console.log("obj json: "+response);
+    
+    // Usamos patchValue() para asignar el JSON al formulario
+    this.consultaForm.patchValue(response);
+
   }
 
   // Método para guardar la consulta modificada
@@ -61,8 +92,15 @@ export class ModificarConsultaMedicaComponent implements OnInit {
       // Obtenemos los valores del formulario
       const formValues = this.consultaForm.value;
 
+      this.datosService.currentData.subscribe(data =>{
+        console.log("usu correlativo: "+data.usuCorreltivo);
+        this.usuCodigo = data.usuCorreltivo
+      });
+
+      const conId = this.consultaService.getConsulta();
+
       const dataReq ={
-        //conId: this.consulta.conId,
+        conId: conId.conId,
         conSintomas: formValues.conSintomas,
         conDiagnostico: formValues.conDiagnostico,
         conExamenes: formValues.conExamenes,
@@ -70,7 +108,7 @@ export class ModificarConsultaMedicaComponent implements OnInit {
         conPeso: formValues.masPeso,
         conTemperatura: formValues.masTemperatura,
         conFrecardiaca: formValues.masFreCardiaca,
-        //usuCodigo: this.usuCod,
+        usuCodigo: this.usuCodigo,
       };
 
       console.log("------------");
