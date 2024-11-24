@@ -40,61 +40,73 @@
     </div>
 
         <!-- Modal de consulta médica con exámenes y tratamientos -->
-<div *ngIf="isConsultaModalOpen" class="modal-overlay">
-  <div class="modal-content consulta-modal">
-    <h3>Consulta Médica</h3>
-    <hr />
-
-    <!-- Detalles de la consulta médica -->
-    <div class="consulta-medica">
-      <p><strong>Expediente:</strong> {{ registroExp.masId }}</p>
-      <p><strong>Nombre del Paciente:</strong> {{ registroExp.masNombre }}</p>
-      <p><strong>Fecha de Consulta:</strong> {{ selectedConsulta.conFecConsulta }}</p>
-      <p><strong>Temperatura:</strong> {{ selectedConsulta.masTemperatura }}</p>
-      <p><strong>Peso:</strong> {{ selectedConsulta.masPeso }}</p>
-      <p><strong>Frecuencia cardiaca:</strong> {{ selectedConsulta.masFreCardiaca }}</p>
-      <p><strong>Síntomas:</strong> {{ selectedConsulta.conSintomas }}</p>
-      <p><strong>Diagnóstico:</strong> {{ selectedConsulta.conDiagnostico }}</p>
-      <p><strong>Exámenes Recomendados:</strong> {{ selectedConsulta.conExamenes }}</p>
-    </div>
-
-    <hr />
-
-    <!-- Exámenes recomendados -->
-    <div class="examenes-recomendados">
-      <h4>Exámenes:</h4>
-      <p>{{ selectedConsulta?.masExamenes }}</p>
-    </div>
-
-    <hr />
-
-    <!-- Tratamientos -->
-    <div class="tratamientos">
-      <h4>Tratamientos:</h4>
-      <p>{{ selectedConsulta?.conTratamientos }}</p>
-    </div>
-
-    <hr />
-
-    <!-- Botones de acción en el modal -->
-    <div class="action-buttons">
-      <!-- <button class="action-button modificar" (click)="modifyConsulta(selectedConsulta)"> -->
-        <button class="action-button modificar" (click)="openModificarModal(selectedConsulta)"  title="Modifica la consulta médica.">
-        <span class="material-symbols-outlined">edit</span> Modificar
-      </button>
-      <button class="action-button agregar-examenes" (click)="addExamenes(selectedConsulta)" title="Agrega los examenes de la consulta médica.">
-        <span class="material-symbols-outlined">add_circle</span> Agregar Exámenes
-      </button>
-      <!-- Botón para abrir el modal de Tratamiento -->
-      <button class="action-button agregar-consulta" (click)="openTratamientoModal()" title="Agrega el tratamiento de la consulta médica.">
-        <span class="material-symbols-outlined">add_box</span> Agregar Tratamiento
-      </button>
-    </div>
-
-    <!-- Botón para cerrar el modal -->
-    <button class="close-modal-button" (click)="closeConsultaModal()">Cerrar</button>
-  </div>
-</div>
+        <div *ngIf="isConsultaModalOpen" class="modal-overlay">
+          <div class="modal-content consulta-modal" style="width: 80%; max-width: 800px; margin: 0 auto; padding: 20px;">
+            <h3>Consulta Médica</h3>
+            <hr />
+        
+            <!-- Detalles de la consulta médica -->
+            <div class="consulta-medica" style="width: 100%; overflow: hidden;">
+              <table border="1" style="width: 100%; border-collapse: collapse;">
+                <tr>
+                  <td  ><strong>Expediente:</strong></td>
+                  <td >{{ consulta.masId }}</td>
+                  <td ><strong>Nombre del Paciente:</strong></td>
+                  <td >{{ consulta.masNombre }}</td>
+                </tr>
+                <tr>
+                  <td><strong>Fecha de Consulta:</strong></td>
+                  <td>{{ selectedConsulta.conFecConsulta }}</td>
+                  <td><strong>Temperatura:</strong></td>
+                  <td>{{ selectedConsulta.masTemperatura }}</td>
+                </tr>
+                <tr>
+                  <td><strong>Peso:</strong></td>
+                  <td>{{ selectedConsulta.masPeso }}</td>
+                  <td><strong>Frecuencia cardiaca:</strong></td>
+                  <td>{{ selectedConsulta.masFreCardiaca }}</td>
+                </tr>
+                <tr>
+                  <td><strong>Síntomas:</strong></td>
+                  <td>{{ selectedConsulta.conSintomas }}</td>
+                  <td><strong>Diagnóstico:</strong></td>
+                  <td>{{ selectedConsulta.conDiagnostico }}</td>
+                </tr>
+                <tr>
+                  <td><strong>Exámenes Recomendados:</strong></td>
+                  <td>{{ selectedConsulta.conExamenes }}</td>
+                  <td colspan="2"></td> <!-- Celdas vacías para balancear el diseño -->
+                </tr>
+              </table>
+            </div>
+        
+            <hr />
+        
+            <!-- Tratamientos -->
+            <div class="tratamientos">
+              <h4>Tratamientos:</h4>
+              <p>{{ selectedConsulta?.conTratamientos }}</p>
+            </div>
+        
+            <hr />
+        
+            <!-- Botones de acción en el modal -->
+            <div class="action-buttons">
+              <button class="action-button modificar" (click)="openModificarModal(selectedConsulta)"  title="Modifica la consulta médica.">
+                <span class="material-symbols-outlined">edit</span> Modificar
+              </button>
+              <button class="action-button agregar-examenes" (click)="addExamenes(selectedConsulta)" title="Agrega los examenes de la consulta médica.">
+                <span class="material-symbols-outlined">add_circle</span> Agregar Exámenes
+              </button>
+              <button class="action-button agregar-consulta" (click)="openTratamientoModal()" title="Agrega el tratamiento de la consulta médica.">
+                <span class="material-symbols-outlined">add_box</span> Agregar Tratamiento
+              </button>
+            </div>
+        
+            <!-- Botón para cerrar el modal -->
+            <button class="close-modal-button" (click)="closeConsultaModal()">Cerrar</button>
+          </div>
+        </div>
 
 <!-- Modal Tratamiento -->
 <!-- <app-tratamiento *ngIf="isTratamientoModalOpen" (close)="closeTratamientoModal()"></app-tratamiento> -->

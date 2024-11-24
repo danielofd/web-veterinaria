@@ -4,6 +4,7 @@ import { DatosService } from '../service/datos.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoadingService } from '../loading.service';
+import { GlobalService } from '../global.service';
 
 // Asegúrate de que la librería bootstrap esté importada globalmente
 declare var bootstrap: any;  // Esto es necesario para que TypeScript reconozca 'bootstrap'
@@ -34,7 +35,7 @@ export class ConsultarExpedienteComponent {
   usuarioRol: string="";
 
   constructor(private fb: FormBuilder, private datosService: DatosService, 
-    private router: Router, private snackBar: MatSnackBar) {
+    private router: Router, private snackBar: MatSnackBar, private globalService: GlobalService) {
     this.formulario = this.fb.group({
       codigoExpediente:['',[ 
         Validators.pattern(/^\d{8}$/),
@@ -347,8 +348,11 @@ verHistorialMedico(registro: any) {
         //this.consultas = data;
         console.log("---Consultas cargadas exitosamente.");
 
+        this.globalService.changeData(registro);
+
         //redirige al componente modificar cita
-        this.router.navigate(['/ver-historial-medico', { data: JSON.stringify(registro) }]);
+        //this.router.navigate(['/ver-historial-medico', { data: JSON.stringify(registro) }]);
+        this.router.navigate(['/ver-historial-medico']);
       } else {
         // Si no hay datos, mostramos mensaje indicando que no hay consultas
         console.log("---No tiene consultas médicas.");

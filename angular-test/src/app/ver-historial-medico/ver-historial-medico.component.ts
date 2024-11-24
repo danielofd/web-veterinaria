@@ -5,6 +5,7 @@ import { DatosService } from '../service/datos.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ModalServiceService } from '../modal-service.service';
 import { ConsultaService } from '../consulta.service';
+import { GlobalService } from '../global.service';
 
 declare var bootstrap: any;  // Esto es necesario para que TypeScript reconozca 'bootstrap'
 
@@ -34,6 +35,8 @@ export class VerHistorialMedicoComponent implements OnInit {
 
   isModificarModalOpen = false;
 
+  consulta : any;
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -41,7 +44,8 @@ export class VerHistorialMedicoComponent implements OnInit {
     private snackBar: MatSnackBar,
     private route: ActivatedRoute,
     private consultaService: ConsultaService,
-    private modalService: ModalServiceService
+    private modalService: ModalServiceService,
+    private globalService: GlobalService
     //private consultaService: ConsultaService
   ) {
     this.consultaForm = this.fb.group({
@@ -63,27 +67,37 @@ export class VerHistorialMedicoComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.globalService.currentData.subscribe(data =>{
+      console.log("expId: "+data.expId);
+       this.consulta=data;
+    });
+
+    //convertir a json
+    
+    console.log("-----res json: "+JSON.stringify(this.consulta))
+
+    this.loadConsultas(this.consulta.expId);
    
 
      // Obtener los datos pasados a través de la ruta
-     this.route.params.subscribe(params => {
-      const data = params['data'];
+    //  this.route.params.subscribe(params => {
+    //   const data = params['data'];
       //recibe los parametros aqui
      
-      if (data) {
+      // if (data) {
 
         //console.log(data.fecha);
         //data.fecha='';
 
-        console.log("registro seleccionado: " +data);
-        const registro = JSON.parse(data); // Parsear el JSON para obtener el objeto
+        // console.log("registro seleccionado: " +data);
+        // const registro = JSON.parse(data); // Parsear el JSON para obtener el objeto
         
-        this.registroExp=registro;
+        // this.registroExp=registro;
 
-        console.log("---ver registro---");
-        console.log( this.registroExp);
+        // console.log("---ver registro---");
+        // console.log( this.registroExp);
 
-        this.loadConsultas(registro.expId);
+        // this.loadConsultas(registro.expId);
 
         
 
@@ -106,8 +120,8 @@ export class VerHistorialMedicoComponent implements OnInit {
         //this.fillForm(); // Llenar el formulario con los datos
 
 
-      }
-    });
+    //   }
+    // });
     
   }
 
