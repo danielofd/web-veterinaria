@@ -196,4 +196,15 @@ export class DatosService {
      });
   }
 
+  //guardar tratamientos
+  agregarTratamiento(requestBody: any): Observable<any> {
+    // Define los headers si es necesario
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    // Realiza la petición POST
+    return this.http.post<any>(this.apiUrl+'/agregarTratamiento', requestBody, { headers });
+  }
+
 }

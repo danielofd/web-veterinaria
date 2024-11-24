@@ -1,24 +1,46 @@
 import { Component, OnInit } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { DatosService } from '../service/datos.service';
+import { GlobalService } from '../global.service';
+import { ConsultaService } from '../consulta.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-agregar-tratamiento',
   templateUrl: './agregar-tratamiento.component.html',
   styleUrls: ['./agregar-tratamiento.component.css']
 })
+
+
+
+
 export class AgregarTratamientoComponent implements OnInit{
 
   tratamiento: { descripcion: string } = { descripcion: '' };
 
   tratamientoForm: FormGroup;
 
-  constructor(private fb: FormBuilder) { 
+  consulta: any;
+  usuCodigo: any;
+
+  constructor(private fb: FormBuilder,
+    private datosService: DatosService,
+    private globalService: GlobalService,
+    private consultaService: ConsultaService,
+    private snackBar: MatSnackBar,
+  ) { 
     // Inicializar el formulario
     this.tratamientoForm = this.fb.group({
       tratamientos: this.fb.array([ // Un array para manejar múltiples tratamientos
         this.createTratamiento()
       ])
+    });
+
+    //recuperamos el idCon
+    this.globalService.currentData.subscribe(data =>{
+      console.log("data: "+data);
+       this.consulta=data;
     });
   }
 
@@ -35,11 +57,11 @@ export class AgregarTratamientoComponent implements OnInit{
   // Método para crear un nuevo grupo de tratamiento
   createTratamiento(): FormGroup {
     return this.fb.group({
-      medicamento: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9 ]+$')]],  // Alfanumérico + espacio
-      dosis: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9 ]+$')]],
-      frecuencia: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9 ]+$')]],
-      duracion: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9 ]+$')]],
-      fechaInicio: ['', Validators.required]
+      trtMedicamento: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9 ]+$')]],  // Alfanumérico + espacio
+      trtDosis: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9 ]+$')]],
+      trtFrecuencia: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9 ]+$')]],
+      trtDuracion: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9 ]+$')]],
+      trtFecInicio: ['', Validators.required]
     });
   }
 
@@ -95,7 +117,13 @@ export class AgregarTratamientoComponent implements OnInit{
 
   // Agregar una nueva fila de tratamiento
   agregarFila() {
+    //this.tratamientos.push(this.createTratamiento());
+    // Validar que el número de filas no supere 5
+  if (this.tratamientos.length < 6) {
     this.tratamientos.push(this.createTratamiento());
+  } else {
+    this.procesoMsg("SOLO SE PERMITE AÑADIR 6 MEDICAMENTOS MAXIMO.");
+  }
   }
 
   // Método para quitar la última fila de tratamiento
@@ -111,8 +139,39 @@ quitarFila() {
   onSubmit() {
     if (this.tratamientoForm.valid) {
       console.log('Formulario enviado:', this.tratamientoForm.value);
-    } else {
+
+      const conId = this.consultaService.getConsulta();
+
+      const requestBody: RequestBody = {
+        conId: conId.conId,
+        usuCodigo: "1",  // Aquí usas el valor del usuario
+        tratamientoDetalle: this.tratamientos.value // Obtener los valores del formulario
+      };
+
+      //ver request
+      console.log("--------req tratamiento-----------");
+        console.log(requestBody);
+      console.log("----------------------------------");
+
+      //comentar return
+      //return;
+      // Llamamos al servicio para hacer el POST
+      this.datosService.agregarTratamiento(requestBody).subscribe({
+        next: (response) => {
+          console.log('Respuesta del servidor:', response);
+          //alert(response.postResponse); // Mostrar respuesta del servidor
+          this.procesoMsg(response.postResponse);
+        },
+        error: (error) => {
+          console.error('Error al enviar los datos:', error);
+          alert('Hubo un error al guardar el tratamiento.');
+          this.procesoMsg("ERROR AL GUARDAR REGISTRO.");
+        }
+      });
+    }  
+    else {
       console.log('Formulario inválido');
+      this.procesoMsg("POR FAVOR COMPLETAR TODOS LOS CAMPOS OBLIGATORIOS(*).");
     }
   }
 
@@ -130,5 +189,32 @@ quitarFila() {
     }
   }
 
+  //mensajes de alerta
+  procesoMsg(msj: string) {
+    const snackBarRef = this.snackBar.open(msj, 'Cerrar', {
+      duration: 20000,
+      verticalPosition: 'top',
+      panelClass: ['snackbar-confirm'],
+    });
+  
+    
+  }
 
+
+}
+
+
+// Define las interfaces para los datos que vas a enviar y recibir
+export interface Tratamiento {
+  trtMedicamento: string;
+  trtDosis: string;
+  trtFrecuencia: string;
+  trtDuracion: string;
+  trtFecInicio: string;
+}
+
+export interface RequestBody {
+  conId: number;
+  usuCodigo: string;
+  tratamientoDetalle: Tratamiento[];
 }

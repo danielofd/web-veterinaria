@@ -20,51 +20,51 @@
             <tr *ngFor="let tratamiento of tratamientos.controls; let i = index" [formGroupName]="i">
               <td>
                 <input type="text" class="form-control" 
-                formControlName="medicamento" 
+                formControlName="trtMedicamento" 
                 placeholder="Medicamento"
                 maxlength="100"
                 (keypress)="validarAlfanumerico($event)"
                 >
-                <div *ngIf="tratamiento.get('medicamento')?.invalid && tratamiento.get('medicamento')?.touched" class="text-danger">
+                <div *ngIf="tratamiento.get('trtMedicamento')?.invalid && tratamiento.get('trtMedicamento')?.touched" class="text-danger">
                   El medicamento debe ser alfanumérico.
                 </div>
               </td>
               <td>
                 <input type="text" class="form-control" 
-                formControlName="dosis" 
+                formControlName="trtDosis" 
                 placeholder="Dosis"
                 maxlength="50"
                 (keypress)="validarAlfanumerico($event)"
                 >
-                <div *ngIf="tratamiento.get('dosis')?.invalid && tratamiento.get('dosis')?.touched" class="text-danger">
+                <div *ngIf="tratamiento.get('trtDosis')?.invalid && tratamiento.get('trtDosis')?.touched" class="text-danger">
                   La dosis debe ser alfanumérica.
                 </div>
               </td>
               <td>
                 <input type="text" class="form-control" 
-                formControlName="frecuencia" 
+                formControlName="trtFrecuencia" 
                 placeholder="Frecuencia"
                 maxlength="50"
                 (keypress)="validarAlfanumerico($event)"
                 >
-                <div *ngIf="tratamiento.get('frecuencia')?.invalid && tratamiento.get('frecuencia')?.touched" class="text-danger">
+                <div *ngIf="tratamiento.get('trtFrecuencia')?.invalid && tratamiento.get('trtFrecuencia')?.touched" class="text-danger">
                   La frecuencia debe ser alfanumérica.
                 </div>
               </td>
               <td>
                 <input type="text" class="form-control" 
-                formControlName="duracion" 
+                formControlName="trtDuracion" 
                 placeholder="Duración"
                 maxlength="50"
                 (keypress)="validarAlfanumerico($event)"
                 >
-                <div *ngIf="tratamiento.get('duracion')?.invalid && tratamiento.get('duracion')?.touched" class="text-danger">
+                <div *ngIf="tratamiento.get('trtDuracion')?.invalid && tratamiento.get('trtDuracion')?.touched" class="text-danger">
                   La duración debe ser alfanumérica.
                 </div>
               </td>
               <td>
-                <input type="date" class="form-control" formControlName="fechaInicio">
-                <div *ngIf="tratamiento.get('fechaInicio')?.invalid && tratamiento.get('fechaInicio')?.touched" class="text-danger">
+                <input type="date" class="form-control" formControlName="trtFecInicio">
+                <div *ngIf="tratamiento.get('trtFecInicio')?.invalid && tratamiento.get('trtFecInicio')?.touched" class="text-danger">
                   La fecha de inicio es obligatoria.
                 </div>
               </td>
