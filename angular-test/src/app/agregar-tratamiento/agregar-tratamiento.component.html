@@ -1,0 +1,108 @@
+<div class="container mt-4">
+    <h3>Agregar Tratamiento</h3>
+    <hr />
+  
+    <!-- Formulario reactivo -->
+    <form [formGroup]="tratamientoForm" (ngSubmit)="onSubmit()">
+      <!-- Tabla para agregar tratamiento -->
+      <div formArrayName="tratamientos">
+        <table class="table table-striped" *ngIf="tratamientos.length > 0">
+          <thead class="thead-dark">
+            <tr>
+              <th>Medicamento</th>
+              <th>Dosis</th>
+              <th>Frecuencia</th>
+              <th>Duración</th>
+              <th>Fecha de Inicio</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let tratamiento of tratamientos.controls; let i = index" [formGroupName]="i">
+              <td>
+                <input type="text" class="form-control" 
+                formControlName="medicamento" 
+                placeholder="Medicamento"
+                maxlength="100"
+                (keypress)="validarAlfanumerico($event)"
+                >
+                <div *ngIf="tratamiento.get('medicamento')?.invalid && tratamiento.get('medicamento')?.touched" class="text-danger">
+                  El medicamento debe ser alfanumérico.
+                </div>
+              </td>
+              <td>
+                <input type="text" class="form-control" 
+                formControlName="dosis" 
+                placeholder="Dosis"
+                maxlength="50"
+                (keypress)="validarAlfanumerico($event)"
+                >
+                <div *ngIf="tratamiento.get('dosis')?.invalid && tratamiento.get('dosis')?.touched" class="text-danger">
+                  La dosis debe ser alfanumérica.
+                </div>
+              </td>
+              <td>
+                <input type="text" class="form-control" 
+                formControlName="frecuencia" 
+                placeholder="Frecuencia"
+                maxlength="50"
+                (keypress)="validarAlfanumerico($event)"
+                >
+                <div *ngIf="tratamiento.get('frecuencia')?.invalid && tratamiento.get('frecuencia')?.touched" class="text-danger">
+                  La frecuencia debe ser alfanumérica.
+                </div>
+              </td>
+              <td>
+                <input type="text" class="form-control" 
+                formControlName="duracion" 
+                placeholder="Duración"
+                maxlength="50"
+                (keypress)="validarAlfanumerico($event)"
+                >
+                <div *ngIf="tratamiento.get('duracion')?.invalid && tratamiento.get('duracion')?.touched" class="text-danger">
+                  La duración debe ser alfanumérica.
+                </div>
+              </td>
+              <td>
+                <input type="date" class="form-control" formControlName="fechaInicio">
+                <div *ngIf="tratamiento.get('fechaInicio')?.invalid && tratamiento.get('fechaInicio')?.touched" class="text-danger">
+                  La fecha de inicio es obligatoria.
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+  
+                <!-- Botón para agregar nueva fila con espacio a la derecha -->
+                <button type="button" class="btn btn-primary mt-3 mr-2" (click)="agregarFila()">
+                    <span class="material-symbols-outlined"   style="vertical-align: middle;">
+                        add
+                        </span>
+                    Agregar Fila
+                </button>
+
+                <!-- Botón para quitar la última fila con el color rojo y deshabilitado según el estado -->
+                <button class="btn btn-danger mt-3" (click)="quitarFila()" [disabled]="tratamientos.length === 1">
+                    <span class="material-symbols-outlined"  style="vertical-align: middle;">
+                        remove
+                        </span>
+                    Quitar Última Fila
+                </button>
+      </div>
+  
+      <hr />
+  
+      <!-- Botones de acción -->
+      <div class="action-buttons d-flex justify-content-between">
+        <!-- Botón "Regresar" con icono y color gris -->
+        <button type="button" class="btn btn-secondary" (click)="regresar()">
+          <i class="material-icons" style="vertical-align: middle;">arrow_back</i> Regresar
+        </button>
+  
+        <!-- Botón "Guardar Tratamiento" con icono y color verde alineado a la derecha -->
+        <button type="submit" class="btn btn-success" [disabled]="tratamientoForm.invalid">
+          <i class="material-icons" style="vertical-align: middle;">save</i> Guardar Tratamiento
+        </button>
+      </div>
+    </form>
+  </div>
+  

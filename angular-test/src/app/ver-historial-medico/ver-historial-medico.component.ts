@@ -283,7 +283,9 @@ export class VerHistorialMedicoComponent implements OnInit {
 
   // Abrir el modal de tratamiento
   openTratamientoModal() {
-    this.isTratamientoModalOpen = true;
+    //this.isTratamientoModalOpen = true;
+    console.log("Entra al formulario de agregar consulta medica.");
+    this.router.navigate(['/agregar-tratamiento']);
   }
 
   // Cerrar el modal de tratamiento

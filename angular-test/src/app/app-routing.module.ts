@@ -22,6 +22,7 @@ import { MenuAdminComponent } from './menu-admin/menu-admin.component';
 import { CrearRolComponent } from './crear-rol/crear-rol.component';
 import { CrearUsuarioComponent } from './crear-usuario/crear-usuario.component';
 import { ModificarConsultaMedicaComponent } from './modificar-consulta-medica/modificar-consulta-medica.component';
+import { AgregarTratamientoComponent } from './agregar-tratamiento/agregar-tratamiento.component';
 
 
 const routes: Routes = [
@@ -46,8 +47,9 @@ const routes: Routes = [
   { path: 'menu-admin', component: MenuAdminComponent }, //ruta para el componente menu admin
   { path: 'crear-rol', component: CrearRolComponent }, //ruta para el componente crear rol
   { path: 'crear-usuario', component:  CrearUsuarioComponent }, //ruta para el componente crear usuario
-  { path: 'modificar-consulta-medica', component:  ModificarConsultaMedicaComponent }, //ruta para el componente crear usuario
- 
+  { path: 'modificar-consulta-medica', component:  ModificarConsultaMedicaComponent }, //ruta para el componente modificar consulta
+  { path: 'agregar-tratamiento', component:  AgregarTratamientoComponent }, //ruta para el componente modificar consulta
+
   {path: '**', redirectTo: '/login', pathMatch: 'full'}
 ];
 
