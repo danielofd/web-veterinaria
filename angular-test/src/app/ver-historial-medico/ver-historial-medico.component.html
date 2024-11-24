@@ -79,7 +79,7 @@
     <!-- Botones de acción en el modal -->
     <div class="action-buttons">
       <!-- <button class="action-button modificar" (click)="modifyConsulta(selectedConsulta)"> -->
-        <button class="action-button modificar" (click)="openModificarModal(selectedConsulta)" [disabled]="isDisabled" title="Modifica la consulta médica.">
+        <button class="action-button modificar" (click)="openModificarModal(selectedConsulta)"  title="Modifica la consulta médica.">
         <span class="material-symbols-outlined">edit</span> Modificar
       </button>
       <button class="action-button agregar-examenes" (click)="addExamenes(selectedConsulta)" title="Agrega los examenes de la consulta médica.">
@@ -97,7 +97,7 @@
 </div>
 
 <!-- Modal Tratamiento -->
-<app-tratamiento *ngIf="isTratamientoModalOpen" (close)="closeTratamientoModal()"></app-tratamiento>
+<!-- <app-tratamiento *ngIf="isTratamientoModalOpen" (close)="closeTratamientoModal()"></app-tratamiento> -->
 
 <!-- <app-modificar-consulta *ngIf="isModificarModalOpen" 
 [consulta]="selectedConsulta" 
@@ -106,11 +106,11 @@
 </app-modificar-consulta> -->
 
 <!-- Modal de Modificar Consulta que se activa al hacer click -->
-<app-modificar-consulta 
+<!-- <app-modificar-consulta 
 *ngIf="isModificarModalOpen"
 (close)="closeModificarModal()" 
 (save)="guardarConsulta($event)">
-</app-modificar-consulta>
+</app-modificar-consulta> -->
 
         <!-- Botón redondo informativo en la esquina superior derecha -->
         <button type="button" class="btn btn-info position-fixed top-0 end-0 m-3 rounded-circle" 

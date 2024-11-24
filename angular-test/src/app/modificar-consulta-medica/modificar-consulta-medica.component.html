@@ -1,0 +1,153 @@
+<div class="container mt-4">
+    <h3>Modificar Consulta Médica</h3>
+    <hr />
+  
+    <!-- Formulario de modificación -->
+    <form [formGroup]="consultaForm" (ngSubmit)="saveConsulta()">
+      <!-- Primera fila con los campos Peso, Temperatura, Frecuencia cardiaca -->
+      <div class="consulta-medica">
+        <div class="table-responsive">
+          <table class="table">
+            <tbody>
+              <tr>
+                <td><label for="peso" class="form-label">Peso:</label></td>
+                <td>
+                  <input type="text" 
+                    id="peso" formControlName="masPeso" 
+                    class="form-control" 
+                    (keypress)="validateDecimalInput($event)"
+                    placeholder="Ingrese el peso"
+                  />
+                  <div *ngIf="consultaForm.get('masPeso')?.hasError('pattern') && consultaForm.get('masPeso')?.touched">
+                    <small class="text-danger">Debe ser un número con hasta 3 enteros y 2 decimales.</small>
+                  </div>
+                  <div *ngIf="consultaForm.get('masPeso')?.hasError('required') && consultaForm.get('masPeso')?.touched">
+                    <small class="text-danger">Este campo es obligatorio.</small>
+                  </div>
+                </td>
+  
+                <td><label for="temperatura" class="form-label">Temperatura:</label></td>
+                <td>
+                  <input type="text" 
+                    id="temperatura" 
+                    formControlName="masTemperatura" 
+                    class="form-control" 
+                    (keypress)="validateDecimalInput($event)"
+                    placeholder="Ingrese la temperatura"
+                  />
+                  <div *ngIf="consultaForm.get('masTemperatura')?.hasError('pattern') && consultaForm.get('masTemperatura')?.touched">
+                    <small class="text-danger">Debe ser un número con hasta 3 enteros y 2 decimales.</small>
+                  </div>
+                  <div *ngIf="consultaForm.get('masTemperatura')?.hasError('required') && consultaForm.get('masTemperatura')?.touched">
+                    <small class="text-danger">Este campo es obligatorio.</small>
+                  </div>
+                </td>
+  
+                <td><label for="frecuenciaCardiaca" class="form-label">Frecuencia Cardiaca:</label></td>
+                <td>
+                  <input type="text" 
+                    id="frecuenciaCardiaca" 
+                    formControlName="masFreCardiaca" 
+                    class="form-control"
+                    maxlength="3" 
+                    (keypress)="validateIntegerInput($event)"
+                    placeholder="Frecuencia cardiaca"
+                  />
+                  <div *ngIf="consultaForm.get('masFreCardiaca')?.hasError('required') && consultaForm.get('masFreCardiaca')?.touched">
+                    <small class="text-danger">Este campo es obligatorio.</small>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+  
+      <!-- Resto de los campos -->
+      <div class="form-group mb-3">
+        <label for="sintomas" class="form-label">Síntomas:</label>
+        <textarea id="sintomas" 
+          formControlName="conSintomas" 
+          class="form-control" 
+          style="resize: none;" 
+          (keypress)="validateInput($event, 'alfanumerico')"
+          (focus)="onFocus('sintomas')" 
+          (blur)="onBlur('sintomas')" 
+          placeholder="Describa los síntomas"
+        ></textarea>
+        <div *ngIf="consultaForm.get('conSintomas')?.hasError('required') && consultaForm.get('conSintomas')?.touched">
+          <small class="text-danger">Este campo es obligatorio.</small>
+        </div>
+        <div *ngIf="isSintomasFocused">
+          <small class="text-danger">Solo se permiten caracteres alfanuméricos (letras y números).</small>
+        </div>
+      </div>
+  
+      <div class="form-group mb-3">
+        <label for="diagnostico" class="form-label">Diagnóstico:</label>
+        <textarea id="diagnostico" 
+          formControlName="conDiagnostico" 
+          class="form-control" 
+          style="resize: none;" 
+          (keypress)="validateInput($event, 'alfanumerico')"
+          (focus)="onFocus('diagnostico')"
+          (blur)="onBlur('diagnostico')" 
+          placeholder="Escriba el diagnóstico"
+        ></textarea>
+        <div *ngIf="consultaForm.get('conDiagnostico')?.hasError('required') && consultaForm.get('conDiagnostico')?.touched">
+          <small class="text-danger">Este campo es obligatorio.</small>
+        </div>
+        <div *ngIf="isDiagnosticoFocused">
+          <small class="text-danger">Solo se permiten caracteres alfanuméricos (letras y números).</small>
+        </div>
+      </div>
+  
+      <div class="form-group mb-3">
+        <label for="examenes" class="form-label">Exámenes recomendados:</label>
+        <textarea id="examenes" 
+          formControlName="conExamenes" 
+          class="form-control" 
+          style="resize: none;" 
+          (keypress)="validateInput($event, 'alfanumerico')"
+          (focus)="onFocus('examenes')"
+          (blur)="onBlur('examenes')" 
+          placeholder="Indique los exámenes recomendados"
+        ></textarea>
+        <div *ngIf="consultaForm.get('conExamenes')?.hasError('required') && consultaForm.get('conExamenes')?.touched">
+          <small class="text-danger">Este campo es obligatorio.</small>
+        </div>
+        <div *ngIf="isExamenesFocused">
+          <small class="text-danger">Solo se permiten caracteres alfanuméricos (letras y números).</small>
+        </div>
+      </div>
+  
+      <div class="form-group mb-3">
+        <label for="observaciones" class="form-label">Observaciones:</label>
+        <textarea id="observaciones" 
+          formControlName="conObservaciones" 
+          class="form-control" 
+          style="resize: none;" 
+          (keypress)="validateInput($event, 'texto')"
+          (focus)="onFocus('observaciones')"
+          (blur)="onBlur('observaciones')" 
+          placeholder="Añada las observaciones"
+        ></textarea>
+        <div *ngIf="isObservacionesFocused">
+          <small class="text-danger">Solo se permiten caracteres alfanuméricos (letras y números).</small>
+        </div>
+      </div>
+  
+      <!-- Botones de acción con estilo de Bootstrap -->
+      <hr />
+      <div class="d-flex justify-content-between">
+        <button class="btn btn-secondary" (click)="regresar()">
+          <span class="material-symbols-outlined" style="vertical-align: middle;">keyboard_return</span> Regresar
+        </button>
+  
+        <button class="btn btn-primary" type="submit" [disabled]="!consultaForm.valid">
+          <span class="material-symbols-outlined" style="vertical-align: middle;">save</span> Guardar Cambios
+        </button>
+      </div>
+    </form>
+  </div>
+  

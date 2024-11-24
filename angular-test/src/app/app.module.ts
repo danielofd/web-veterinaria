@@ -33,6 +33,7 @@ import { ModificarConsultaComponent } from './modificar-consulta/modificar-consu
 import { MenuAdminComponent } from './menu-admin/menu-admin.component';
 import { CrearRolComponent } from './crear-rol/crear-rol.component';
 import { CrearUsuarioComponent } from './crear-usuario/crear-usuario.component';
+import { ModificarConsultaMedicaComponent } from './modificar-consulta-medica/modificar-consulta-medica.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { CrearUsuarioComponent } from './crear-usuario/crear-usuario.component';
     ModificarConsultaComponent,
     MenuAdminComponent,
     CrearRolComponent,
-    CrearUsuarioComponent
+    CrearUsuarioComponent,
+    ModificarConsultaMedicaComponent
   ],
   imports: [
     BrowserModule,

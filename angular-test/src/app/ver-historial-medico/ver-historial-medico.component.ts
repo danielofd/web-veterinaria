@@ -303,20 +303,23 @@ agregarConsulta(registro: any) {
 // Método para abrir el modal de modificar consulta
 openModificarModal(consulta: any) {
 
-  if(consulta){
-    //this.selectedConsulta = consulta; // Solo asigna si consulta es válido
-    this.selectedConsulta = consulta; // Pasar la consulta seleccionada al modal
 
-    console.log("---almacena el obj consulta---");
+  this.router.navigate(['/modificar-consulta-medica']);
 
-    console.log(this.consultaService.getConsulta());
+  // if(consulta){
+  //   //this.selectedConsulta = consulta; // Solo asigna si consulta es válido
+  //   this.selectedConsulta = consulta; // Pasar la consulta seleccionada al modal
+
+  //   console.log("---almacena el obj consulta---");
+
+  //   console.log(this.consultaService.getConsulta());
 
 
-    console.log("---almacena el obj consulta---");
+  //   console.log("---almacena el obj consulta---");
   
 
-    this.consultaService.setConsulta(consulta); // Actualizamos el servicio con la consulta seleccionada
-  }
+  //   this.consultaService.setConsulta(consulta); // Actualizamos el servicio con la consulta seleccionada
+  // }
 
   //this.consultaService.setConsulta(this.selectedConsulta); // Actualizamos el servicio con la consulta seleccionada
 
@@ -338,7 +341,7 @@ openModificarModal(consulta: any) {
    //this.consultaService.setConsulta(consulta);
 
   //this.selectedConsulta = { ...consulta }; // Creamos una copia para modificarla
-  this.isModificarModalOpen = true;
+  //this.isModificarModalOpen = true;
 
   
 
