@@ -5,6 +5,7 @@ import { DatosService } from '../service/datos.service';
 import { GlobalService } from '../global.service';
 import { ConsultaService } from '../consulta.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-agregar-tratamiento',
@@ -29,6 +30,7 @@ export class AgregarTratamientoComponent implements OnInit{
     private globalService: GlobalService,
     private consultaService: ConsultaService,
     private snackBar: MatSnackBar,
+    private router: Router,
   ) { 
     // Inicializar el formulario
     this.tratamientoForm = this.fb.group({
@@ -46,12 +48,7 @@ export class AgregarTratamientoComponent implements OnInit{
 
 
   ngOnInit(): void {
-    // // Inicializar el formulario
-    // this.tratamientoForm = this.fb.group({
-    //   tratamientos: this.fb.array([ // Un array para manejar múltiples tratamientos
-    //     this.createTratamiento()
-    //   ])
-    // });
+   
   }
 
   // Método para crear un nuevo grupo de tratamiento
@@ -64,51 +61,6 @@ export class AgregarTratamientoComponent implements OnInit{
       trtFecInicio: ['', Validators.required]
     });
   }
-
-
-  // Lista de tratamientos que el usuario puede agregar
-  // tratamientos: Array<any> = [{
-  //   medicamento: '',
-  //   dosis: '',
-  //   frecuencia: '',
-  //   duracion: '',
-  //   fechaInicio: '',
-  //   fechaCreacion: new Date().toISOString().split('T')[0], // Fecha actual como valor predeterminado
-  // }];
-
-  // Método para agregar una nueva fila
-  // agregarFila() {
-  //   this.tratamientos.push({
-  //     medicamento: '',
-  //     dosis: '',
-  //     frecuencia: '',
-  //     duracion: '',
-  //     fechaInicio: '',
-  //     fechaCreacion: new Date().toISOString().split('T')[0], // Fecha actual como valor predeterminado
-  //   });
-  // }
-
-  // Método para eliminar una fila
-  // eliminarFila(index: number) {
-  //   if (this.tratamientos.length > 1) {
-  //     this.tratamientos.splice(index, 1);
-  //   }
-  // }
-
-  // Método para cerrar el modal
-  // closeTratamientoModal() {
-    //this.close.emit(); // Emitir evento de cierre al componente principal
-  // }
-
-  // Método para guardar el tratamiento (puedes agregar más lógica aquí)
-  // guardarTratamiento() {
-    // Lógica para guardar el tratamiento
-    //console.log('Tratamiento guardado:', this.tratamiento.descripcion);
-
-  //   console.log(this.tratamientos);
-
-  //   this.closeTratamientoModal(); // Cerrar el modal después de guardar
-  // }
 
   // Obtener el array de tratamientos como FormArray
   get tratamientos(): FormArray {
@@ -161,6 +113,8 @@ quitarFila() {
           console.log('Respuesta del servidor:', response);
           //alert(response.postResponse); // Mostrar respuesta del servidor
           this.procesoMsg(response.postResponse);
+
+          this.router.navigate(['/ver-historial-medico']);
         },
         error: (error) => {
           console.error('Error al enviar los datos:', error);
@@ -177,6 +131,7 @@ quitarFila() {
 
   regresar(){
     console.log("<= regresando a form historial medico...");
+    this.router.navigate(['/ver-historial-medico']);
   }
 
   // Método para validar solo caracteres alfanuméricos y espacio en blanco

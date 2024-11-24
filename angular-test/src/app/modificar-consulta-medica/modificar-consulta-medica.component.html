@@ -140,11 +140,11 @@
       <!-- Botones de acción con estilo de Bootstrap -->
       <hr />
       <div class="d-flex justify-content-between">
-        <button class="btn btn-secondary" (click)="regresar()">
+        <button class="btn btn-secondary" (click)="regresar()" title="Regresa al historial médico.">
           <span class="material-symbols-outlined" style="vertical-align: middle;">keyboard_return</span> Regresar
         </button>
   
-        <button class="btn btn-primary" type="submit" [disabled]="!consultaForm.valid">
+        <button class="btn btn-primary" type="submit" [disabled]="!consultaForm.valid" title="Modifica la consulta médica.">
           <span class="material-symbols-outlined" style="vertical-align: middle;">save</span> Guardar Cambios
         </button>
       </div>

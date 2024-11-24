@@ -85,9 +85,28 @@
             <!-- Tratamientos -->
             <div class="tratamientos">
               <h4>Tratamientos:</h4>
-              <p>{{ selectedConsulta?.conTratamientos }}</p>
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Medicamento</th>
+                    <th>Dosis</th>
+                    <th>Frecuencia</th>
+                    <th>Duración</th>
+                    <th>Fecha de Inicio</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let tratamiento of selectedConsulta.tratamientos">
+                    <td>{{ tratamiento.trtMedicamento }}</td>
+                    <td>{{ tratamiento.trtDosis }}</td>
+                    <td>{{ tratamiento.trtFrecuencia }}</td>
+                    <td>{{ tratamiento.trtDuracion }}</td>
+                    <td>{{ tratamiento.trtFecInicio | date: 'dd/MM/yyyy' }}</td>
+                  </tr>
+                </tbody>
+              </table>           
             </div>
-        
+              <!-- Tratamientos -->
             <hr />
         
             <!-- Botones de acción en el modal -->

@@ -140,10 +140,11 @@ export class VerHistorialMedicoComponent implements OnInit {
   // Método para cargar las consultas, acepta empId como parámetro
   loadConsultas(empId: number): void {
     this.datosService.buscarHistorialMedico(empId).subscribe(
-      (data) => {
+      (data: ConsultaResponse) => {
         console.log("---respuesta recibida: "+data)
         this.consultas = data;  // Asignamos la respuesta del GET a la variable consultas
         this.isLoading = false;  // Activamos el estado de carga
+
       },
       (error) => {
         console.error('Error al cargar las consultas:', error);
@@ -390,3 +391,31 @@ guardarConsulta(modifiedConsulta: any) {
 
 }
 
+export interface Tratamiento {
+  trtId: number;
+  trtMedicamento: string;
+  trtDosis: string;
+  trtFrecuencia: string;
+  trtDuracion: string;
+  trtFecInicio: string;  // Puede ser un string o Date, dependiendo de cómo lo recibas
+}
+
+export interface Consulta {
+  conId: number;
+  conFecConsulta: string; // Fecha y hora de consulta como string (formato 'dd/MM/yyyy hh:mm a')
+  conSintomas: string;
+  conDiagnostico: string;
+  conExamenes: string;
+  conObservaciones: string;
+  empId: number | null;
+  empNombre: string;
+  expId: number | null;
+  usuCodigo: number | null;
+  masPeso: string;
+  masTemperatura: string;
+  masFreCardiaca: string;
+  tratamientos: Tratamiento[]; // Array de tratamientos
+}
+
+// Tipo de la respuesta global
+export type ConsultaResponse = Consulta[];

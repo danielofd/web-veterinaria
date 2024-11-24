@@ -73,7 +73,7 @@
         </table>
   
                 <!-- Botón para agregar nueva fila con espacio a la derecha -->
-                <button type="button" class="btn btn-primary mt-3 mr-2" (click)="agregarFila()">
+                <button type="button" class="btn btn-primary mt-3 mr-2" (click)="agregarFila()" title="Agrega una fila más.">
                     <span class="material-symbols-outlined"   style="vertical-align: middle;">
                         add
                         </span>
@@ -81,7 +81,7 @@
                 </button>
 
                 <!-- Botón para quitar la última fila con el color rojo y deshabilitado según el estado -->
-                <button class="btn btn-danger mt-3" (click)="quitarFila()" [disabled]="tratamientos.length === 1">
+                <button class="btn btn-danger mt-3" (click)="quitarFila()" [disabled]="tratamientos.length === 1" title="Quita la última fila.">
                     <span class="material-symbols-outlined"  style="vertical-align: middle;">
                         remove
                         </span>
@@ -94,12 +94,12 @@
       <!-- Botones de acción -->
       <div class="action-buttons d-flex justify-content-between">
         <!-- Botón "Regresar" con icono y color gris -->
-        <button type="button" class="btn btn-secondary" (click)="regresar()">
+        <button type="button" class="btn btn-secondary" (click)="regresar()" title="Regresa al historial médico.">
           <i class="material-icons" style="vertical-align: middle;">arrow_back</i> Regresar
         </button>
   
         <!-- Botón "Guardar Tratamiento" con icono y color verde alineado a la derecha -->
-        <button type="submit" class="btn btn-success" [disabled]="tratamientoForm.invalid">
+        <button type="submit" class="btn btn-success" [disabled]="tratamientoForm.invalid" title="Guarda tratamientos de la consulta.">
           <i class="material-icons" style="vertical-align: middle;">save</i> Guardar Tratamiento
         </button>
       </div>
