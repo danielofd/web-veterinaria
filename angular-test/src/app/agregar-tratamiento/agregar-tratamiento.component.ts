@@ -57,10 +57,10 @@ export class AgregarTratamientoComponent implements OnInit{
   // Método para crear un nuevo grupo de tratamiento
   createTratamiento(): FormGroup {
     return this.fb.group({
-      trtMedicamento: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9 ]+$')]],  // Alfanumérico + espacio
-      trtDosis: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9 ]+$')]],
-      trtFrecuencia: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9 ]+$')]],
-      trtDuracion: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9 ]+$')]],
+      trtMedicamento: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9 .\/-]+$')]],  // Alfanumérico + espacio
+      trtDosis: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9 .\/-]+$')]],
+      trtFrecuencia: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9 .\/-]+$')]],
+      trtDuracion: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9 .\/-]+$')]],
       trtFecInicio: ['', Validators.required]
     });
   }
@@ -156,7 +156,7 @@ quitarFila() {
 
   // Método para validar solo caracteres alfanuméricos y espacio en blanco
   validarAlfanumerico(event: KeyboardEvent) {
-    const regex = /^[a-zA-Z0-9 ]$/; // Alfanumérico y espacio en blanco
+    const regex = /^[a-zA-Z0-9 .\/-]+$/; // Alfanumérico y espacio en blanco
     const tecla = String.fromCharCode(event.charCode); // Obtener el carácter de la tecla presionada
 
     if (!regex.test(tecla)) {
