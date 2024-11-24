@@ -6,6 +6,8 @@ import { GlobalService } from '../global.service';
 import { ConsultaService } from '../consulta.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-agregar-tratamiento',
@@ -31,6 +33,7 @@ export class AgregarTratamientoComponent implements OnInit{
     private consultaService: ConsultaService,
     private snackBar: MatSnackBar,
     private router: Router,
+    private dialog: MatDialog,
   ) { 
     // Inicializar el formulario
     this.tratamientoForm = this.fb.group({
@@ -105,9 +108,17 @@ quitarFila() {
         console.log(requestBody);
       console.log("----------------------------------");
 
-      //comentar return
-      //return;
-      // Llamamos al servicio para hacer el POST
+
+      const dialogRef = this.dialog.open(ConfirmDialogComponent);
+
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+
+          //comentar return
+          //return;
+
+          // Lógica para guardar el expediente
+         // Llamamos al servicio para hacer el POST
       this.datosService.agregarTratamiento(requestBody).subscribe({
         next: (response) => {
           console.log('Respuesta del servidor:', response);
@@ -122,6 +133,15 @@ quitarFila() {
           this.procesoMsg("ERROR AL GUARDAR REGISTRO.");
         }
       });
+        
+        
+        } else {
+          console.log('Guardado cancelado');
+        }
+      });
+
+      
+      
     }  
     else {
       console.log('Formulario inválido');
